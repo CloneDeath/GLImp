@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GLImp
 {
-	public class Texture
+	public class Texture : Image
 	{
 		public static List<Texture> AllTextures = new List<Texture>();
 		public static int Font = TextureManager.CreateTextureFromBitmap(GraphicsManager.GetFont());
@@ -58,8 +58,16 @@ namespace GLImp
 			return temp[temp.Length - 1].Split(new char[] { '.' })[0];
 		}
 
-		public void Draw(int x, int y) {
+		public override void Draw(float x, float y) {
 			GraphicsManager.DrawRectangle(x - XOffset, y - YOffset, Width, Height, this);
+		}
+
+		public override void Draw(float x, float y, float width, float height) {
+			GraphicsManager.DrawRectangle(x - XOffset, y - YOffset, width, height, this);
+		}
+
+		public Subimage Subimage(int x, int y, int width, int height) {
+			return new Subimage(this, x, y, width, height);
 		}
 	}
 }

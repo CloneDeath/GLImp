@@ -47,7 +47,7 @@ namespace GLImp {
 			GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
 		}
 
-		public static int CreateTextureFromImage(Image img) {
+		public static int CreateTextureFromImage(System.Drawing.Image img) {
 			Bitmap b = new Bitmap(img);
 			return CreateTextureFromBitmap(b);
 		}

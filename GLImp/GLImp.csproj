@@ -123,8 +123,10 @@
     <Compile Include="Plane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="Textures\Image.cs" />
     <Compile Include="Textures\Sprite.cs" />
-    <Compile Include="Textures\TextureFrame.cs" />
+    <Compile Include="Textures\Subimage.cs" />
+    <Compile Include="Textures\TileSheet.cs" />
     <Compile Include="Vec3.cs" />
     <EmbeddedResource Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
