@@ -27,7 +27,7 @@ namespace GLImp {
 			Add(frame);
 		}
 
-		public Sprite(Image[] frames) {
+		public Sprite(IEnumerable<Image> frames) {
 			foreach(Image tf in frames) {
 				Add(tf);
 			}
