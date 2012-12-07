@@ -100,10 +100,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera2D.cs" />
     <Compile Include="Frustum.cs" />
     <Compile Include="GraphicsManager.cs" />
     <Compile Include="GraphicsManager_Drawing2D.cs" />
     <Compile Include="GraphicsManager_Drawing3D.cs" />
+    <Compile Include="GraphicsManager_Events.cs" />
     <Compile Include="KeyboardManager.cs">
       <SubType>Code</SubType>
     </Compile>

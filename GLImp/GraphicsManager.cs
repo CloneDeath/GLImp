@@ -89,18 +89,7 @@ namespace GLImp
 		public delegate void Resizer();
 		public static event Resizer OnWindowResize;
 
-		public delegate void Updater();
-		public static event Updater Update;
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            base.OnUpdateFrame(e);
-
-			if(Update != null) {
-				Update();
-			}
-
-			KeyboardManager.Update();
-        }
+		
 
 		public delegate void Disposer();
 		public static event Disposer OnDispose;
@@ -110,48 +99,11 @@ namespace GLImp
 			}
 			Instance.Exit();
 		}
-
-		private static Vector3 CameraPos;
-		private static Vector3 CameraLook;
-
-		public delegate void Renderer();
-		public static event Renderer Render;
-		public static event Renderer Render2DPre;
-		public static event Renderer Render2D;
-		public static event Renderer Render2DPost;
-
-        protected override void OnRenderFrame(FrameEventArgs e)
-        {
-            base.OnRenderFrame(e);
-
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-			Matrix4 modelview = Matrix4.LookAt(CameraPos, CameraLook, Vector3.UnitY);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(ref modelview);
-
-			if(Render != null) {
-				Render();
-			}
-
-			BeginOrtho(ClientRectangle.Width, ClientRectangle.Height);
-				if(Render2DPre != null) {
-					Render2DPre();
-				}
-				if(Render2D != null) {
-					Render2D();
-				}
-				if(Render2DPost != null) {
-					Render2DPost();
-				}
-			EndOrtho();
-			
-			GL.Flush();
-			SwapBuffer();
-        }
 		#endregion
 
 		#region CAMERA
+		private static Vector3 CameraPos;
+		private static Vector3 CameraLook;
 		/*****************************************************************
 		 *								CAMERA
 		 *****************************************************************/
@@ -304,26 +256,7 @@ namespace GLImp
 
 		
 
-		public static void BeginOrtho(float width, float height)
-		{
-			GL.Disable(EnableCap.DepthTest);
-			GL.Clear(ClearBufferMask.DepthBufferBit);
-			GL.MatrixMode(MatrixMode.Projection);
-			GL.PushMatrix();
-			GL.LoadIdentity();
-			//GL.Ortho(0f, width, height, 0f, -5f, 1f); 
-			GL.Ortho(0, width, height, 0, -1, 0);
-			GL.MatrixMode(MatrixMode.Modelview);
-			GL.LoadIdentity();
-		}
-
-		public static void EndOrtho()
-		{
-			GL.Enable(EnableCap.DepthTest);
-			GL.MatrixMode(MatrixMode.Projection);
-			GL.PopMatrix();
-			GL.MatrixMode(MatrixMode.Modelview);
-		}
+		
 
 		public static void PushMatrix() {
 			GL.PushMatrix();
