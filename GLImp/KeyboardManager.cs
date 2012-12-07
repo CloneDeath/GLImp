@@ -147,6 +147,18 @@ namespace GLImp {
 			}
 		}
 
+		public static List<Key> GetAllDownKeys() {
+			List<Key> l = new List<Key>();
+
+			foreach (KeyValuePair<Key, bool> pair in keys) {
+				if (IsDown(pair.Key)) {
+					l.Add(pair.Key);
+				}
+			}
+
+			return l;
+		}
+
 		//If a key was pressed since last time we checked
 		public static bool IsPressed(Key key) {
 			if(prevkeys.ContainsKey(key) && prevkeys[key]) { //If it was previously down
