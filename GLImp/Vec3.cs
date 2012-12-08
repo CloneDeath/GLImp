@@ -2,17 +2,17 @@
 using System;
 
 public class Vec3 {
-	public float x;
-	public float y;
-	public float z;
+	public double x;
+	public double y;
+	public double z;
 	
-	public Vec3(Vector3 v){
+	public Vec3(Vector3d v){
 		x = v.X;
 		y = v.Y;
 		z = v.Z;
 	}
 	
-	public Vec3(float x, float y, float z) {
+	public Vec3(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -77,7 +77,7 @@ public class Vec3 {
 		return (res);
 	}
 
-	public Vec3 scale(float t) {
+	public Vec3 scale(double t) {
 		Vec3 res = new Vec3();
 
 		res.x = x * t;
@@ -88,7 +88,7 @@ public class Vec3 {
 	}
 
 
-	public Vec3 divide(float t)
+	public Vec3 divide(double t)
 	{
 
 		Vec3 res = new Vec3();
@@ -102,14 +102,14 @@ public class Vec3 {
 
 
 
-	public float length()
+	public double length()
 	{
-		return((float)Math.Sqrt(x*x + y*y + z*z));
+		return((double)Math.Sqrt(x*x + y*y + z*z));
 	}
 
 	public void normalize()
 	{
-		float len;
+		double len;
 
 		len = length();
 		if (len != 0) {
@@ -121,7 +121,7 @@ public class Vec3 {
 
 
 	//AKA dot product.
-	public float innerProduct(Vec3 v)
+	public double innerProduct(Vec3 v)
 	{
 		return (x * v.x + y * v.y + z * v.z);
 	}
@@ -141,11 +141,11 @@ public class Vec3 {
 		return ret;
 	}
 
-	public Vector3 getVector3() {
-		return new Vector3(x, y, z);
+	public Vector3d getVector3() {
+		return new Vector3d(x, y, z);
 	}
 
-	public void set(float x, float y, float z)
+	public void set(double x, double y, double z)
 	{
 
 		this.x = x;
@@ -153,7 +153,7 @@ public class Vec3 {
 		this.z = z;
 	}
 
-	public Vec3 scalarMult(float a)
+	public Vec3 scalarMult(double a)
 	{
 
 		Vec3 res = new Vec3();

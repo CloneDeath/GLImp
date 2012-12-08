@@ -18,20 +18,20 @@ namespace GLImp {
 		/// Draws a triangle strip with the given input 
 		/// </summary>
 		/// <param name="pts">The vectors to connect</param>
-		public static void DrawPolygon(List<Vector2> pts) {
+		public static void DrawPolygon(List<Vector2d> pts) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.TriangleStrip);
-			foreach (Vector2 v in pts) {
+			foreach (Vector2d v in pts) {
 				GL.Vertex2(v);
 			}
 			GL.End();
 			GL.Enable(EnableCap.Texture2D);
 		}
 
-		public static void DrawLines(List<Vector2> pts) {
+		public static void DrawLines(List<Vector2d> pts) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Lines);
-			foreach (Vector2 v in pts) {
+			foreach (Vector2d v in pts) {
 				GL.Vertex2(v);
 			}
 			GL.End();
@@ -39,7 +39,7 @@ namespace GLImp {
 		}
 
 		//Draw Strings
-		public static void DrawString(float x, float y, string msg) {
+		public static void DrawString(double x, double y, string msg) {
 			PushMatrix();
 			GL.Translate(x, y, 0);
 			GL.Scale(16, 16, 1);
@@ -66,10 +66,10 @@ namespace GLImp {
 
 			int cx = c / xSize;
 			int cy = c % xSize;
-			float top = (cy) * (1.0f / ySize);
-			float bottom = (cy + 1) * (1.0f / ySize);
-			float right = (cx + 1) * (1.0f / xSize);
-			float left = (cx) * (1.0f / xSize);
+			double top = (cy) * (1.0f / ySize);
+			double bottom = (cy + 1) * (1.0f / ySize);
+			double right = (cx + 1) * (1.0f / xSize);
+			double left = (cx) * (1.0f / xSize);
 			GL.Begin(BeginMode.Quads);
 				GL.TexCoord2(top, left); GL.Vertex2(0.0f, 0.0f);
 				GL.TexCoord2(top, right); GL.Vertex2(0.0f, 1.0f);
@@ -79,7 +79,7 @@ namespace GLImp {
 		}
 
 		//Draw Line
-		public static void DrawLine(Vector2 p1, Vector2 p2, Color color) {
+		public static void DrawLine(Vector2d p1, Vector2d p2, Color color) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Lines);
 			GL.Color3(color);
@@ -89,7 +89,7 @@ namespace GLImp {
 			GL.Enable(EnableCap.Texture2D);
 		}
 
-		public static void DrawTriangle(Vector2 p1, Vector2 p2, Vector2 p3, Color color) {
+		public static void DrawTriangle(Vector2d p1, Vector2d p2, Vector2d p3, Color color) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Triangles);
 			GL.Color3(color);
@@ -101,10 +101,10 @@ namespace GLImp {
 		}
 
 		//Rectangle
-		public static void DrawRectangle(float x, float y, float width, float height, Color color) {
-			DrawRectangle(new Vector2(x, y), new Vector2(x + width, y + height), color);
+		public static void DrawRectangle(double x, double y, double width, double height, Color color) {
+			DrawRectangle(new Vector2d(x, y), new Vector2d(x + width, y + height), color);
 		}
-		public static void DrawRectangle(Vector2 p1, Vector2 p2, Color color) {
+		public static void DrawRectangle(Vector2d p1, Vector2d p2, Color color) {
 			SetColor(color);
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Quads);
@@ -115,10 +115,10 @@ namespace GLImp {
 			GL.End();
 			GL.Enable(EnableCap.Texture2D);
 		}
-		public static void DrawRectangle(float x, float y, float width, float height, Texture Texture) {
-			DrawRectangle(new Vector2(x, y), new Vector2(x + width, y + height), Texture);
+		public static void DrawRectangle(double x, double y, double width, double height, Texture Texture) {
+			DrawRectangle(new Vector2d(x, y), new Vector2d(x + width, y + height), Texture);
 		}
-		public static void DrawRectangle(Vector2 p1, Vector2 p2, Texture Texture) {
+		public static void DrawRectangle(Vector2d p1, Vector2d p2, Texture Texture) {
 			SetColor(Color.White);
 			GL.BindTexture(TextureTarget.Texture2D, Texture.ID);
 			GL.Begin(BeginMode.Quads);
@@ -128,7 +128,7 @@ namespace GLImp {
 			GL.TexCoord2(0, 1); GL.Vertex2(p1.X, p2.Y);
 			GL.End();
 		}
-		public static void DrawRectangleHollow(float x, float y, float width, float height, Color color) {
+		public static void DrawRectangleHollow(double x, double y, double width, double height, Color color) {
 			int lineWidth = 1;
 			DrawRectangle(x - lineWidth / 2, y - lineWidth / 2, lineWidth, height, color);
 			DrawRectangle(x + lineWidth / 2, y + lineWidth / 2, width, lineWidth, color);

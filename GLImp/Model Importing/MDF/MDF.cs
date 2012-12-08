@@ -189,10 +189,10 @@ namespace Mila
                 }
 
                 /// <summary>
-                /// Reads in an IEEE 32-bit floating point number.
+                /// Reads in an IEEE 32-bit doubleing point number.
                 /// </summary>
                 /// <returns>the value read.</returns>
-                public float readFloat()
+                public double readFloat()
                 {
                     return reader.ReadSingle();
                 }
@@ -413,10 +413,10 @@ namespace Mila
                 }
 
                 /// <summary>
-                /// Writes an IEEE 32-bit floating-point number.
+                /// Writes an IEEE 32-bit doubleing-point number.
                 /// </summary>
                 /// <param name="val">the value to write.</param>
-                public void writeFloat(float val)
+                public void writeFloat(double val)
                 {
                     writer.Write(val);
                 }

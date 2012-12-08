@@ -10,14 +10,14 @@ namespace Mila.Types
     /// </summary>
     public class Vector3D
     {
-        private float x, y, z;
+        private double x, y, z;
 
         #region Getters_And_Setters
 
         /// <summary>
         /// Gets or sets the x component of the vector.
         /// </summary>
-        public float X
+        public double X
         {
             get { return x; }
             set { x = value; }
@@ -26,7 +26,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the y component of the vector.
         /// </summary>
-        public float Y
+        public double Y
         {
             get { return y; }
             set { y = value; }
@@ -35,7 +35,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the z component of the vector.
         /// </summary>
-        public float Z
+        public double Z
         {
             get { return z; }
             set { z = value; }
@@ -59,7 +59,7 @@ namespace Mila.Types
         /// <param name="x">The x component to set.</param>
         /// <param name="y">The y component to set.</param>
         /// <param name="z">The z component to set.</param>
-        public Vector3D(float x, float y, float z)
+        public Vector3D(double x, double y, double z)
         {
             X = x;
             Y = y;
@@ -115,7 +115,7 @@ namespace Mila.Types
         /// </summary>
         /// <param name="v">The vector to multiply by.</param>
         /// <returns>the dot product of this vector and another.</returns>
-        public float dotProduct(Vector3D v)
+        public double dotProduct(Vector3D v)
         {
             return x * v.X + y * v.Y + z * v.Z;
         }
@@ -135,7 +135,7 @@ namespace Mila.Types
         /// </summary>
         public void normalize()
         {
-            float len = (float)System.Math.Sqrt((double)(X * X + Y * Y + Z * Z));
+            double len = (double)System.Math.Sqrt((double)(X * X + Y * Y + Z * Z));
 
             X /= len;
             Y /= len;
@@ -146,16 +146,16 @@ namespace Mila.Types
         /// Returns the length of the vector.
         /// </summary>
         /// <returns>the length of the vector.</returns>
-        public float length()
+        public double length()
         {
-            return (float)System.Math.Sqrt((double)(X * X + Y * Y + Z * Z));
+            return (double)System.Math.Sqrt((double)(X * X + Y * Y + Z * Z));
         }
 
         /// <summary>
         /// Returns the squared length of the vector.
         /// </summary>
         /// <returns>the squared length of the vector.</returns>
-        public float squaredLength()
+        public double squaredLength()
         {
             return (X * X + Y * Y + Z * Z);
         }
@@ -164,7 +164,7 @@ namespace Mila.Types
         /// Returns the quotient between this vector and another co-directional vector.
         /// </summary>
         /// <returns></returns>
-        public float scalarDivision(Vector3D v)
+        public double scalarDivision(Vector3D v)
         {
             if (x > 0.0001f || x < -0.0001f)
             {
@@ -187,7 +187,7 @@ namespace Mila.Types
         /// <returns></returns>
         public bool isScalarMultipleOf(Vector3D v)
         {
-            float a = 1, b = 1, c = 1;
+            double a = 1, b = 1, c = 1;
 
             if (x == 0)
                 if (v.X == 0)
@@ -234,7 +234,7 @@ namespace Mila.Types
             return v.X == x && v.Y == y && v.Z == z;
         }
 
-        public void scalarMultiply(float n)
+        public void scalarMultiply(double n)
         {
             x *= n;
             y *= n;

@@ -70,7 +70,7 @@ namespace GLImp {
 			SwapBuffer();
         }
 
-		public static void BeginOrtho(float width, float height) {
+		public static void BeginOrtho(double width, double height) {
 			GL.Disable(EnableCap.DepthTest);
 			GL.Clear(ClearBufferMask.DepthBufferBit);
 			GL.MatrixMode(MatrixMode.Projection);

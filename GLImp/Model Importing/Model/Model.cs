@@ -14,7 +14,7 @@ namespace Mila.Data
         private Vertex[] vertices = null;
         private VertexAttributes[] vertexAttributes = null;
         private FaceSet[] faceSets = null;
-        private float radius;
+        private double radius;
 
         #region Getters_And_Setters
 
@@ -66,7 +66,7 @@ namespace Mila.Data
         /// <summary>
         /// Gets or sets the radius of the origin-centered bounding sphere around this model.
         /// </summary>
-        public float Radius
+        public double Radius
         {
             get { return radius; }
             set { radius = value; }

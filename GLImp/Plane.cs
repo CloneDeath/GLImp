@@ -3,7 +3,7 @@ using System;
 
 public class Plane {
 	public Vec3 normal,point;
-	float d;
+	double d;
 
 	public Plane(){
 	}
@@ -35,15 +35,15 @@ public class Plane {
 		d = -(this.normal.innerProduct(point));
 	}
 
-	public void setCoefficients(float a, float b, float c, float d)
+	public void setCoefficients(double a, double b, double c, double d)
 	{
 		normal.set(a,b,c);
-		float l = normal.length();
+		double l = normal.length();
 		normal.set(a/l,b/l,c/l);
 		this.d = d/l;
 	}
 
-	public float distance(Vec3 p)
+	public double distance(Vec3 p)
 	{
 
 		return (d + normal.innerProduct(p));

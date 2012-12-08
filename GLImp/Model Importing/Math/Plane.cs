@@ -9,14 +9,14 @@ namespace Mila.Types
     /// </summary>
     public class Plane
     {
-        private float a, b, c, d;
+        private double a, b, c, d;
 
         #region Getters_And_Setters
 
         /// <summary>
         /// Gets or sets the a component of the plane.
         /// </summary>
-        public float A
+        public double A
         {
             get { return a; }
             set { a = value; }
@@ -25,7 +25,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the b component of the plane.
         /// </summary>
-        public float B
+        public double B
         {
             get { return b; }
             set { b = value; }
@@ -34,7 +34,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the c component of the plane.
         /// </summary>
-        public float C
+        public double C
         {
             get { return c; }
             set { c = value; }
@@ -43,7 +43,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the d component of the plane.
         /// </summary>
-        public float D
+        public double D
         {
             get { return d; }
             set { d = value; }
@@ -69,7 +69,7 @@ namespace Mila.Types
         /// <param name="b">The b component to set.</param>
         /// <param name="c">The c component to set.</param>
         /// <param name="d">The d component to set.</param>
-        public Plane(float a, float b, float c, float d)
+        public Plane(double a, double b, double c, double d)
         {
             A = a;
             B = b;
@@ -82,7 +82,7 @@ namespace Mila.Types
         /// </summary>
         /// <param name="v">The vector normal to the plane.</param>
         /// <param name="d">The distance along the plane.</param>
-        public Plane(Vector3D v, float d)
+        public Plane(Vector3D v, double d)
         {
             A = v.X;
             B = v.Y;

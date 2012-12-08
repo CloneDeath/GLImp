@@ -7,8 +7,8 @@ namespace GLImp {
 		public int Width;
 		public int Height;
 
-		private float _currentframe;
-		public float CurrentFrame { //Decimal point is % of the way done with a frame (for example, half speeds)
+		private double _currentframe;
+		public double CurrentFrame { //Decimal point is % of the way done with a frame (for example, half speeds)
 			get {
 				return _currentframe;
 			}
@@ -21,7 +21,7 @@ namespace GLImp {
 		}
 		List<Image> Frames = new List<Image>();
 
-		public float PlaybackSpeed = 1.0f;
+		public double PlaybackSpeed = 1.0f;
 
 		public Sprite(Image frame) {
 			Add(frame);
@@ -37,14 +37,14 @@ namespace GLImp {
 			Frames.Add(frame);
 		}
 
-		public override void Draw(float x, float y) {
+		public override void Draw(double x, double y) {
 			if(Frames.Count > 0) {
 				Frames[(int)Math.Floor(CurrentFrame)].Draw(x, y);
 				CurrentFrame += PlaybackSpeed;
 			}
 		}
 
-		public override void Draw(float x, float y, float width, float height) {
+		public override void Draw(double x, double y, double width, double height) {
 			if (Frames.Count > 0) {
 				Frames[(int)Math.Floor(CurrentFrame)].Draw(x, y, width, height);
 				CurrentFrame += PlaybackSpeed;

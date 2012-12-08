@@ -75,7 +75,7 @@ namespace GLImp
 
             //GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 			/*
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 0.1f, 1000000.0f);
+            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((double)Math.PI / 4, Width / (double)Height, 0.1f, 1000000.0f);
             GL.MatrixMode(MatrixMode.Projection);
 			//GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref projection);
@@ -117,12 +117,12 @@ namespace GLImp
 			CameraLook = point;
 		}
 
-		public static void RotateCamera(float yaw, float pitch)
+		public static void RotateCamera(double yaw, double pitch)
 		{
-			yaw = (float)(yaw * Math.PI / 180);
-			pitch = (float)(pitch * Math.PI / 180);
-			CameraLook = new Vector3(	(float)((Math.Cos(yaw) * Math.Cos(pitch)) + CameraPos.X), 
-										(float)((Math.Sin(yaw) * Math.Cos(pitch)) + CameraPos.Y), 
+			yaw = (double)(yaw * Math.PI / 180);
+			pitch = (double)(pitch * Math.PI / 180);
+			CameraLook = new Vector3(	(float)((Math.Cos(yaw) * Math.Cos(pitch)) + CameraPos.X),
+										(float)((Math.Sin(yaw) * Math.Cos(pitch)) + CameraPos.Y),
 										(float)(Math.Sin(pitch) + CameraPos.Z));
 		}
 		#endregion camera
@@ -166,15 +166,15 @@ namespace GLImp
 			if(c1 == null || c2 == null) {
 				return;
 			}
-			Vector3 v1 = new Vector3(c1.x, c1.y, c1.z);
-			Vector3 v2 = new Vector3(c1.x, c2.y, c1.z);
-			Vector3 v3 = new Vector3(c2.x, c2.y, c1.z);
-			Vector3 v4 = new Vector3(c2.x, c1.y, c1.z);
+			Vector3d v1 = new Vector3d(c1.x, c1.y, c1.z);
+			Vector3d v2 = new Vector3d(c1.x, c2.y, c1.z);
+			Vector3d v3 = new Vector3d(c2.x, c2.y, c1.z);
+			Vector3d v4 = new Vector3d(c2.x, c1.y, c1.z);
 
-			Vector3 v5 = new Vector3(c1.x, c1.y, c2.z);
-			Vector3 v6 = new Vector3(c1.x, c2.y, c2.z);
-			Vector3 v7 = new Vector3(c2.x, c2.y, c2.z);
-			Vector3 v8 = new Vector3(c2.x, c1.y, c2.z);
+			Vector3d v5 = new Vector3d(c1.x, c1.y, c2.z);
+			Vector3d v6 = new Vector3d(c1.x, c2.y, c2.z);
+			Vector3d v7 = new Vector3d(c2.x, c2.y, c2.z);
+			Vector3d v8 = new Vector3d(c2.x, c1.y, c2.z);
 
 			GL.Disable(EnableCap.Texture2D);
 			GraphicsManager.DrawLine(v1, v2, Color.DarkGreen);
@@ -266,23 +266,23 @@ namespace GLImp
 			GL.PopMatrix();
 		}
 
-		public static void Translate(Vector3 displacement) {
+		public static void Translate(Vector3d displacement) {
 			GL.Translate(displacement);
 		}
 
 		//Scale
-		public static void Scale(float s) {
+		public static void Scale(double s) {
 			Scale(s, s, s);
 		}
-		public static void Scale(float x, float y, float z) {
-			Scale(new Vector3(x, y, z));
+		public static void Scale(double x, double y, double z) {
+			Scale(new Vector3d(x, y, z));
 		}
-		public static void Scale(Vector3 v) {
+		public static void Scale(Vector3d v) {
 			GL.Scale(v);
 		}
 
 		//Rotate
-		public static void Rotate(float angle, Vector3 Up) {
+		public static void Rotate(double angle, Vector3d Up) {
 			GL.Rotate(angle, Up);
 		}
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GLImp {
 	abstract public class Image {
-		abstract public void Draw(float x, float y);
-		abstract public void Draw(float x, float y, float width, float height);
+		abstract public void Draw(double x, double y);
+		abstract public void Draw(double x, double y, double width, double height);
 	}
 }

@@ -9,14 +9,14 @@ namespace Mila.Types
     /// </summary>
     public class Rotation
     {
-        private float yaw = 0.0f, pitch = 0.0f, tilt = 0.0f;
+        private double yaw = 0.0f, pitch = 0.0f, tilt = 0.0f;
 
         #region Getters_And_Setters
 
         /// <summary>
         /// Gets or sets the yaw (azimuth) of the rotation.
         /// </summary>
-        public float Yaw
+        public double Yaw
         {
             get { return yaw; }
             set { yaw = value; }
@@ -25,7 +25,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the pitch (zenith) of the rotation.
         /// </summary>
-        public float Pitch
+        public double Pitch
         {
             get { return pitch; }
             set { pitch = value; }
@@ -34,7 +34,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the tilt of the rotation.
         /// </summary>
-        public float Tilt
+        public double Tilt
         {
             get { return tilt; }
             set { tilt = value; }

@@ -12,8 +12,8 @@ namespace GLImp
 		public static void DrawString(int x, int y, String text, Color color)
 		{
 			GL.PushMatrix();
-			GL.Translate(new Vector3(x, y, 0));
-			GL.Scale(new Vector3(16, 16, 1));
+			GL.Translate(new Vector3d(x, y, 0));
+			GL.Scale(new Vector3d(16, 16, 1));
 
 			if (text != null)
 			{
@@ -35,10 +35,10 @@ namespace GLImp
 
 			int cx = c % xSize;
 			int cy = c / xSize;
-			float top = (cy) * (1.0f / ySize);
-			float bottom = (cy + 1) * (1.0f / ySize);
-			float right = (cx + 1) * (1.0f / xSize);
-			float left = (cx) * (1.0f / xSize);
+			double top = (cy) * (1.0f / ySize);
+			double bottom = (cy + 1) * (1.0f / ySize);
+			double right = (cx + 1) * (1.0f / xSize);
+			double left = (cx) * (1.0f / xSize);
 			GL.Begin(BeginMode.Quads);
 				GL.TexCoord2(new Vector2d(top, left)); GL.Vertex2(new Vector2d(0.0f, 0.0f));
 				GL.TexCoord2(new Vector2d(bottom, left)); GL.Vertex2(new Vector2d(0.0f, 1.0f));

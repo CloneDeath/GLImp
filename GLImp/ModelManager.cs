@@ -49,8 +49,8 @@ namespace GLImp
 					
 					GL.Begin(BeginMode.Triangles);
 					{
-						//float ambient = 0.2f;
-						//float light = a1.normal.X / 1.73f - a1.normal.Y / 1.73f + a1.normal.Z / 1.73f;
+						//double ambient = 0.2f;
+						//double light = a1.normal.X / 1.73f - a1.normal.Y / 1.73f + a1.normal.Z / 1.73f;
 						//light = light * (1 - ambient) + ambient;
 						//GL.Color3(light, light, light);
 						GL.TexCoord2(a1.u, a1.v);

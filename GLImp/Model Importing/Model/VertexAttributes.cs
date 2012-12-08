@@ -10,8 +10,8 @@ namespace Mila.Data
     /// </summary>
     public class VertexAttributes
     {
-        public float u = 0.0f, v = 0.0f;
-        public float r = 0.0f, g = 0.0f, b = 0.0f;
+        public double u = 0.0f, v = 0.0f;
+        public double r = 0.0f, g = 0.0f, b = 0.0f;
         public Vector3D normal = new Vector3D();
     }
 }

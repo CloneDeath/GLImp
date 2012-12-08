@@ -17,18 +17,18 @@ public class Frustum {
 	private Plane[] pl = new Plane[6];
 
 	Vec3 ntl,ntr,nbl,nbr,ftl,ftr,fbl,fbr;
-	float nearD, farD, ratio, angle,tang;
-	float nw,nh,fw,fh;
+	double nearD, farD, ratio, angle,tang;
+	double nw,nh,fw,fh;
 	
 	private double ANG2RAD = 3.14159265358979323846/180.0;
 
-	public void setCamInternals(float angle, float ratio, float nearD, float farD) {
+	public void setCamInternals(double angle, double ratio, double nearD, double farD) {
 		this.ratio = ratio;
 		this.angle = angle;
 		this.nearD = nearD;
 		this.farD = farD;
 
-		tang = (float)Math.Tan(angle* ANG2RAD * 0.5) ;
+		tang = (double)Math.Tan(angle* ANG2RAD * 0.5) ;
 		nh = nearD * tang;
 		nw = nh * ratio; 
 		fh = farD  * tang;
@@ -81,10 +81,10 @@ public class Frustum {
 		return(result);
 	}
 
-	public int sphereInFrustum(Vec3 p, float raio)
+	public int sphereInFrustum(Vec3 p, double raio)
 	{
 		int result = INSIDE;
-		float distance;
+		double distance;
 
 		for(int i=0; i < 6; i++) {
 			distance = pl[i].distance(p);

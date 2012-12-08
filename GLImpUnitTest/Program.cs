@@ -28,22 +28,19 @@ namespace GLImpUnitTest
 			MainCanvas.Dispose();
 		}
 
-		public static Camera Camera;
         public static TestingDisplay Setup;
 
 		static void Initialize() {
-			Camera = new Camera();
-            Camera.Position.X = -70;
+            Camera2D.SetLocation(-70, 0);
+			Camera2D.CenterOnTarget(true);
             Setup = new TestingDisplay();
 		}
 
 		static void Update() {
-			Camera.Update();
 		}
 
 		static void Render2DPre() {
 			GraphicsManager.PushMatrix();
-			Camera.Draw();
 
             Setup.Render2DPre();
 			

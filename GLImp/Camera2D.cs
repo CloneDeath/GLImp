@@ -9,13 +9,13 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GLImp {
 	public class Camera2D {
-		internal static Vector2 Position;
-		internal static float Zoom;
+		internal static Vector2d Position;
+		internal static double Zoom;
 		internal static bool Centered = false;
-		//internal static float Rotation; //TODO nicholas implement this when we need it
+		//internal static double Rotation; //TODO nicholas implement this when we need it
 
 		static Camera2D() {
-			Position = new Vector2(0, 0);
+			Position = new Vector2d(0, 0);
 			Zoom = 1f;
 		}
 
@@ -27,8 +27,8 @@ namespace GLImp {
 			GL.Translate(-Position.X, -Position.Y, 0);
 		}
 
-		public static void SetLocation(float X, float Y) {
-			Position = new Vector2(X, Y);
+		public static void SetLocation(double X, double Y) {
+			Position = new Vector2d(X, Y);
 		}
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace GLImp {
 			Centered = c;
 		}
 
-		public static void SetZoom(float Zoom) {
+		public static void SetZoom(double Zoom) {
 			Camera2D.Zoom = Zoom;
 		}
 	}

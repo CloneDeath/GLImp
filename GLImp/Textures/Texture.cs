@@ -15,10 +15,10 @@ namespace GLImp
 		public string Location;
 		public string Name;
 		public int ID;
-        public float Width;
-        public float Height;
-		public float XOffset;
-		public float YOffset;
+        public double Width;
+        public double Height;
+		public double XOffset;
+		public double YOffset;
 
 		public Texture(string location) {
 			init(location, 0, 0);
@@ -58,11 +58,11 @@ namespace GLImp
 			return temp[temp.Length - 1].Split(new char[] { '.' })[0];
 		}
 
-		public override void Draw(float x, float y) {
+		public override void Draw(double x, double y) {
 			GraphicsManager.DrawRectangle(x - XOffset, y - YOffset, Width, Height, this);
 		}
 
-		public override void Draw(float x, float y, float width, float height) {
+		public override void Draw(double x, double y, double width, double height) {
 			GraphicsManager.DrawRectangle(x - XOffset, y - YOffset, width, height, this);
 		}
 

@@ -160,8 +160,8 @@ namespace Mila.Utility.MM
 
 			model.Vertices = new Vertex[length];
 
-            float largestRadius = -1.0f;
-            float candidateRadius = 0.0f;
+            double largestRadius = -1.0f;
+            double candidateRadius = 0.0f;
 
 			for (int i = 0; i < length; i++)
 			{
@@ -171,7 +171,7 @@ namespace Mila.Utility.MM
 				model.Vertices[i].z = reader.readFloat();
 
                 // Let's compute the bounding sphere for the model while we're at it.
-                if ((candidateRadius = (float)Math.Sqrt((model.Vertices[i].x) * (model.Vertices[i].x) +
+                if ((candidateRadius = (double)Math.Sqrt((model.Vertices[i].x) * (model.Vertices[i].x) +
                                                         (model.Vertices[i].y) * (model.Vertices[i].y) +
                                                         (model.Vertices[i].z) * (model.Vertices[i].z))) > largestRadius)
                                                         {

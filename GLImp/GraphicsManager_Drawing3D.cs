@@ -33,14 +33,14 @@ namespace GLImp {
 		}
 
 		
-		public static void DrawLine(Vector3 p1, Vector3 p2, Color color) {
+		public static void DrawLine(Vector3d p1, Vector3d p2, Color color) {
 			GL.Begin(BeginMode.Lines);
 				GL.Color3(color);
 				GL.Vertex3(p1);
 				GL.Vertex3(p2);
 			GL.End();
 		}
-		public static void DrawLine(Vector3 p1, Vector3 p2) {
+		public static void DrawLine(Vector3d p1, Vector3d p2) {
 			GL.Begin(BeginMode.Lines);
 				GL.Vertex3(p1);
 				GL.Vertex3(p2);
@@ -51,12 +51,12 @@ namespace GLImp {
 
 		
 		//Draw Polygon
-		public static void DrawPolygon(Vector3 p1, Vector3 p2, Vector3 p3, Color c)
+		public static void DrawPolygon(Vector3d p1, Vector3d p2, Vector3d p3, Color c)
 		{
 			SetColor(c);
 			DrawPolygon(p1, p2, p3);
 		}
-		public static void DrawPolygon(Vector3 p1, Vector3 p2, Vector3 p3)
+		public static void DrawPolygon(Vector3d p1, Vector3d p2, Vector3d p3)
 		{
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Polygon);
@@ -69,11 +69,11 @@ namespace GLImp {
 
 
 		//Draw Quad
-		public static void DrawQuad(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Color c) {
+		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, Color c) {
 			SetColor(c);
 			DrawQuadNoTex(p1, p2, p3, p4);
 		}
-		public static void DrawQuadNoTex(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4) {
+		public static void DrawQuadNoTex(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Quads);
 				GL.Vertex3(p1);
@@ -83,11 +83,11 @@ namespace GLImp {
 			GL.End();
 			GL.Enable(EnableCap.Texture2D);
 		}
-		public static void DrawQuad(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Texture Texture) {
+		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, Texture Texture) {
 			SetTexture(Texture);
 			DrawQuad(p1, p2, p3, p4);
 		}
-		public static void DrawQuad(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4) {
+		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4) {
 			GL.Begin(BeginMode.Quads);
 				GL.TexCoord2(0, 0); GL.Vertex3(p1);
 				GL.TexCoord2(1, 0); GL.Vertex3(p2);
@@ -95,11 +95,11 @@ namespace GLImp {
 				GL.TexCoord2(0, 1); GL.Vertex3(p4);
 			GL.End();
 		}
-		public static void DrawQuad(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Texture Texture, float HSplit, float SpriteNumber) {
+		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, Texture Texture, double HSplit, double SpriteNumber) {
 			SetTexture(Texture);
 			DrawQuad(p1, p2, p3, p4, HSplit, SpriteNumber);
 		}
-		public static void DrawQuad(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, float HSplit, float SpriteNumber) {
+		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, double HSplit, double SpriteNumber) {
 			GL.Begin(BeginMode.Quads);
 				GL.TexCoord2(SpriteNumber/HSplit, 0); GL.Vertex3(p1);
 				GL.TexCoord2((SpriteNumber+1)/HSplit, 0); GL.Vertex3(p2);

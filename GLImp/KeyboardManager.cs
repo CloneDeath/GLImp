@@ -9,8 +9,8 @@ using GLImp;
 
 namespace GLImp {
 	public class KeyboardManager {
-		private static Vector2 MousePosition;
-		private static Vector2 PrevMousePosition;
+		private static Vector2d MousePosition;
+		private static Vector2d PrevMousePosition;
 		private static Dictionary<Key, bool> prevkeys = new Dictionary<Key, bool>();
 		private static Dictionary<Key, bool> keys = new Dictionary<Key, bool>();
 		private static Dictionary<MouseButton, bool> prevmouseButtons = new Dictionary<MouseButton, bool>();
@@ -95,7 +95,7 @@ namespace GLImp {
 
 		internal static void MouseMove(object sender, MouseMoveEventArgs mouse)
 		{
-			MousePosition = new Vector2(mouse.X, mouse.Y);
+			MousePosition = new Vector2d(mouse.X, mouse.Y);
 		}
 
 		internal static void MouseWheel(object Sender, MouseWheelEventArgs mouse) {
@@ -225,20 +225,20 @@ namespace GLImp {
 		}
 
 		//Return the mouse position
-		public static Vector2 GetMousePositionWindows() {
+		public static Vector2d GetMousePositionWindows() {
 			System.Drawing.Point loc = System.Windows.Forms.Cursor.Position;
 			loc.X -= GraphicsManager.Instance.Location.X;
 			loc.Y -= GraphicsManager.Instance.Location.Y;
-			return new Vector2(loc.X, loc.Y);
+			return new Vector2d(loc.X, loc.Y);
 			//return MousePosition;
 		}
 
-		public static Vector2 GetPreviousMousePosition() {
+		public static Vector2d GetPreviousMousePosition() {
 			return PrevMousePosition;
 		}
 
 		//Return the mouse position
-		public static Vector2 GetMousePosition() {
+		public static Vector2d GetMousePosition() {
 			return MousePosition;
 		}
 

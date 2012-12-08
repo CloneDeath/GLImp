@@ -10,14 +10,14 @@ namespace Mila.Types
     /// </summary>
     public class Point3D
     {
-        private float x, y, z;
+        private double x, y, z;
 
         #region Getters_And_Setters
 
         /// <summary>
         /// Gets or sets the x coordinate of this point.
         /// </summary>
-        public float X
+        public double X
         {
             get { return x; }
             set { x = value; }
@@ -26,7 +26,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the y coordinate of this point.
         /// </summary>
-        public float Y
+        public double Y
         {
             get { return y; }
             set { y = value; }
@@ -35,7 +35,7 @@ namespace Mila.Types
         /// <summary>
         /// Gets or sets the z coordinate of this point.
         /// </summary>
-        public float Z
+        public double Z
         {
             get { return z; }
             set { z = value; }
@@ -59,7 +59,7 @@ namespace Mila.Types
         /// <param name="x">The x coordinate to set.</param>
         /// <param name="y">The y coordinate to set.</param>
         /// <param name="z">The z coordinate to set.</param>
-        public Point3D(float x, float y, float z)
+        public Point3D(double x, double y, double z)
         {
             X = x;
             Y = y;
@@ -81,7 +81,7 @@ namespace Mila.Types
         /// Sets new value from the given coordinates.
         /// </summary>
         /// <param name="v"></param>
-        public void Set(float x, float y, float z)
+        public void Set(double x, double y, double z)
         {
             X = x;
             Y = y;
