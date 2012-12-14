@@ -39,10 +39,10 @@ namespace GLImp {
 		}
 
 		//Draw Strings
-		public static void DrawString(double x, double y, string msg) {
+		public static void DrawString(double x, double y, string msg, double Scale = 1.0) {
 			PushMatrix();
 			GL.Translate(x, y, 0);
-			GL.Scale(16, 16, 1);
+			GL.Scale(16 * Scale, 16 * Scale, 1);
 			int offset = 0;
 			if (msg != null) {
 				GL.BindTexture(TextureTarget.Texture2D, Texture.Font);
