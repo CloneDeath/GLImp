@@ -23,25 +23,25 @@ namespace GLImp {
 
 		private double Left {
 			get {
-				return (Xoffset * 1.0f) / texture.Width;
+				return (Xoffset * 1.0) / texture.Width;
 			}
 		}
 
 		private double Right {
 			get {
-				return ((Xoffset + 1) * 1.0f) / texture.Width;
+				return ((Xoffset + this.Width) * 1.0) / texture.Width;
 			}
 		}
 
 		private double Top {
 			get {
-				return (Yoffset * 1.0f) / texture.Height;
+				return (Yoffset * 1.0) / texture.Height;
 			}
 		}
 
 		private double Bottom {
 			get {
-				return ((Yoffset + 1) * 1.0f) / texture.Height;
+				return ((Yoffset + this.Height) * 1.0) / texture.Height;
 			}
 		}
 
