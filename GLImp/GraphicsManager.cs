@@ -33,7 +33,7 @@ namespace GLImp
 			}
 		}
 
-		public GraphicsManager(int x, int y)
+		private GraphicsManager(int x, int y)
             : base(x, y, new OpenTK.Graphics.GraphicsMode(32,24,8,4), "GLImp Game Window")
         {
             VSync = VSyncMode.On;
