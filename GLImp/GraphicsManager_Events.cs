@@ -32,9 +32,6 @@ namespace GLImp {
 		#region Draw
 		public delegate void Renderer();
 		public static event Renderer Render;
-		public static event Renderer Render2DPre;
-		public static event Renderer Render2D;
-		public static event Renderer Render2DPost;
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -50,25 +47,21 @@ namespace GLImp {
 				Render();
 			}
 
-			BeginOrtho(ClientRectangle.Width, ClientRectangle.Height);
-				PushMatrix();
-					Camera2D.Draw();
-					
-					if(Render2DPre != null) {
-						Render2DPre();
-					}
-					if(Render2D != null) {
-						Render2D();
-					}
-					if(Render2DPost != null) {
-						Render2DPost();
-					}
-				PopMatrix();
-			EndOrtho();
+			Render2D();
 			
 			GL.Flush();
 			SwapBuffer();
         }
+
+		private void Render2D() {
+			Camera2D.SortCameras();
+
+			BeginOrtho(ClientRectangle.Width, ClientRectangle.Height);
+			foreach(Camera2D camera in Camera2D.Cameras){
+				camera.Draw();
+			}
+			EndOrtho();
+		}
 
 		public static void BeginOrtho(double width, double height) {
 			GL.Disable(EnableCap.DepthTest);

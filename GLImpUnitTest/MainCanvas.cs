@@ -24,6 +24,7 @@ namespace GLImpUnitTest
 			return canvas;
 		}
 
+		static Camera2D Camera = new Camera2D();
 		static MainCanvas() {
 			GraphicsManager.keyboard.KeyDown += Keyboard_KeyDown;
 			GraphicsManager.keyboard.KeyUp += Keyboard_KeyUp;
@@ -33,7 +34,8 @@ namespace GLImpUnitTest
 			GraphicsManager.mouse.Move += Mouse_Move;
 			GraphicsManager.mouse.WheelChanged += Mouse_Wheel;
 
-			GraphicsManager.Render2D += new GraphicsManager.Renderer(OnRenderFrame);
+			Camera.OnRender += new GraphicsManager.Renderer(OnRenderFrame);
+			Camera.Layer = 10;
 			GraphicsManager.Update += new GraphicsManager.Updater(OnUpdateFrame);
             GraphicsManager.OnWindowResize += new GraphicsManager.Resizer(OnWindowResize);
 
