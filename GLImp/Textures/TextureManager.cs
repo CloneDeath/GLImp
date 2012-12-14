@@ -83,7 +83,9 @@ namespace GLImp {
 			  Img.ImageLockMode.ReadOnly,
 			  bitmap.PixelFormat);
 			  //Img.PixelFormat.Format32bppArgb);
+			int x = GraphicsManager.Instance.X; //NOP, need to make sure graphics context is loaded.
 			int tex = GL.GenTexture();
+
 			GL.BindTexture(TextureTarget.Texture2D, tex);
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest); //Pixely
