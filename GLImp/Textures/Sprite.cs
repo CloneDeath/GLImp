@@ -4,9 +4,6 @@ using OpenTK;
 
 namespace GLImp {
 	public class Sprite : Image {
-		public int Width;
-		public int Height;
-
 		private double _currentframe;
 		public double CurrentFrame { //Decimal point is % of the way done with a frame (for example, half speeds)
 			get {

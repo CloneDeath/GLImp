@@ -15,8 +15,6 @@ namespace GLImp
 		public string Location;
 		public string Name;
 		public int ID;
-        public double Width;
-        public double Height;
 		public double XOffset;
 		public double YOffset;
 

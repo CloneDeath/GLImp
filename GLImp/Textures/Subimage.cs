@@ -10,8 +10,6 @@ namespace GLImp {
 		Texture texture;
 		int Xoffset;
 		int Yoffset;
-		public int Width;
-		public int Height;
 
 		public Subimage(Texture tex, int x, int y, int Width, int Height) {
 			this.texture = tex;
