@@ -12,12 +12,14 @@ namespace GLImpUnitTest
         public void Initialize()
         {
             AddTest(new BasicTest());
+			AddTest(new InputTest());
         }
 
         List<TestSetup> Tests = new List<TestSetup>();
         public void AddTest(TestSetup test)
         {
             Tests.Add(test);
+			lb.AddRow(test.Name);
         }
 
         ListBox lb;
@@ -32,8 +34,6 @@ namespace GLImpUnitTest
             lb.SetSize(265, 400);
 
             Initialize();
-
-            lb.AddRow("Test1");
 
             lb.SelectedRowIndex = 0;
         }

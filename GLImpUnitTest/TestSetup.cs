@@ -7,6 +7,8 @@ namespace GLImpUnitTest
 {
     public abstract class TestSetup
     {
+		public string Name = "no name";
+
         public virtual void Render2DPre()
         {
 

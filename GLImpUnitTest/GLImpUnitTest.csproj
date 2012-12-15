@@ -41,7 +41,10 @@
     <Reference Include="Gwen.Renderer.OpenTK">
       <HintPath>..\DLLs\Gwen.Renderer.OpenTK.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
+    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,6 +58,7 @@
     <Compile Include="TestingDisplay.cs" />
     <Compile Include="TestSetup.cs" />
     <Compile Include="Tests\BasicTest.cs" />
+    <Compile Include="Tests\InputTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GLImp\GLImp.csproj">

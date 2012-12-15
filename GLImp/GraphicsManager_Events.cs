@@ -25,7 +25,7 @@ namespace GLImp {
 				Update();
 			}
 
-			KeyboardManager.Update();
+			InputManager.Update();
 		}
 		#endregion
 

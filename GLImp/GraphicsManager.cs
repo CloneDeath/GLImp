@@ -53,7 +53,7 @@ namespace GLImp
 		{
 			base.OnLoad(e);
 			TextureManager.InitTexturing();
-			KeyboardManager.Init();
+			InputManager.Init();
 			GL.Enable(EnableCap.DepthTest);
 			if (UseExperimentalFullAlpha) {
 				GL.AlphaFunc(AlphaFunction.Always, 0f);
@@ -322,6 +322,11 @@ namespace GLImp
 		public static MouseDevice mouse {
 			get {
 				return Instance.Mouse;
+			}
+		}
+		public static IList<JoystickDevice> joysticks{
+			get {
+				return Instance.Joysticks;
 			}
 		}
 		#endregion

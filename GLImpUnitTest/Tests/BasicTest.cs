@@ -9,6 +9,10 @@ namespace GLImpUnitTest.Tests
 {
     public class BasicTest : TestSetup
     {
+		public BasicTest() {
+			Name = "Basic Test";
+		}
+
         public override void Render2DPre()
         {
             for (int i = 0; i < 29*29; i++)

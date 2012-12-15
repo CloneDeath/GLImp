@@ -99,7 +99,7 @@ namespace GLImp {
 			GL.LoadMatrix(ref ortho_projection);
 
 			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.DstColor);
+			GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.DstAlpha);
 			GL.Enable(EnableCap.Texture2D);
 			GL.BindTexture(TextureTarget.Texture2D, _textureId);
 

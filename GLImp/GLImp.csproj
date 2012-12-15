@@ -91,10 +91,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\OpenTK.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK.Compatibility, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
-    <Reference Include="OpenTK.GLControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
+    <Reference Include="OpenTK.Compatibility, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\OpenTK.Compatibility.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\OpenTK.GLControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -106,9 +113,12 @@
     <Compile Include="GraphicsManager_Drawing2D.cs" />
     <Compile Include="GraphicsManager_Drawing3D.cs" />
     <Compile Include="GraphicsManager_Events.cs" />
-    <Compile Include="KeyboardManager.cs">
+    <Compile Include="InputManager\InputManager.cs" />
+    <Compile Include="InputManager\JoystickManager.cs" />
+    <Compile Include="InputManager\KeyboardManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InputManager\MouseManager.cs" />
     <Compile Include="Model Importing\Math\Plane.cs" />
     <Compile Include="Model Importing\Math\Point.cs" />
     <Compile Include="Model Importing\Math\Rotation.cs" />
