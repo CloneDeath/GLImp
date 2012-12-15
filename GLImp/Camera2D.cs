@@ -95,6 +95,62 @@ namespace GLImp {
 		}
 		#endregion
 
+		#region Properties
+		public double X {
+			get {
+				return Position.X;
+			}
+			set {
+				Position.X = value;
+			}
+		}
+
+		public double Y {
+			get {
+				return Position.Y;
+			}
+			set {
+				Position.Y = value;
+			}
+		}
+
+		public double Width {
+			get {
+				return GraphicsManager.WindowWidth / Zoom;
+			}
+		}
+
+		public double Height {
+			get {
+				return GraphicsManager.WindowHeight / Zoom;
+			}
+		}
+
+		public double Top {
+			get {
+				return Y;
+			}
+		}
+
+		public double Left {
+			get {
+				return X;
+			}
+		}
+
+		public double Bottom {
+			get {
+				return Y + Height;
+			}
+		}
+
+		public double Right {
+			get {
+				return X + Width;
+			}
+		}
+		#endregion
+
 		public void SetLocation(double X, double Y) {
 			Position = new Vector2d(X, Y);
 		}
