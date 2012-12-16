@@ -20,6 +20,33 @@ namespace GLImp {
 
 		public double PlaybackSpeed = 1.0f;
 
+		public bool Flipped = false;
+
+		public double XOrigin { get; set; }
+		public double YOrigin { get; set; }
+		public double XOffset {
+			get {
+				return -XOrigin;
+			}
+
+			set {
+				XOrigin = -value;
+			}
+		}
+		public double YOffset {
+			get {
+				return -YOrigin;
+			}
+			set {
+				YOrigin = -value;
+			}
+		}
+
+		#region Constructors
+		public Sprite() {
+
+		}
+
 		public Sprite(Image frame) {
 			Add(frame);
 		}
@@ -29,6 +56,7 @@ namespace GLImp {
 				Add(tf);
 			}
 		}
+		#endregion
 
 		public void Add(Image frame) {
 			Frames.Add(frame);
@@ -36,14 +64,14 @@ namespace GLImp {
 
 		public override void Draw(double x, double y) {
 			if(Frames.Count > 0) {
-				Frames[(int)Math.Floor(CurrentFrame)].Draw(x, y);
+				Frames[(int)Math.Floor(CurrentFrame)].Draw(x - XOrigin, y - YOrigin);
 				CurrentFrame += PlaybackSpeed;
 			}
 		}
 
 		public override void Draw(double x, double y, double width, double height) {
 			if (Frames.Count > 0) {
-				Frames[(int)Math.Floor(CurrentFrame)].Draw(x, y, width, height);
+				Frames[(int)Math.Floor(CurrentFrame)].Draw(x - XOrigin, y - YOrigin, width, height);
 				CurrentFrame += PlaybackSpeed;
 			}
 		}
