@@ -52,6 +52,7 @@ namespace GLImp {
 		}
 
 		public static bool IsPressed(int DeviceNumber, int ButtonNumber) {
+			if (GetDevice(0) == null) return false;
 			bool DownNow = IsDown(DeviceNumber, ButtonNumber);
 			bool DownPrev = PrevButtonState[DeviceNumber][ButtonNumber];
 
@@ -60,6 +61,7 @@ namespace GLImp {
 		}
 
 		public static bool IsReleased(int DeviceNumber, int ButtonNumber) {
+			if (GetDevice(0) == null) return false;
 			bool DownNow = IsDown(DeviceNumber, ButtonNumber);
 			bool DownPrev = PrevButtonState[DeviceNumber][ButtonNumber];
 
