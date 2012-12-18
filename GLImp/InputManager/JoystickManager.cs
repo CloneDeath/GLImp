@@ -70,7 +70,7 @@ namespace GLImp {
 
 		public static float GetAxis(int DeviceNumber, int Axis) {
 			JoystickDevice js = GetDevice(DeviceNumber);
-			if (DeviceNumber != null) {
+			if (js != null) {
 				if (Axis < js.Axis.Count) {
 					return js.Axis[Axis];
 				}

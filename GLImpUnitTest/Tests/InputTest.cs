@@ -30,8 +30,10 @@ namespace GLImpUnitTest.Tests
 			GraphicsManager.DrawString(0, 0, buttons);
 
 			JoystickDevice js = JoystickManager.GetDevice(0);
-			for (int i = 0; i < js.Axis.Count; i++) {
-				GraphicsManager.DrawString(0, 20 * (i + 1), "Axis " + i + ": " + js.Axis[i]);
+			if (js != null) {
+				for (int i = 0; i < js.Axis.Count; i++) {
+					GraphicsManager.DrawString(0, 20 * (i + 1), "Axis " + i + ": " + js.Axis[i]);
+				}
 			}
         }
     }
