@@ -18,7 +18,7 @@ namespace GLImp {
 		/// Draws a triangle strip with the given input 
 		/// </summary>
 		/// <param name="pts">The vectors to connect</param>
-		public static void DrawPolygon(List<Vector2d> pts) {
+		public static void DrawPolygon(IEnumerable<Vector2d> pts) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.TriangleStrip);
 			foreach (Vector2d v in pts) {
@@ -28,7 +28,7 @@ namespace GLImp {
 			GL.Enable(EnableCap.Texture2D);
 		}
 
-		public static void DrawLines(List<Vector2d> pts) {
+		public static void DrawLines(IEnumerable<Vector2d> pts) {
 			GL.Disable(EnableCap.Texture2D);
 			GL.Begin(BeginMode.Lines);
 			foreach (Vector2d v in pts) {
