@@ -11,7 +11,8 @@ namespace GLImpUnitTest
     {
         public void Initialize()
         {
-            AddTest(new BasicTest());
+			AddTest(new Alpha2DTest());
+			AddTest(new BasicTest());
 			AddTest(new InputTest());
         }
 

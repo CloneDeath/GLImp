@@ -143,7 +143,7 @@ namespace GLImp
 		}
 
 		public static void SetColor(Color c) {
-			GL.Color3(c);
+			GL.Color4(c);
 		}
 		#endregion
 

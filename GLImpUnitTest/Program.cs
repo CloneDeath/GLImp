@@ -20,6 +20,7 @@ namespace GLImpUnitTest
 		/// </summary>
 		[STAThreadAttribute]
 		public static void Main() {
+			GraphicsManager.UseExperimentalFullAlpha = true;
 			GraphicsManager.SetResolution(800, 600);
 			GraphicsManager.SetBackground(Color.Black);
 			Initialize();
@@ -33,7 +34,7 @@ namespace GLImpUnitTest
         public static TestingDisplay Setup;
 
 		static void Initialize() {
-            Camera.SetLocation(-70, 0);
+            Camera.SetLocation(0, 200);
 			Camera.CenterOnTarget(true);
             Setup = new TestingDisplay();
 		}

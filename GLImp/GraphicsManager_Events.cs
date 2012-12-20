@@ -65,6 +65,9 @@ namespace GLImp {
 
 		public static void BeginOrtho(double width, double height) {
 			GL.Disable(EnableCap.DepthTest);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendEquation(BlendEquationMode.FuncAdd);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Clear(ClearBufferMask.DepthBufferBit);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.PushMatrix();
@@ -77,6 +80,7 @@ namespace GLImp {
 
 		public static void EndOrtho() {
 			GL.Enable(EnableCap.DepthTest);
+			GL.Disable(EnableCap.Blend);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.PopMatrix();
 			GL.MatrixMode(MatrixMode.Modelview);
