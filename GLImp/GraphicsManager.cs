@@ -202,11 +202,11 @@ namespace GLImp
 		}
 
 		public static Bitmap GetFont() {
-			return (Bitmap)(new global::System.Resources.ResourceManager("GLImp.Properties.Resources", System.Reflection.Assembly.GetExecutingAssembly())).GetObject("font");
+			return Resources.GetPNG("data.font.png");
 		}
 
 		public static Bitmap GetError() {
-			return (Bitmap)(new global::System.Resources.ResourceManager("GLImp.Properties.Resources", System.Reflection.Assembly.GetExecutingAssembly())).GetObject("error");
+			return Resources.GetPNG("data.error.png");
 		}
 
         static void Main()
