@@ -9,9 +9,12 @@ namespace GLImpUnitTest
     {
 		public string Name = "no name";
 
-        public virtual void Render2DPre()
-        {
+        public virtual void Render2D() {
 
         }
+
+		public virtual void Render3D() {
+
+		}
     }
 }

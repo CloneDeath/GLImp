@@ -33,19 +33,27 @@ namespace GLImp {
 		public delegate void Renderer();
 		public static event Renderer Render;
 
+		private static Vector3 CameraUp = Vector3.UnitZ;
+
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			
+			GL.MatrixMode(MatrixMode.Projection);
+			Matrix4 projectoionview = Matrix4.CreatePerspectiveFieldOfView((float)((Math.PI / 180) * 70), ((float)WindowWidth) / ((float)WindowHeight), 0.1f, 1000);
+			GL.LoadMatrix(ref projectoionview);
 
-			Matrix4 modelview = Matrix4.LookAt(CameraPos, CameraLook, Vector3.UnitY);
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(ref modelview);
+			GL.MatrixMode(MatrixMode.Modelview);
+			Matrix4 modelview = Matrix4.LookAt((Vector3)CameraPos, (Vector3)CameraLook, CameraUp);
+			GL.LoadMatrix(ref modelview);
+			
 
 			if(Render != null) {
 				Render();
 			}
+
 
 			Render2D();
 			

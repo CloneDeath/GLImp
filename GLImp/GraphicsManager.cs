@@ -37,8 +37,8 @@ namespace GLImp
             : base(x, y, new OpenTK.Graphics.GraphicsMode(32,24,8,4), "GLImp Game Window")
         {
             VSync = VSyncMode.On;
-			CameraPos = Vector3.Zero;
-			CameraLook = Vector3.UnitY;
+			CameraPos = Vector3d.Zero;
+			CameraLook = Vector3d.UnitY;
         }
 
 		private static Shader Billboard;
@@ -102,17 +102,17 @@ namespace GLImp
 		#endregion
 
 		#region CAMERA
-		private static Vector3 CameraPos;
-		private static Vector3 CameraLook;
+		private static Vector3d CameraPos;
+		private static Vector3d CameraLook;
 		/*****************************************************************
 		 *								CAMERA
 		 *****************************************************************/
-		public static void SetCamera(Vector3 point)
+		public static void SetCamera(Vector3d point)
 		{
 			CameraPos = point;
 		}
 
-		public static void SetLookAt(Vector3 point)
+		public static void SetLookAt(Vector3d point)
 		{
 			CameraLook = point;
 		}
@@ -121,9 +121,9 @@ namespace GLImp
 		{
 			yaw = (double)(yaw * Math.PI / 180);
 			pitch = (double)(pitch * Math.PI / 180);
-			CameraLook = new Vector3(	(float)((Math.Cos(yaw) * Math.Cos(pitch)) + CameraPos.X),
-										(float)((Math.Sin(yaw) * Math.Cos(pitch)) + CameraPos.Y),
-										(float)(Math.Sin(pitch) + CameraPos.Z));
+			CameraLook = new Vector3d(	((Math.Cos(yaw) * Math.Cos(pitch)) + CameraPos.X),
+										((Math.Sin(yaw) * Math.Cos(pitch)) + CameraPos.Y),
+										(Math.Sin(pitch) + CameraPos.Z));
 		}
 		#endregion camera
 
@@ -208,11 +208,6 @@ namespace GLImp
 		public static Bitmap GetError() {
 			return Resources.GetPNG("data.error.png");
 		}
-
-        static void Main()
-        {
-            OpenWindow();
-        }
 
         /// <summary>
         /// Starts the game.

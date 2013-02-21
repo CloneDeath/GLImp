@@ -14,7 +14,7 @@ namespace GLImpUnitTest.Tests
 			Name = "Input Test";
 		}
 
-        public override void Render2DPre()
+        public override void Render2D()
         {
 			string buttons = "";
 			for (int i = 0; i < JoystickManager.GetButtonCount(0); i++) {
@@ -23,8 +23,8 @@ namespace GLImpUnitTest.Tests
 				}
 			}
 
-			if (KeyboardManager.IsDown(Key.Left)){
-				buttons += "Left, ";
+			foreach (Key k in KeyboardManager.GetAllDownKeys()) {
+				buttons += k.ToString() + ", ";
 			}
 
 			GraphicsManager.DrawString(0, 0, buttons);

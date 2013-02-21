@@ -24,12 +24,15 @@ namespace GLImpUnitTest
 			GraphicsManager.SetResolution(800, 600);
 			GraphicsManager.SetBackground(Color.Black);
 			Initialize();
-			Camera.OnRender += new GraphicsManager.Renderer(Render2DPre);
+			Camera.OnRender += new GraphicsManager.Renderer(Render2D);
+			GraphicsManager.Render += new GraphicsManager.Renderer(Render3D);
 			GraphicsManager.Update += new GraphicsManager.Updater(Update);
 			GraphicsManager.SetTitle("GLImp Unit Tests");
 			GraphicsManager.OpenWindow();
 			MainCanvas.Dispose();
 		}
+
+		
 
         public static TestingDisplay Setup;
 
@@ -42,12 +45,12 @@ namespace GLImpUnitTest
 		static void Update() {
 		}
 
-		static void Render2DPre() {
-			GraphicsManager.PushMatrix();
+		static void Render2D() {
+            Setup.Render2D();
+		}
 
-            Setup.Render2DPre();
-			
-			GraphicsManager.PopMatrix();
+		static void Render3D() {
+			Setup.Render3D();
 		}
 	}
 }

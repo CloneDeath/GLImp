@@ -13,7 +13,7 @@ namespace GLImpUnitTest.Tests
 			Name = "Basic Test";
 		}
 
-        public override void Render2DPre()
+        public override void Render2D()
         {
             for (int i = 0; i < 29*29; i++)
             {

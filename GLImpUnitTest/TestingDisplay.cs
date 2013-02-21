@@ -11,6 +11,8 @@ namespace GLImpUnitTest
     {
         public void Initialize()
         {
+			AddTest(new Line3DTest());
+			AddTest(new InsideCubeTest());
 			AddTest(new Alpha2DTest());
 			AddTest(new BasicTest());
 			AddTest(new InputTest());
@@ -39,9 +41,13 @@ namespace GLImpUnitTest
             lb.SelectedRowIndex = 0;
         }
 
-        public void Render2DPre()
+        public void Render2D()
         {
-            Tests[lb.SelectedRowIndex].Render2DPre();
+            Tests[lb.SelectedRowIndex].Render2D();
         }
+
+		public void Render3D() {
+			Tests[lb.SelectedRowIndex].Render3D();
+		}
     }
 }
