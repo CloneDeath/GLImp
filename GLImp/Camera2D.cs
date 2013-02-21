@@ -12,6 +12,11 @@ namespace GLImp {
 		#region Static Members and Functions
 		internal static List<Camera2D> Cameras = new List<Camera2D>();
 		internal static void SortCameras(){
+			//Make sure we have at least one camera to sort first.
+			if (Cameras.Count == 0) {
+				return;
+			}
+
 			//Shortcut check, if all cameras are in order, return.
 			//todo nicholas instead of checking every time, set/unset a flag everytime cameras is changed, and just check that flag.
 			//note: also need to set the flag if "Layer" ever changes for any member.
