@@ -10,6 +10,7 @@ using OpenTK.Graphics.OpenGL;
 namespace GLImpUnitTest.Tests {
 	class LEDShader : Shader {
 		public Texture Tex;
+		public Texture Noise;
 
 		int PixelSize {
 			set {
@@ -66,17 +67,29 @@ namespace GLImpUnitTest.Tests {
 		}
 
 		public LEDShader() : base(File.ReadAllText(@"media\LEDShader\billboard4.vert"), File.ReadAllText(@"media\LEDShader\billboard4.frag")){
-			PixelSize = 5;
-			Tex = new Texture(@"media\LEDShader\shodan.jpg");
+			//Tex = new Texture(@"media\LEDShader\shodan.jpg");
+			Tex = new Texture(@"media\LEDShader\flagcross.bmp");
+			Noise = new Texture(@"media\LEDShader\noise.bmp");
+		}
+
+		public void SetUniforms() {
+			PixelSize = 6;
+			pixelRadius = 0.5f;
+			tolerance = 0.4f;
+			luminanceBoost = 0.0f;
+			luminanceSteps = 20;
+			colorBoost = 0.025f;
+			burntOutPercent = 0.2f;
+
 			billboardSize = new Vector2(Tex.Width, Tex.Height);
 			billboardTexture = Tex;
-			tolerance = 1.0f;
-			pixelRadius = 0.3f;
-			luminanceSteps = 255;
-			luminanceBoost = 1.0f;
-			colorBoost = 1.0f;
-			burntOutPercent = 0.0f;
-			noiseTexture = Tex;
+			
+			
+			
+			
+			
+			
+			noiseTexture = Noise;
 		}
 	}
 }
