@@ -25,16 +25,59 @@ namespace GLImpUnitTest.Tests {
 		}
 		Texture billboardTexture {
 			set {
-				this.SetUniform("billboardTexture", value);
+				this.SetUniform("billboardTexture", value, 0);
 			}
 		}
-		
 
-		public LEDShader() : base(File.ReadAllText(@"media\LEDShader\billboard1.vert"), File.ReadAllText(@"media\LEDShader\billboard1.frag")){
+		float tolerance {
+			set {
+				SetUniform("tolerance", value);
+			}
+		}
+		float pixelRadius {
+			set {
+				SetUniform("pixelRadius", value);
+			}
+		}
+		float luminanceSteps {
+			set {
+				SetUniform("luminanceSteps", value);
+			}
+		}
+		float luminanceBoost {
+			set {
+				SetUniform("luminanceBoost", value);
+			}
+		}
+		float colorBoost {
+			set {
+				SetUniform("colorBoost", value);
+			}
+		}
+		float burntOutPercent {
+			set {
+				SetUniform("burntOutPercent", value);
+			}
+		}
+		Texture noiseTexture {
+			set {
+				SetUniform("noiseTexture", value, 1);
+			}
+		}
+
+		public LEDShader() : base(File.ReadAllText(@"media\LEDShader\billboard4.vert"), File.ReadAllText(@"media\LEDShader\billboard4.frag")){
 			PixelSize = 5;
 			Tex = new Texture(@"media\LEDShader\shodan.jpg");
 			billboardSize = new Vector2(Tex.Width, Tex.Height);
 			billboardTexture = Tex;
+			tolerance = 1.0f;
+			pixelRadius = 0.3f;
+			luminanceSteps = 255;
+			luminanceBoost = 1.0f;
+			colorBoost = 1.0f;
+			burntOutPercent = 0.0f;
+			noiseTexture = Tex;
+
 		}
 	}
 }

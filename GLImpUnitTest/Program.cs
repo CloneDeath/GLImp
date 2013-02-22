@@ -22,7 +22,7 @@ namespace GLImpUnitTest
 		public static void Main() {
 			GraphicsManager.UseExperimentalFullAlpha = true;
 			GraphicsManager.SetResolution(800, 600);
-			GraphicsManager.SetBackground(Color.Black);
+			GraphicsManager.SetBackground(Color.White);
 			Initialize();
 			Camera.OnRender += new GraphicsManager.Renderer(Render2D);
 			GraphicsManager.Render += new GraphicsManager.Renderer(Render3D);

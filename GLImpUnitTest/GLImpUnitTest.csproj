@@ -63,6 +63,7 @@
     <Compile Include="Tests\BasicTest.cs" />
     <Compile Include="Tests\InputTest.cs" />
     <Compile Include="Tests\Shader\LEDShader.cs" />
+    <Compile Include="Tests\Shader\RadialBlurShader.cs" />
     <Compile Include="Tests\Shader\ShaderTest.cs" />
   </ItemGroup>
   <ItemGroup>

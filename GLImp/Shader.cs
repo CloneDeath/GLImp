@@ -22,6 +22,7 @@ namespace GLImp {
 			GL.CompileShader(iVertexShader);
 			GL.GetShader(iVertexShader, ShaderParameter.CompileStatus, out result);
 			if(result == 0) {
+				Console.WriteLine("Failed to compile vertex shader!");
 				System.Diagnostics.Debug.WriteLine("Failed to compile vertex shader!");
 				System.Diagnostics.Debug.WriteLine(GL.GetShaderInfoLog(iVertexShader));
 			}
@@ -31,6 +32,7 @@ namespace GLImp {
 			GL.CompileShader(iFragShader);
 			GL.GetShader(iFragShader, ShaderParameter.CompileStatus, out result);
 			if(result == 0) {
+				Console.WriteLine("Failed to compile fragment shader!");
 				System.Diagnostics.Debug.WriteLine("Failed to compile fragment shader!");
 				System.Diagnostics.Debug.WriteLine(GL.GetShaderInfoLog(iFragShader));
 			}
@@ -57,10 +59,6 @@ namespace GLImp {
 			int loc = GL.GetUniformLocation(iProgram, name);
 			GL.Uniform1(loc, value);
 		}
-		public void SetUniform(string name, Texture value) {
-			int loc = GL.GetUniformLocation(iProgram, name);
-			GL.Uniform1(loc, value.ID);
-		}
 		
 		//2
 		public void SetUniform(string name, Vector2 value) {
@@ -76,6 +74,15 @@ namespace GLImp {
 		public void SetUniform(string name, Vector3 value) {
 			int loc = GL.GetUniformLocation(iProgram, name);
 			GL.Uniform3(loc, ref value);
+		}
+
+		//Texture
+		public void SetUniform(string name, Texture value, int slot) {
+			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.ActiveTexture(TextureUnit.Texture0 + slot);
+			GL.BindTexture(TextureTarget.Texture2D, value.ID);
+			GL.Uniform1(loc, slot);
+			//GL.BindSampler(slot, loc);
 		}
 		#endregion
 
