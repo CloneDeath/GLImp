@@ -11,6 +11,7 @@ namespace GLImpUnitTest
     {
         public void Initialize()
         {
+			AddTest(new ShaderTest());
 			AddTest(new Line3DTest());
 			AddTest(new InsideCubeTest());
 			AddTest(new Alpha2DTest());

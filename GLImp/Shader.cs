@@ -47,18 +47,37 @@ namespace GLImp {
 			}
 		}
 
-		public void SetUniform(string name, float value) {
-			int loc = GL.GetUniformLocation(iProgram, name);
-			GL.Uniform1(loc, value);
-		}
-		public void SetUniform(string name, Vector3 value) {
-			int loc = GL.GetUniformLocation(iProgram, name);
-			GL.Uniform3(loc, ref value);
-		}
+		#region SetUniform
+		//1
 		public void SetUniform(string name, int value) {
 			int loc = GL.GetUniformLocation(iProgram, name);
 			GL.Uniform1(loc, value);
 		}
+		public void SetUniform(string name, float value) {
+			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.Uniform1(loc, value);
+		}
+		public void SetUniform(string name, Texture value) {
+			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.Uniform1(loc, value.ID);
+		}
+		
+		//2
+		public void SetUniform(string name, Vector2 value) {
+			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.Uniform2(loc, ref value);
+		}
+		public void SetUniform(string name, int v0, int v1) {
+			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.Uniform2(loc, v0, v1);
+		}
+		
+		//3
+		public void SetUniform(string name, Vector3 value) {
+			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.Uniform3(loc, ref value);
+		}
+		#endregion
 
 		public void Activate() {
 			GL.UseProgram(iProgram);

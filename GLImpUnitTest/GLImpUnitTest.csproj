@@ -62,6 +62,8 @@
     <Compile Include="Tests\Alpha2DTest.cs" />
     <Compile Include="Tests\BasicTest.cs" />
     <Compile Include="Tests\InputTest.cs" />
+    <Compile Include="Tests\Shader\LEDShader.cs" />
+    <Compile Include="Tests\Shader\ShaderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GLImp\GLImp.csproj">
