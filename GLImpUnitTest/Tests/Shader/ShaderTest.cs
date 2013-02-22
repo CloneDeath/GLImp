@@ -12,12 +12,15 @@ namespace GLImpUnitTest.Tests {
 		RadialBlurShader Shader = new RadialBlurShader();
 		public ShaderTest() {
 			Name = "Shader Test";
+
 		}
 
 		public override void Render3D() {
-			
-			Shader.Activate();
+			GraphicsManager.SetCamera(new Vector3d(0, 3, 0));
+			GraphicsManager.SetLookAt(new Vector3d(0, 0, 0));
+
 			Shader.SetUniforms();
+			Shader.Activate();
 			//GraphicsManager.SetTexture(Shader.Tex);
 			//GraphicsManager.SetColor(Color.White);
 			GraphicsManager.DrawQuad(new Vector3d(-1, 0, 1),
@@ -25,8 +28,7 @@ namespace GLImpUnitTest.Tests {
 									new Vector3d(1, 0, -1),
 									new Vector3d(-1, 0, -1));
 
-			GraphicsManager.SetCamera(new Vector3d(0, 3, 0));
-			GraphicsManager.SetLookAt(new Vector3d(0, 0, 0));
+			
 			Shader.Deactivate();
 		}
 	}

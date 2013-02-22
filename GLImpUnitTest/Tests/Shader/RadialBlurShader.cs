@@ -25,7 +25,7 @@ namespace GLImpUnitTest.Tests {
 
 		Texture tex0 {
 			set {
-				this.SetUniform("tex0", value, 0);
+				this.SetUniform("tex0", 2);
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace GLImpUnitTest.Tests {
 		}
 
 		public void SetUniforms(){
-			time = 5f;
+			time = 0f;
 			tex0 = Tex;
 			resolution = new Vector2(Tex.Width, Tex.Height);
 		}

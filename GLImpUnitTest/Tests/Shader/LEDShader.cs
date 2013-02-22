@@ -77,7 +77,6 @@ namespace GLImpUnitTest.Tests {
 			colorBoost = 1.0f;
 			burntOutPercent = 0.0f;
 			noiseTexture = Tex;
-
 		}
 	}
 }

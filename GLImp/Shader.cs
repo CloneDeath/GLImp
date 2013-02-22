@@ -79,10 +79,13 @@ namespace GLImp {
 		//Texture
 		public void SetUniform(string name, Texture value, int slot) {
 			int loc = GL.GetUniformLocation(iProgram, name);
+			GL.Uniform1(loc, slot);
 			GL.ActiveTexture(TextureUnit.Texture0 + slot);
 			GL.BindTexture(TextureTarget.Texture2D, value.ID);
-			GL.Uniform1(loc, slot);
-			//GL.BindSampler(slot, loc);
+			//int samp;
+			//GL.GenSamplers(1, out samp);
+			//GL.BindSampler(slot, 0);
+			GL.ActiveTexture(TextureUnit.Texture0);
 		}
 		#endregion
 
