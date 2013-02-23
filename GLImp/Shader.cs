@@ -8,10 +8,10 @@ using OpenTK.Graphics.OpenGL;
 
 namespace GLImp {
 	public class Shader {
-		private int iVertexShader;
-		private int iFragShader;
+		protected int iVertexShader;
+		protected int iFragShader;
 
-		private int iProgram;
+		protected int iProgram;
 
 		public Shader(string vertex, string frag) {
 			iProgram = GL.CreateProgram();
@@ -88,14 +88,12 @@ namespace GLImp {
 		}
 		#endregion
 
-		public void Activate() {
+		public virtual void Activate() {
 			GL.UseProgram(iProgram);
 		}
 
-		public void Deactivate() {
+		public virtual void Deactivate() {
 			GL.UseProgram(0);
 		}
-
-
 	}
 }
