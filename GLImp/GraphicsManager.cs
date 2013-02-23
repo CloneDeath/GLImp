@@ -44,6 +44,7 @@ namespace GLImp
 		private static Shader Billboard;
 
 		public static bool UseExperimentalFullAlpha = false;
+		public static bool EnableMipmap = true;
 
 		#region ON GAME RUN METHODS
 		/*****************************************************************
