@@ -88,23 +88,16 @@ namespace GLImp {
 			DrawQuad(p1, p2, p3, p4);
 		}
 		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4) {
-			GL.Begin(BeginMode.Quads);
-				GL.TexCoord2(0, 0); GL.Vertex3(p1);
-				GL.TexCoord2(1, 0); GL.Vertex3(p2);
-				GL.TexCoord2(1, 1); GL.Vertex3(p3);
-				GL.TexCoord2(0, 1); GL.Vertex3(p4);
-			GL.End();
+			DrawQuad(p1, p2, p3, p4, new Vector2d(1, 1));
 		}
-		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, Texture Texture, double HSplit, double SpriteNumber) {
-			SetTexture(Texture);
-			DrawQuad(p1, p2, p3, p4, HSplit, SpriteNumber);
-		}
-		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, double HSplit, double SpriteNumber) {
+		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, Vector2d TextureScale) {
 			GL.Begin(BeginMode.Quads);
-				GL.TexCoord2(SpriteNumber/HSplit, 0); GL.Vertex3(p1);
-				GL.TexCoord2((SpriteNumber+1)/HSplit, 0); GL.Vertex3(p2);
-				GL.TexCoord2((SpriteNumber + 1) / HSplit, 1); GL.Vertex3(p3);
-				GL.TexCoord2(SpriteNumber / HSplit, 1); GL.Vertex3(p4);
+			{
+				GL.TexCoord2(0,				 0);			  GL.Vertex3(p1);
+				GL.TexCoord2(TextureScale.X, 0);			  GL.Vertex3(p2);
+				GL.TexCoord2(TextureScale.X, TextureScale.Y); GL.Vertex3(p3);
+				GL.TexCoord2(0,				 TextureScale.Y); GL.Vertex3(p4);
+			}
 			GL.End();
 		}
 
