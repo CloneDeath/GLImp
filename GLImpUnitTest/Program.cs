@@ -43,6 +43,7 @@ namespace GLImpUnitTest
 		}
 
 		static void Update() {
+			Setup.Update();
 		}
 
 		static void Render2D() {

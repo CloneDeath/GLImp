@@ -65,6 +65,7 @@
     <Compile Include="Tests\Shader\LEDShader.cs" />
     <Compile Include="Tests\Shader\RadialBlurShader.cs" />
     <Compile Include="Tests\Shader\ShaderTest.cs" />
+    <Compile Include="Tests\Shader\SteepParalaxShader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GLImp\GLImp.csproj">

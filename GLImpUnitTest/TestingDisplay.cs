@@ -42,8 +42,11 @@ namespace GLImpUnitTest
             lb.SelectedRowIndex = 0;
         }
 
-        public void Render2D()
-        {
+		public void Update() {
+			Tests[lb.SelectedRowIndex].Update();
+		}
+
+        public void Render2D(){
             Tests[lb.SelectedRowIndex].Render2D();
         }
 

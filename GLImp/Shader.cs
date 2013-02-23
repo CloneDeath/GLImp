@@ -23,6 +23,7 @@ namespace GLImp {
 			GL.GetShader(iVertexShader, ShaderParameter.CompileStatus, out result);
 			if(result == 0) {
 				Console.WriteLine("Failed to compile vertex shader!");
+				Console.WriteLine(GL.GetShaderInfoLog(iVertexShader));
 				System.Diagnostics.Debug.WriteLine("Failed to compile vertex shader!");
 				System.Diagnostics.Debug.WriteLine(GL.GetShaderInfoLog(iVertexShader));
 			}
@@ -33,6 +34,7 @@ namespace GLImp {
 			GL.GetShader(iFragShader, ShaderParameter.CompileStatus, out result);
 			if(result == 0) {
 				Console.WriteLine("Failed to compile fragment shader!");
+				Console.WriteLine(GL.GetShaderInfoLog(iFragShader));
 				System.Diagnostics.Debug.WriteLine("Failed to compile fragment shader!");
 				System.Diagnostics.Debug.WriteLine(GL.GetShaderInfoLog(iFragShader));
 			}
