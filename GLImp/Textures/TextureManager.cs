@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
+ using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
 using System.Drawing;
 using Img = System.Drawing.Imaging;
@@ -58,26 +58,6 @@ namespace GLImp {
 		/// 24- and 32-bit bitmaps supported.
 		/// </summary>
 		public static int CreateTextureFromBitmap(Bitmap bitmap) {
-			/*try {
-				for(int y = 0; y < bitmap.Height; y++) {
-					for(int x = 0; x < bitmap.Width; x++) {
-						Color p = bitmap.GetPixel(x, y);
-						Console.Write("[" + p.R + "," + p.G + "," + p.B + "," + p.A + "] ");
-					}
-					Console.Write("\n");
-				}
-				Console.Write("End Image\n");
-			} catch(Exception ex) {
-				Console.Write(ex.Message);
-			}*/
-
-			/*Color p = bitmap.GetPixel(35, 7);
-			Console.Write("[" + p.R + "," + p.G + "," + p.B + "," + p.A + "]\n");
-			p = bitmap.GetPixel(35, 8);
-			Console.Write("[" + p.R + "," + p.G + "," + p.B + "," + p.A + "]\n");
-			p = bitmap.GetPixel(35, 9);
-			Console.Write("[" + p.R + "," + p.G + "," + p.B + "," + p.A + "]\n");*/
-
 			Img.BitmapData data = bitmap.LockBits(
 			  new Rectangle(0, 0, bitmap.Width, bitmap.Height),
 			  Img.ImageLockMode.ReadOnly,
