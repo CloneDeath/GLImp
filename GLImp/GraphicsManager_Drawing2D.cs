@@ -115,6 +115,14 @@ namespace GLImp {
 			GL.End();
 			GL.Enable(EnableCap.Texture2D);
 		}
+		public static void DrawRectangle(Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4) {
+			GL.Begin(BeginMode.Quads);
+				GL.Vertex2(p1);
+				GL.Vertex2(p2);
+				GL.Vertex2(p3);
+				GL.Vertex2(p4);
+			GL.End();
+		}
 		public static void DrawRectangle(double x, double y, double width, double height, Texture Texture) {
 			DrawRectangle(new Vector2d(x, y), new Vector2d(x + width, y + height), Texture);
 		}
