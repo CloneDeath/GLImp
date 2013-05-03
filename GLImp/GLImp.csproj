@@ -108,7 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera2D.cs" />
-    <Compile Include="Frustum.cs" />
     <Compile Include="GraphicsManager.cs" />
     <Compile Include="GraphicsManager_Drawing2D.cs" />
     <Compile Include="GraphicsManager_Drawing3D.cs" />
@@ -132,7 +131,6 @@
     <Compile Include="Model Importing\Model\Vertex.cs" />
     <Compile Include="Model Importing\Model\VertexAttributes.cs" />
     <Compile Include="ModelManager.cs" />
-    <Compile Include="Plane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Shader.cs" />
@@ -141,7 +139,6 @@
     <Compile Include="Textures\Subimage.cs" />
     <Compile Include="Textures\TileSheet.cs" />
     <Compile Include="Text\TextWriter.cs" />
-    <Compile Include="Vec3.cs" />
     <Compile Include="Textures\TextureManager.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="Textures\Texture.cs" />

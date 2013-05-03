@@ -18,18 +18,18 @@ namespace GLImp
     {
 		public static int WindowWidth {
 			get {
-				return game.Width;
+				return Instance.Width;
 			}
 			set {
-				game.Width = value;
+				Instance.Width = value;
 			}
 		}
 		public static int WindowHeight {
 			get {
-				return game.Height;
+				return Instance.Height;
 			}
 			set {
-				game.Height = value;
+				Instance.Height = value;
 			}
 		}
 
@@ -163,19 +163,19 @@ namespace GLImp
 		}
 
 		//Draws an axis alligned bounding box
-		public void DrawCollisionBox(Vec3 c1, Vec3 c2) {
+		public void DrawCollisionBox(Vector3 c1, Vector3 c2) {
 			if(c1 == null || c2 == null) {
 				return;
 			}
-			Vector3d v1 = new Vector3d(c1.x, c1.y, c1.z);
-			Vector3d v2 = new Vector3d(c1.x, c2.y, c1.z);
-			Vector3d v3 = new Vector3d(c2.x, c2.y, c1.z);
-			Vector3d v4 = new Vector3d(c2.x, c1.y, c1.z);
+			Vector3d v1 = new Vector3d(c1.X, c1.Y, c1.Z);
+			Vector3d v2 = new Vector3d(c1.X, c2.Y, c1.Z);
+			Vector3d v3 = new Vector3d(c2.X, c2.Y, c1.Z);
+			Vector3d v4 = new Vector3d(c2.X, c1.Y, c1.Z);
 
-			Vector3d v5 = new Vector3d(c1.x, c1.y, c2.z);
-			Vector3d v6 = new Vector3d(c1.x, c2.y, c2.z);
-			Vector3d v7 = new Vector3d(c2.x, c2.y, c2.z);
-			Vector3d v8 = new Vector3d(c2.x, c1.y, c2.z);
+			Vector3d v5 = new Vector3d(c1.X, c1.Y, c2.Z);
+			Vector3d v6 = new Vector3d(c1.X, c2.Y, c2.Z);
+			Vector3d v7 = new Vector3d(c2.X, c2.Y, c2.Z);
+			Vector3d v8 = new Vector3d(c2.X, c1.Y, c2.Z);
 
 			GL.Disable(EnableCap.Texture2D);
 			GraphicsManager.DrawLine(v1, v2, Color.DarkGreen);
