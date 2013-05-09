@@ -17,6 +17,7 @@ namespace GLImp
 		public int ID;
 		public double XOffset;
 		public double YOffset;
+		public Bitmap Image;
 
 		public Texture(string location) {
 			init(location, 0, 0);
@@ -32,14 +33,15 @@ namespace GLImp
 			Name = StripName(loc);
 			AllTextures.Add(this);
 
-			Bitmap temp = new Bitmap(Bitmap.FromFile(loc));
-			Width = temp.Width;
-			Height = temp.Height;
+			Image = new Bitmap(Bitmap.FromFile(loc));
+			Width = Image.Width;
+			Height = Image.Height;
 			XOffset = x;
 			YOffset = y;
 		}
 
 		public Texture(Bitmap img, string Name, int offsetX = 0, int offsetY = 0) {
+			this.Image = img;
 			Location = "";
 			ID = TextureManager.CreateTextureFromBitmap(img);
 			this.Name = Name;
