@@ -17,7 +17,25 @@ namespace GLImp
 		public int ID;
 		public double XOffset;
 		public double YOffset;
-		public Bitmap Image;
+
+		private Bitmap _img;
+		public Bitmap Image {
+			get {
+				return _img;
+			}
+			set {
+				_img = value;
+				Reload();
+			}
+		}
+
+		private void Reload() {
+			GL.DeleteTexture(ID);
+
+			ID = TextureManager.CreateTextureFromBitmap(Image);
+			Width = Image.Width;
+			Height = Image.Height;
+		}
 
 		public Texture(string location) {
 			init(location, 0, 0);
@@ -33,7 +51,7 @@ namespace GLImp
 			Name = StripName(loc);
 			AllTextures.Add(this);
 
-			Image = new Bitmap(Bitmap.FromFile(loc));
+			_img = new Bitmap(Bitmap.FromFile(loc));
 			Width = Image.Width;
 			Height = Image.Height;
 			XOffset = x;
@@ -41,7 +59,7 @@ namespace GLImp
 		}
 
 		public Texture(Bitmap img, string Name, int offsetX = 0, int offsetY = 0) {
-			this.Image = img;
+			this._img = img;
 			Location = "";
 			ID = TextureManager.CreateTextureFromBitmap(img);
 			this.Name = Name;
@@ -51,6 +69,10 @@ namespace GLImp
             YOffset = offsetY;
 
 			AllTextures.Add(this);
+		}
+
+		~Texture() {
+			GL.DeleteTexture(ID);
 		}
 
 		private string StripName(string s) {
