@@ -71,10 +71,6 @@ namespace GLImp
 			AllTextures.Add(this);
 		}
 
-		~Texture() {
-			GL.DeleteTexture(ID);
-		}
-
 		private string StripName(string s) {
 			string[] temp = s.Split(new char[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
 			return temp[temp.Length - 1].Split(new char[] { '.' })[0];
