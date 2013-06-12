@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestingDisplay.cs" />
     <Compile Include="TestSetup.cs" />
+    <Compile Include="Tests\GraphicObjectTest.cs" />
     <Compile Include="Tests\Line3DTest.cs" />
     <Compile Include="Tests\InsideCubeTest.cs" />
     <Compile Include="Tests\Alpha2DTest.cs" />
