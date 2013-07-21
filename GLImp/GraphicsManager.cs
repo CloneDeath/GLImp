@@ -282,30 +282,6 @@ namespace GLImp
 			GL.Rotate(angle, Up);
 		}
 
-		#region DISPLAY LIST
-		/*****************************************************************
-		 *							DISPLAY LIST
-		 *****************************************************************/
-
-		//Generates a list number
-		public static int GenList(int NumberToAllocate) {
-			return GL.GenLists(NumberToAllocate);
-		}
-
-		public static void BeginList(int ListNumber) {
-			GL.NewList(ListNumber, ListMode.Compile);
-		}
-
-		public static void EndList() {
-			GL.EndList();
-		}
-
-		public static void CallList(int ListNumber) {
-			GL.CallList(ListNumber);
-		}
-
-		#endregion
-
 		#region INPUT
 		/*****************************************************************
 		 *								INPUT
