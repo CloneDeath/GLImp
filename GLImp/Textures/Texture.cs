@@ -51,7 +51,7 @@ namespace GLImp
 			Name = StripName(loc);
 			AllTextures.Add(this);
 
-			_img = new Bitmap(Bitmap.FromFile(loc));
+			_img = new Bitmap(loc);
 			Width = Image.Width;
 			Height = Image.Height;
 			XOffset = x;
