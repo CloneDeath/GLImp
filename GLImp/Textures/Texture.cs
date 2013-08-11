@@ -87,5 +87,15 @@ namespace GLImp
 		public Subimage Subimage(int x, int y, int width, int height) {
 			return new Subimage(this, x, y, width, height);
 		}
+
+		public void Free() {
+			GL.DeleteTexture(this.ID);
+			this.ID = -1;
+			this._img = null;
+			this.Width = 0;
+			this.Height = 0;
+			this.Location = String.Empty;
+			this.Name = String.Empty;
+		}
 	}
 }
