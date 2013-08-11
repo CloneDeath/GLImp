@@ -67,20 +67,12 @@ namespace GLImp
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-			//Console.Write("W: " + ClientRectangle.Width + " H: " + ClientRectangle.Height + "\n");
 			
 			GL.Viewport(this.ClientRectangle);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
 			GL.Ortho(0, ClientRectangle.Width, ClientRectangle.Height, 0, -1, 0);
 
-            //GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
-			/*
-            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((double)Math.PI / 4, Width / (double)Height, 0.1f, 1000000.0f);
-            GL.MatrixMode(MatrixMode.Projection);
-			//GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(ref projection);
-			*/
 			if(OnWindowResize != null) {
 				OnWindowResize();
 			}

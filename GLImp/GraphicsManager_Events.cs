@@ -33,7 +33,7 @@ namespace GLImp {
 		public delegate void Renderer();
 		public static event Renderer Render;
 
-		private static Vector3 CameraUp = Vector3.UnitZ;
+		public static Vector3 CameraUp = Vector3.UnitZ;
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
