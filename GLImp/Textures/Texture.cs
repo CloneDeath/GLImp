@@ -37,17 +37,21 @@ namespace GLImp
 			Height = Image.Height;
 		}
 
+		public Texture(string location, bool LinearFilter) {
+			init(location, 0, 0, LinearFilter);
+		}
+
 		public Texture(string location) {
-			init(location, 0, 0);
+			init(location, 0, 0, true);
 		}
 
 		public Texture(string location, int x_offset, int y_offset) {
-			init(location, x_offset, y_offset);
+			init(location, x_offset, y_offset, true);
 		}
 
-		private void init(string loc, int x, int y) {
+		private void init(string loc, int x, int y, bool LinearFilter) {
 			Location = loc;
-			ID = TextureManager.CreateTextureFromFile(loc);
+			ID = TextureManager.CreateTextureFromFile(loc, LinearFilter);
 			Name = StripName(loc);
 			AllTextures.Add(this);
 

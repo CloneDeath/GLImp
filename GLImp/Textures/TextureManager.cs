@@ -57,7 +57,7 @@ namespace GLImp {
 		/// Create an OpenGL texture (translucent or opaque) from a given Bitmap.
 		/// 24- and 32-bit bitmaps supported.
 		/// </summary>
-		public static int CreateTextureFromBitmap(Bitmap bitmap) {
+		public static int CreateTextureFromBitmap(Bitmap bitmap, bool LinearFilter = true) {
 			Img.BitmapData data = bitmap.LockBits(
 			  new Rectangle(0, 0, bitmap.Width, bitmap.Height),
 			  Img.ImageLockMode.ReadOnly,
@@ -68,7 +68,7 @@ namespace GLImp {
 
 			GL.BindTexture(TextureTarget.Texture2D, tex);
 
-			if (GraphicsManager.EnableMipmap) {
+			if (LinearFilter) {
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear); //Smooth
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear);
 			} else {
@@ -88,9 +88,9 @@ namespace GLImp {
 		/// Create an OpenGL texture (translucent or opaque) by loading a bitmap
 		/// from file. 24- and 32-bit bitmaps supported.
 		/// </summary>
-		public static int CreateTextureFromFile(string path) {
+		public static int CreateTextureFromFile(string path, bool LinearFilter) {
 			try {
-				return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)));
+				return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)), LinearFilter);
 			} catch(Exception e) {
 				MessageBox.Show("Missing Texture: [" + e.Message + "]");
 				return Texture.Error;
