@@ -40,10 +40,9 @@ namespace GLImp {
 		public static void InitTexturing() {
 			GL.Disable(EnableCap.CullFace);
 			GL.Enable(EnableCap.Texture2D);
-			GL.Disable(EnableCap.Blend);
-			//GL.Disable(EnableCap.Multisample);
+			GL.Enable(EnableCap.Blend);
+			GL.Disable(EnableCap.Multisample);
 			GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Modulate);
-			//GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
 		}
 

@@ -98,9 +98,9 @@ namespace GLImp {
 			GL.PushMatrix();//
 			GL.LoadMatrix(ref ortho_projection);
 
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.DstAlpha);
-			GL.Enable(EnableCap.Texture2D);
+			//GL.Enable(EnableCap.Blend);
+			//GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.DstAlpha);
+			//GL.Enable(EnableCap.Texture2D);
 			GL.BindTexture(TextureTarget.Texture2D, _textureId);
 
 
@@ -112,7 +112,7 @@ namespace GLImp {
 			GL.End();
 			GL.PopMatrix();
 
-			GL.Disable(EnableCap.Blend);
+			//GL.Disable(EnableCap.Blend);
 			GL.Disable(EnableCap.Texture2D);
 
 			GL.MatrixMode(MatrixMode.Modelview);

@@ -41,9 +41,8 @@ namespace GLImp
 			CameraLook = Vector3d.UnitY;
         }
 
-		private static Shader Billboard;
-
 		public static bool UseExperimentalFullAlpha = false;
+		public static bool DisableDepthTest = false;
 		public static bool EnableMipmap = true;
 
 		#region ON GAME RUN METHODS
@@ -55,9 +54,13 @@ namespace GLImp
 			base.OnLoad(e);
 			TextureManager.InitTexturing();
 			InputManager.Init();
-			GL.Enable(EnableCap.DepthTest);
+			if (DisableDepthTest) {
+				GL.Disable(EnableCap.DepthTest);
+			} else {
+				GL.Enable(EnableCap.DepthTest);
+			}
 			if (UseExperimentalFullAlpha) {
-				GL.AlphaFunc(AlphaFunction.Always, 0f);
+				//GL.AlphaFunc(AlphaFunction.Always, 0f);
 			} else {
 				GL.AlphaFunc(AlphaFunction.Greater, 0.5f);
 			}

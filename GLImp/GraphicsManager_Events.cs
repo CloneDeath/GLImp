@@ -48,7 +48,9 @@ namespace GLImp {
 			GL.MatrixMode(MatrixMode.Modelview);
 			Matrix4 modelview = Matrix4.LookAt((Vector3)CameraPos, (Vector3)CameraLook, CameraUp);
 			GL.LoadMatrix(ref modelview);
-			
+
+			GL.BlendEquation(BlendEquationMode.FuncAdd);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
 			if(Render != null) {
 				Render();
@@ -73,7 +75,7 @@ namespace GLImp {
 
 		public static void BeginOrtho(double width, double height) {
 			GL.Disable(EnableCap.DepthTest);
-			GL.Enable(EnableCap.Blend);
+			//GL.Enable(EnableCap.Blend);
 			GL.BlendEquation(BlendEquationMode.FuncAdd);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Clear(ClearBufferMask.DepthBufferBit);
@@ -87,8 +89,9 @@ namespace GLImp {
 		}
 
 		public static void EndOrtho() {
-			GL.Enable(EnableCap.DepthTest);
-			GL.Disable(EnableCap.Blend);
+			if (!DisableDepthTest) {
+				GL.Enable(EnableCap.DepthTest);
+			}
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.PopMatrix();
 			GL.MatrixMode(MatrixMode.Modelview);
