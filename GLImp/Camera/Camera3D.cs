@@ -82,6 +82,16 @@ namespace GLImp
 			CameraLook = lookat;
 		}
 
+		public void LookAt(double X, double Y, double Z)
+		{
+			CameraLook = new Vector3d(X, Y, Z);
+		}
+
+		public Vector3d GetLookingAt()
+		{
+			return CameraLook;
+		}
+
 		public void RotateCamera(double yaw, double pitch)
 		{
 			yaw = (double)(yaw * Math.PI / 180);
