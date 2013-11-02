@@ -35,15 +35,12 @@ namespace GLImp {
 		#region Drawing
 		
 		internal override void Draw() {
-			int drawwidth = FillWindow ? GraphicsManager.WindowWidth : ViewportArea.Width;
-			int drawheight = FillWindow ? GraphicsManager.WindowHeight : ViewportArea.Height;
-
 			GraphicsManager.PushMatrix();
-			BeginOrtho(drawwidth, drawheight);
+			BeginOrtho(Viewport.Width, Viewport.Height);
 
 			GL.Scale(Zoom, Zoom, 1);
 			if (Centered) {
-				GL.Translate((drawwidth / 2) / Zoom, (drawheight / 2) / Zoom, 0);
+				GL.Translate((Viewport.Width / 2) / Zoom, (Viewport.Height / 2) / Zoom, 0);
 			}
 			GL.Translate(-Position.X, -Position.Y, 0);
 
@@ -89,21 +86,13 @@ namespace GLImp {
 
 		public double Width {
 			get {
-				if (FillWindow) {
-					return GraphicsManager.WindowWidth / Zoom;
-				} else {
-					return ViewportArea.Width / Zoom;
-				}
+				return Viewport.Width / Zoom;
 			}
 		}
 
 		public double Height {
 			get {
-				if (FillWindow) {
-					return GraphicsManager.WindowHeight / Zoom;
-				} else {
-					return ViewportArea.Width / Zoom;
-				}
+				return Viewport.Width / Zoom;
 			}
 		}
 

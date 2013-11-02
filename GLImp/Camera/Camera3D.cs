@@ -60,13 +60,10 @@ namespace GLImp
 
 		internal override void Draw()
 		{
-			int drawwidth = FillWindow ? GraphicsManager.WindowWidth : ViewportArea.Width;
-			int drawheight = FillWindow ? GraphicsManager.WindowHeight : ViewportArea.Height;
-
 			Begin3D();
 
 			Matrix4 projectoionview = Matrix4.CreatePerspectiveFieldOfView((float)((Math.PI / 180) * FieldOfView),
-				((float)drawwidth) / ((float)drawheight), NearPlane, FarPlane);
+				((float)Viewport.Width) / ((float)Viewport.Height), NearPlane, FarPlane);
 			GL.LoadMatrix(ref projectoionview);
 
 			GL.MatrixMode(MatrixMode.Modelview);

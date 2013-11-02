@@ -11,8 +11,8 @@ namespace GLImp
 		public int Layer;
 		public Action OnRender;
 
-		internal bool FillWindow = true;
-		internal Rectangle ViewportArea = new Rectangle(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight);
+		private bool FillWindow = true;
+		private Rectangle ViewportArea = new Rectangle(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight);
 
 		internal abstract void Draw();
 
@@ -38,16 +38,23 @@ namespace GLImp
 		}
 
 		/// <summary>
-		/// Enables viewport if it is not already.
+		/// Returns the current viewport area. Setting this will enable viewports.
 		/// </summary>
-		/// <param name="x">Pixels from the left of the draw area.</param>
-		/// <param name="y">Pixels from the top of the draw area.</param>
-		/// <param name="width">Width of the camera in pixels.</param>
-		/// <param name="height">Height of the camera in pixels.</param>
-		public void SetViewport(int x, int y, int width, int height)
+		public Rectangle Viewport
 		{
-			FillWindow = false;
-			ViewportArea = new Rectangle(x, y, width, height);
+			get
+			{
+				if (FillWindow) {
+					return new Rectangle(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight);
+				} else {
+					return ViewportArea;
+				}
+			}
+			set
+			{
+				FillWindow = false;
+				ViewportArea = value;
+			}
 		}
 
 		/// <summary>
