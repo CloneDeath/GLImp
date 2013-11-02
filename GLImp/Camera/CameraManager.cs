@@ -76,7 +76,10 @@ namespace GLImp
 				if (camera.FillWindow) {
 					GL.Viewport(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight);
 				} else {
-					GL.Viewport(camera.ViewportArea.X, GraphicsManager.WindowHeight - camera.ViewportArea.Y, camera.ViewportArea.Width, camera.ViewportArea.Height);
+					GL.Viewport(camera.ViewportArea.X, 
+						GraphicsManager.WindowHeight - (camera.ViewportArea.Y + camera.ViewportArea.Height) , 
+						camera.ViewportArea.Width, 
+						camera.ViewportArea.Height);
 				}
 				GL.Clear(ClearBufferMask.DepthBufferBit);
 				camera.Draw();

@@ -21,6 +21,12 @@ namespace GLImpUnitTest.Tests {
 			red.SetLocation(0, 0);
 			red.Layer = 1;
 			red.EnableViewport(500, 500, 100, 100);
+
+			Camera2D blue = new Camera2D();
+			blue.OnRender += RenderBlue;
+			blue.SetLocation(0, 0);
+			blue.Layer = 2;
+			blue.EnableViewport(500, 10, 100, 100);
 		}
 
 		void RenderBack()
@@ -31,6 +37,11 @@ namespace GLImpUnitTest.Tests {
 		void RenderRed()
 		{
 			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Red);
+		}
+
+		void RenderBlue()
+		{
+			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Blue);
 		}
 	}
 }
