@@ -25,9 +25,8 @@ namespace GLImpUnitTest.Tests {
 		}
 
 		public override void Render3D() {
-			Vector3d camera = new Vector3d(Pos, Dist - 2, 0);
-			GraphicsManager.SetCamera(camera);
-			GraphicsManager.SetLookAt(new Vector3d(Look, Dist, Pitch));
+			Program.Camera3D.Position = new Vector3d(Pos, Dist - 2, 0);
+			Program.Camera3D.LookAt(new Vector3d(Look, Dist, Pitch));
 
 			GraphicsManager.PushMatrix();
 			{

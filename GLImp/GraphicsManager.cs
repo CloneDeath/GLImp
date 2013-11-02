@@ -37,8 +37,6 @@ namespace GLImp
             : base(x, y, new OpenTK.Graphics.GraphicsMode(32,24,8,4), "GLImp Game Window")
         {
             VSync = VSyncMode.On;
-			CameraPos = Vector3d.Zero;
-			CameraLook = Vector3d.UnitY;
         }
 
 		public static bool UseExperimentalFullAlpha = false;
@@ -98,29 +96,10 @@ namespace GLImp
 		#endregion
 
 		#region CAMERA
-		private static Vector3d CameraPos;
-		private static Vector3d CameraLook;
 		/*****************************************************************
 		 *								CAMERA
 		 *****************************************************************/
-		public static void SetCamera(Vector3d point)
-		{
-			CameraPos = point;
-		}
-
-		public static void SetLookAt(Vector3d point)
-		{
-			CameraLook = point;
-		}
-
-		public static void RotateCamera(double yaw, double pitch)
-		{
-			yaw = (double)(yaw * Math.PI / 180);
-			pitch = (double)(pitch * Math.PI / 180);
-			CameraLook = new Vector3d(	((Math.Cos(yaw) * Math.Cos(pitch)) + CameraPos.X),
-										((Math.Sin(yaw) * Math.Cos(pitch)) + CameraPos.Y),
-										(Math.Sin(pitch) + CameraPos.Z));
-		}
+		
 		#endregion camera
 
 		#region set things

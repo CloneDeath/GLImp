@@ -44,7 +44,7 @@ namespace GLImpUnitTest.Tests {
 									new Vector3d(0, 1, 1),
 									new Vector3d(0, 0, 1), Color.Orange);
 
-			GraphicsManager.SetCamera(new Vector3d(0.5, 0.5, 0.5));
+			Program.Camera3D.Position = new Vector3d(0.5, 0.5, 0.5);
 
 			if (KeyboardManager.IsDown(Key.Up)) {
 				pitch += 10;
@@ -58,7 +58,7 @@ namespace GLImpUnitTest.Tests {
 			if (KeyboardManager.IsDown(Key.Right)) {
 				yaw -= 10;
 			}
-			GraphicsManager.RotateCamera(yaw, pitch);
+			Program.Camera3D.RotateCamera(yaw, pitch);
 			//GraphicsManager.SetLookAt(new Vector3d(0, 0, 0));
 		}
 	}

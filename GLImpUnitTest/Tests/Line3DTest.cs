@@ -20,8 +20,8 @@ namespace GLImpUnitTest.Tests {
 			GraphicsManager.DrawLine(new Vector3d(0, 0, 1),
 									new Vector3d(1, 0, 0), Color.Red);
 			
-			GraphicsManager.SetCamera(new Vector3d(0.5, 1, 0.5));
-			GraphicsManager.SetLookAt(new Vector3d(0.5, 0, 0.5));
+			Program.Camera3D.Position = new Vector3d(0.5, 1, 0.5);
+			Program.Camera3D.LookAt(new Vector3d(0.5, 0, 0.5));
 		}
 	}
 }

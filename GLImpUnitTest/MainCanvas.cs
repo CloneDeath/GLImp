@@ -34,9 +34,9 @@ namespace GLImpUnitTest
 			GraphicsManager.mouse.Move += Mouse_Move;
 			GraphicsManager.mouse.WheelChanged += Mouse_Wheel;
 
-			Camera.OnRender += new GraphicsManager.Renderer(OnRenderFrame);
+			Camera.OnRender += OnRenderFrame;
 			Camera.Layer = 10;
-			GraphicsManager.Update += new GraphicsManager.Updater(OnUpdateFrame);
+			GraphicsManager.Update += OnUpdateFrame;
             GraphicsManager.OnWindowResize += new GraphicsManager.Resizer(OnWindowResize);
 
 			GraphicsManager.OnDispose += new GraphicsManager.Disposer(Dispose);

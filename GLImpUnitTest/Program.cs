@@ -13,7 +13,8 @@ namespace GLImpUnitTest
 	/// Demonstrates the GameWindow class.
 	/// </summary>
 	public class Program {
-		static Camera2D Camera = new Camera2D();
+		static Camera2D Camera2D = new Camera2D();
+		public static Camera3D Camera3D = new Camera3D();
 
 		/// <summary>
 		/// Entry point of this example.
@@ -24,9 +25,11 @@ namespace GLImpUnitTest
 			GraphicsManager.SetResolution(800, 600);
 			GraphicsManager.SetBackground(Color.Black);
 			Initialize();
-			Camera.OnRender += new GraphicsManager.Renderer(Render2D);
-			GraphicsManager.Render += new GraphicsManager.Renderer(Render3D);
-			GraphicsManager.Update += new GraphicsManager.Updater(Update);
+			Camera2D.OnRender += Render2D;
+			Camera3D.OnRender += Render3D;
+			Camera3D.Layer = 100;
+			Camera2D.Layer = 1;
+			GraphicsManager.Update += Update;
 			GraphicsManager.SetTitle("GLImp Unit Tests");
 			GraphicsManager.OpenWindow();
 			MainCanvas.Dispose();
@@ -37,8 +40,8 @@ namespace GLImpUnitTest
         public static TestingDisplay Setup;
 
 		static void Initialize() {
-            Camera.SetLocation(0, 200);
-			Camera.CenterOnTarget(true);
+            Camera2D.SetLocation(0, 200);
+			Camera2D.CenterOnTarget(true);
             Setup = new TestingDisplay();
 		}
 

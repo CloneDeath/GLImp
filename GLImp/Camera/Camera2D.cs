@@ -8,60 +8,11 @@ using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
 
 namespace GLImp {
-	public class Camera2D {
-		#region Static Members and Functions
-		internal static List<Camera2D> Cameras = new List<Camera2D>();
-		internal static void SortCameras(){
-			//Make sure we have at least one camera to sort first.
-			if (Cameras.Count == 0) {
-				return;
-			}
-
-			//Shortcut check, if all cameras are in order, return.
-			//todo nicholas instead of checking every time, set/unset a flag everytime cameras is changed, and just check that flag.
-			//note: also need to set the flag if "Layer" ever changes for any member.
-
-			int LayerAt = Cameras[0].Layer;
-			bool InOrder = true;
-			for (int i = 0; i < Cameras.Count; i++) {
-				if (Cameras[i].Layer >= LayerAt) {
-					LayerAt = Cameras[i].Layer;
-				} else {
-					InOrder = false;
-					break;
-				}
-			}
-
-			if (InOrder) {
-				return;
-			}
-			
-			//Not in order, time to do an insertion sort.
-			List<Camera2D> newlist = new List<Camera2D>();
-			foreach (Camera2D camera in Cameras) {
-				for (int i = 0; i < newlist.Count; i++) {
-					if (newlist[i].Layer > camera.Layer) {
-						newlist.Insert(i, camera);
-						break;
-					}
-				}
-
-				//Didn't get added, append to end
-				if (!newlist.Contains(camera)) {
-					newlist.Add(camera);
-				}
-			}
-			Cameras = newlist;
-		}
-		#endregion
-
-		#region Members
+	public class Camera2D : Camera {
 		private Vector2d Position;
 		private double Zoom;
 		private bool Centered = false;
 		//private double Rotation; //TODO nicholas implement this when we need it
-		public int Layer;
-		#endregion
 
 		#region Constructors
 		public Camera2D() 
@@ -77,18 +28,22 @@ namespace GLImp {
 			this.Zoom = Zoom;
 			Layer = 0;
 
-			Cameras.Add(this);
+			CameraManager.Add(this);
 		}
 		#endregion
 
 		#region Drawing
-		public event GLImp.GraphicsManager.Renderer OnRender;
-		internal void Draw() {
+		
+		internal override void Draw() {
+			int drawwidth = FillWindow ? GraphicsManager.WindowWidth : ViewportArea.Width;
+			int drawheight = FillWindow ? GraphicsManager.WindowHeight : ViewportArea.Height;
+
 			GraphicsManager.PushMatrix();
+			BeginOrtho(drawwidth, drawheight);
 
 			GL.Scale(Zoom, Zoom, 1);
 			if (Centered) {
-				GL.Translate((GraphicsManager.WindowWidth / 2) / Zoom, (GraphicsManager.WindowHeight / 2) / Zoom, 0);
+				GL.Translate((drawwidth / 2) / Zoom, (drawheight / 2) / Zoom, 0);
 			}
 			GL.Translate(-Position.X, -Position.Y, 0);
 
@@ -97,6 +52,19 @@ namespace GLImp {
 			}
 
 			GraphicsManager.PopMatrix();
+		}
+
+		private static void BeginOrtho(double width, double height)
+		{
+			GL.Disable(EnableCap.DepthTest);
+			GL.BlendEquation(BlendEquationMode.FuncAdd);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Clear(ClearBufferMask.DepthBufferBit);
+			GL.MatrixMode(MatrixMode.Projection);
+			GL.LoadIdentity();
+			GL.Ortho(0, width, height, 0, -1, 0);
+			GL.MatrixMode(MatrixMode.Modelview);
+			GL.LoadIdentity();
 		}
 		#endregion
 
@@ -121,13 +89,21 @@ namespace GLImp {
 
 		public double Width {
 			get {
-				return GraphicsManager.WindowWidth / Zoom;
+				if (FillWindow) {
+					return GraphicsManager.WindowWidth / Zoom;
+				} else {
+					return ViewportArea.Width / Zoom;
+				}
 			}
 		}
 
 		public double Height {
 			get {
-				return GraphicsManager.WindowHeight / Zoom;
+				if (FillWindow) {
+					return GraphicsManager.WindowHeight / Zoom;
+				} else {
+					return ViewportArea.Width / Zoom;
+				}
 			}
 		}
 
@@ -178,24 +154,6 @@ namespace GLImp {
 
 		public double GetZoom() {
 			return Zoom;
-		}
-
-		/// <summary>
-		/// Disables this camera from being drawn.
-		/// </summary>
-		public void Disable() {
-			if (Cameras.Contains(this)) {
-				Cameras.Remove(this);
-			}
-		}
-
-		/// <summary>
-		/// Re-Enables a disabled camera. All created cameras are enabled by default.
-		/// </summary>
-		public void Enable() {
-			if (!Cameras.Contains(this)) {
-				Cameras.Add(this);
-			}
 		}
 	}
 }
