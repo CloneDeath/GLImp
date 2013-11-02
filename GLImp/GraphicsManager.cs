@@ -41,7 +41,6 @@ namespace GLImp
 
 		public static bool UseExperimentalFullAlpha = false;
 		public static bool DisableDepthTest = false;
-		public static bool EnableMipmap = true;
 
 		#region ON GAME RUN METHODS
 		/*****************************************************************
