@@ -37,12 +37,14 @@ namespace GLImp
 			Height = Image.Height;
 		}
 
-		public Texture(string location, bool LinearFilter) {
-			init(location, 0, 0, LinearFilter);
+		public Texture(string location)
+		{
+			init(location, 0, 0, true);
 		}
 
-		public Texture(string location) {
-			init(location, 0, 0, true);
+		public Texture(string location, bool LinearFilter) 
+		{
+			init(location, 0, 0, LinearFilter);
 		}
 
 		public Texture(string location, int x_offset, int y_offset) {
@@ -62,10 +64,10 @@ namespace GLImp
 			YOffset = y;
 		}
 
-		public Texture(Bitmap img, string Name, int offsetX = 0, int offsetY = 0) {
+		public Texture(Bitmap img, string Name, int offsetX = 0, int offsetY = 0, bool LinearFilter = true) {
 			this._img = img;
 			Location = "";
-			ID = TextureManager.CreateTextureFromBitmap(img);
+			ID = TextureManager.CreateTextureFromBitmap(img, LinearFilter);
 			this.Name = Name;
             Width = img.Width;
             Height = img.Height;
