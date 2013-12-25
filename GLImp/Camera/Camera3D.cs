@@ -16,6 +16,23 @@ namespace GLImp
 		public double FieldOfView = 90.0;
 		public double NearPlane = 0.1;
 		public double FarPlane = 1000;
+		private Matrix4d projection = new Matrix4d();
+		public Matrix4d ProjectionMatrix
+		{
+			get
+			{
+				if (UseDefaultProjectionMatrix) {
+					this.UseDefaultProjection();
+				}
+				return projection;
+			}
+			set
+			{
+				UseDefaultProjectionMatrix = false;
+				projection = value;
+			}
+		}
+		private bool UseDefaultProjectionMatrix = true;
 
 		public Camera3D()
 		{
@@ -59,11 +76,17 @@ namespace GLImp
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 		}
 
+		public void UseDefaultProjection(){
+			UseDefaultProjectionMatrix = true;
+			ProjectionMatrix = Matrix4d.CreatePerspectiveFieldOfView((Math.PI / 180) * FieldOfView,
+					((double)Viewport.Width) / ((double)Viewport.Height), NearPlane, FarPlane);
+		}
+
 		internal override void Draw()
 		{
 			Begin3D();
 
-			Matrix4d projectoionview = Projection;
+			Matrix4d projectoionview = ProjectionMatrix;
 			GL.LoadMatrix(ref projectoionview);
 
 			GL.MatrixMode(MatrixMode.Modelview);
@@ -108,15 +131,6 @@ namespace GLImp
 			}
 		}
 
-		public Matrix4d Projection
-		{
-			get
-			{
-				return Matrix4d.CreatePerspectiveFieldOfView((Math.PI / 180) * FieldOfView,
-					((double)Viewport.Width) / ((double)Viewport.Height), NearPlane, FarPlane);
-			}
-		}
-
 		public Matrix4d ModelView
 		{
 			get
@@ -132,7 +146,7 @@ namespace GLImp
 		/// <returns>Returns a world coordinate of the 3D point</returns>
 		public Vector3d ScreenPointToPosition(Vector2d ScreenPoint)
 		{
-			return UnProject(Projection, ModelView, Viewport.Size, ScreenPoint).Xyz;
+			return UnProject(ProjectionMatrix, ModelView, Viewport.Size, ScreenPoint).Xyz;
 		}
 
 		/// <summary>
