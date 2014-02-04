@@ -7,7 +7,7 @@ using OpenTK.Input;
 
 namespace GLImp {
 	public class MouseManager {
-		private static Vector2d MousePosition;
+		private static Vector2d MousePos;
 		private static Vector2d PrevMousePosition;
 
 		private static Dictionary<MouseButton, bool> prevmouseButtons = new Dictionary<MouseButton, bool>();
@@ -30,7 +30,7 @@ namespace GLImp {
 
 			WheelPosition = 0;
 
-			PrevMousePosition = MousePosition;
+			PrevMousePosition = MousePos;
 		}
 
 		internal static void MouseDown(object sender, MouseButtonEventArgs mouse) {
@@ -50,7 +50,7 @@ namespace GLImp {
 		}
 
 		internal static void MouseMove(object sender, MouseMoveEventArgs mouse) {
-			MousePosition = new Vector2d(mouse.X, mouse.Y);
+			MousePos = new Vector2d(mouse.X, mouse.Y);
 		}
 
 		internal static void MouseWheel(object Sender, MouseWheelEventArgs mouse) {
@@ -115,7 +115,6 @@ namespace GLImp {
 			loc.X -= GraphicsManager.Instance.Location.X;
 			loc.Y -= GraphicsManager.Instance.Location.Y;
 			return new Vector2d(loc.X, loc.Y);
-			//return MousePosition;
 		}
 
 		public static Vector2d GetPreviousMousePosition() {
@@ -123,8 +122,11 @@ namespace GLImp {
 		}
 
 		//Return the mouse position
-		public static Vector2d GetMousePosition() {
-			return MousePosition;
+		public static Vector2d MousePosition {
+			get
+			{
+				return MousePos;
+			}
 		}
 
 		public static int GetMouseWheel() {

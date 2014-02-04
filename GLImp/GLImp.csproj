@@ -98,12 +98,12 @@
     <Compile Include="GraphicObjects\Cube.cs" />
     <Compile Include="GraphicObjects\GraphicObject.cs" />
     <Compile Include="GraphicObjects\Shape.cs" />
-    <Compile Include="InputManager\InputManager.cs" />
-    <Compile Include="InputManager\JoystickManager.cs" />
-    <Compile Include="InputManager\KeyboardManager.cs">
+    <Compile Include="InputManagers\InputManager.cs" />
+    <Compile Include="InputManagers\JoystickManager.cs" />
+    <Compile Include="InputManagers\KeyboardManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InputManager\MouseManager.cs" />
+    <Compile Include="InputManagers\MouseManager.cs" />
     <Compile Include="Model Importing\Math\Plane.cs" />
     <Compile Include="Model Importing\Math\Point.cs" />
     <Compile Include="Model Importing\Math\Rotation.cs" />
