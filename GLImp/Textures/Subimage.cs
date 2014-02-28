@@ -6,12 +6,12 @@ using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 
 namespace GLImp {
-	public class Subimage : Image {
+	public class SubImage : Image {
 		Texture texture;
 		int Xoffset;
 		int Yoffset;
 
-		public Subimage(Texture tex, int x, int y, int Width, int Height) {
+		public SubImage(Texture tex, int x, int y, int Width, int Height) {
 			this.texture = tex;
 			this.Width = Width;
 			this.Height = Height;

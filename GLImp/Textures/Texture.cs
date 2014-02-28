@@ -90,8 +90,8 @@ namespace GLImp
 			GraphicsManager.DrawRectangle(x - XOffset, y - YOffset, width, height, this);
 		}
 
-		public Subimage Subimage(int x, int y, int width, int height) {
-			return new Subimage(this, x, y, width, height);
+		public SubImage Subimage(int x, int y, int width, int height) {
+			return new SubImage(this, x, y, width, height);
 		}
 
 		public void Free() {

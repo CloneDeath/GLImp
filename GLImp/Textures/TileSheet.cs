@@ -18,8 +18,14 @@ namespace GLImp {
 			this.TileHeight = TileHeight;
 		}
 
-		public Subimage Get(int x, int y) {
+		public SubImage GetSubImage(int x, int y) {
 			return texture.Subimage(TileWidth * x, TileHeight * y, TileWidth, TileHeight);
+		}
+
+		public SubImage this[int x, int y] {
+			get {
+				return this.GetSubImage(x, y);
+			}
 		}
 	}
 }
