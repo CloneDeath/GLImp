@@ -125,7 +125,8 @@ namespace GLImpUnitTest
 		/// </summary>
 		/// <param name="e">Contains timing information.</param>
 		/// <remarks>There is no need to call the base implementation.</remarks>
-		public static void OnUpdateFrame() {
+		public static void OnUpdateFrame(EventArgs e)
+		{
 			if(renderer.TextCacheSize > 1000) // each cached string is an allocated texture, flush the cache once in a while in your real project
 				renderer.FlushTextCache();
 		}
@@ -135,7 +136,8 @@ namespace GLImpUnitTest
 		/// </summary>
 		/// <param name="e">Contains timing information.</param>
 		/// <remarks>There is no need to call the base implementation.</remarks>
-		public static void OnRenderFrame() {
+		public static void OnRenderFrame(EventArgs e)
+		{
 			GL.Disable(EnableCap.AlphaTest);
 			canvas.RenderCanvas();
 			GL.Enable(EnableCap.AlphaTest);

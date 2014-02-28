@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using OpenTK;
 
 namespace GLImp
 {
 	public abstract class Camera
 	{
 		public int Layer;
-		public Action OnRender;
+		public Action<FrameEventArgs> OnRender;
 
 		private bool FillWindow = true;
 		private Rectangle ViewportArea = new Rectangle(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight);
 
-		internal abstract void Draw();
+		internal abstract void Draw(FrameEventArgs e);
 
 		/// <summary>
 		/// Disables viewports. This camera will fill up the window.

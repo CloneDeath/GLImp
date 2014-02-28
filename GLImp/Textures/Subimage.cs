@@ -63,14 +63,14 @@ namespace GLImp {
 			GraphicsManager.SetColor(Color.White);
 			GL.BindTexture(TextureTarget.Texture2D, texture.ID);
 			if (!Flip){
-				GL.Begin(BeginMode.Quads);
+				GL.Begin(PrimitiveType.Quads);
 					GL.TexCoord2(Left,	Top);	GL.Vertex2(X1, Y1);
 					GL.TexCoord2(Right, Top);	GL.Vertex2(X2, Y1);
 					GL.TexCoord2(Right, Bottom);GL.Vertex2(X2, Y2);
 					GL.TexCoord2(Left, Bottom); GL.Vertex2(X1, Y2);
 				GL.End();
 			} else {
-				GL.Begin(BeginMode.Quads);
+				GL.Begin(PrimitiveType.Quads);
 					GL.TexCoord2(Right,	Top);	GL.Vertex2(X1, Y1);
 					GL.TexCoord2(Left, Top);	GL.Vertex2(X2, Y1);
 					GL.TexCoord2(Left, Bottom);GL.Vertex2(X2, Y2);

@@ -21,7 +21,7 @@ namespace GLImp {
 		{
 			GL.Color4(1.0f, 1.0f, 1.0f, 0.5f);
 
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 				GL.Vertex3(x, y, 4.0f);
 				GL.Vertex3(x+width, y, 4.0f);
 				GL.Vertex3(x+width, y+height, 4.0f);
@@ -34,14 +34,14 @@ namespace GLImp {
 
 		
 		public static void DrawLine(Vector3d p1, Vector3d p2, Color color) {
-			GL.Begin(BeginMode.Lines);
+			GL.Begin(PrimitiveType.Lines);
 				GL.Color3(color);
 				GL.Vertex3(p1);
 				GL.Vertex3(p2);
 			GL.End();
 		}
 		public static void DrawLine(Vector3d p1, Vector3d p2) {
-			GL.Begin(BeginMode.Lines);
+			GL.Begin(PrimitiveType.Lines);
 				GL.Vertex3(p1);
 				GL.Vertex3(p2);
 			GL.End();
@@ -59,7 +59,7 @@ namespace GLImp {
 		public static void DrawPolygon(Vector3d p1, Vector3d p2, Vector3d p3)
 		{
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.Polygon);
+			GL.Begin(PrimitiveType.Polygon);
                 GL.Vertex3(p1);
                 GL.Vertex3(p2);
                 GL.Vertex3(p3);
@@ -75,7 +75,7 @@ namespace GLImp {
 		}
 		public static void DrawQuadNoTex(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4) {
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 				GL.Vertex3(p1);
 				GL.Vertex3(p2);
 				GL.Vertex3(p3);
@@ -91,7 +91,7 @@ namespace GLImp {
 			DrawQuad(p1, p2, p3, p4, new Vector2d(1, 1));
 		}
 		public static void DrawQuad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4, Vector2d TextureScale) {
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 			{
 				GL.TexCoord2(0,				 0);			  GL.Vertex3(p1);
 				GL.TexCoord2(TextureScale.X, 0);			  GL.Vertex3(p2);

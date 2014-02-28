@@ -34,7 +34,7 @@ namespace GLImp {
 
 		#region Drawing
 		
-		internal override void Draw() {
+		internal override void Draw(FrameEventArgs e) {
 			GraphicsManager.PushMatrix();
 			BeginOrtho(Viewport.Width, Viewport.Height);
 
@@ -45,7 +45,7 @@ namespace GLImp {
 			GL.Translate(-Position.X, -Position.Y, 0);
 
 			if (OnRender != null) {
-				OnRender();
+				OnRender(e);
 			}
 
 			GraphicsManager.PopMatrix();

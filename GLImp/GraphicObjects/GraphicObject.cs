@@ -193,7 +193,7 @@ namespace GLImp.GraphicObjects {
 
 				// Draw the elements in the element array buffer
 				// Draws up items in the Color, Vertex, TexCoordinate, and Normal Buffers using indices in the ElementArrayBuffer
-				GL.DrawElements(BeginMode.Triangles, NumElements, DrawElementsType.UnsignedInt, IntPtr.Zero);
+				GL.DrawElements(PrimitiveType.Triangles, NumElements, DrawElementsType.UnsignedInt, IntPtr.Zero);
 
 				// Could also call GL.DrawArrays which would ignore the ElementArrayBuffer and just use primitives
 				// Of course we would have to reorder our data to be in the correct primitive order

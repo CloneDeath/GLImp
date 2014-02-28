@@ -29,17 +29,17 @@ namespace GLImpUnitTest.Tests {
 			blue.EnableViewport(500, 10, 100, 100);
 		}
 
-		void RenderBack()
+		void RenderBack(EventArgs e)
 		{
 			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Green);
 		}
 
-		void RenderRed()
+		void RenderRed(EventArgs e)
 		{
 			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Red);
 		}
 
-		void RenderBlue()
+		void RenderBlue(EventArgs e)
 		{
 			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Blue);
 		}

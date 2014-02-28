@@ -45,15 +45,17 @@ namespace GLImpUnitTest
             Setup = new TestingDisplay();
 		}
 
-		static void Update() {
+		static void Update(EventArgs e)
+		{
 			Setup.Update();
 		}
 
-		static void Render2D() {
+		static void Render2D(EventArgs e) {
             Setup.Render2D();
 		}
 
-		static void Render3D() {
+		static void Render3D(EventArgs e)
+		{
 			Setup.Render3D();
 		}
 	}

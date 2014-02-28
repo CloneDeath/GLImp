@@ -94,12 +94,6 @@ namespace GLImp
 		}
 		#endregion
 
-		#region CAMERA
-		/*****************************************************************
-		 *								CAMERA
-		 *****************************************************************/
-		
-		#endregion camera
 
 		#region set things
 		/*****************************************************************
@@ -222,10 +216,6 @@ namespace GLImp
 				return game;
 			}
 		}
-
-		
-
-		
 
 		public static void PushMatrix() {
 			GL.PushMatrix();

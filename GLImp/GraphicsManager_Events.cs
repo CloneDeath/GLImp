@@ -15,31 +15,28 @@ using OpenTK.Input;
 
 namespace GLImp {
 	partial class GraphicsManager {
-		#region Update
-		public static event Action Update;
+		public static event Action<FrameEventArgs> Update;
+
 		protected override void OnUpdateFrame(FrameEventArgs e) {
 			base.OnUpdateFrame(e);
 
 			if (Update != null) {
-				Update();
+				Update(e);
 			}
 
 			InputManager.Update();
 		}
-		#endregion
 
-		#region Draw
 		protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-			CameraManager.Draw();
+			CameraManager.Draw(e);
 			
 			GL.Flush();
 			SwapBuffer();
         }
-		#endregion
 	}
 }

@@ -82,7 +82,7 @@ namespace GLImp
 					((double)Viewport.Width) / ((double)Viewport.Height), NearPlane, FarPlane);
 		}
 
-		internal override void Draw()
+		internal override void Draw(FrameEventArgs e)
 		{
 			Begin3D();
 
@@ -94,7 +94,7 @@ namespace GLImp
 			GL.LoadMatrix(ref modelview);
 
 			if (OnRender != null) {
-				OnRender();
+				OnRender(e);
 			}
 		}
 

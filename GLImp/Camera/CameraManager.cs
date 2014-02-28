@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK.Graphics.OpenGL;
+using OpenTK;
 
 namespace GLImp
 {
@@ -68,14 +69,14 @@ namespace GLImp
 			Cameras = newlist;
 		}
 
-		internal static void Draw()
+		internal static void Draw(FrameEventArgs e)
 		{
 			SortCameras();
 
 			foreach (Camera camera in Cameras) {
 				GL.Viewport(camera.Viewport.X, GraphicsManager.WindowHeight - (camera.Viewport.Y + camera.Viewport.Height), camera.Viewport.Width, camera.Viewport.Height);
 				GL.Clear(ClearBufferMask.DepthBufferBit);
-				camera.Draw();
+				camera.Draw(e);
 			}
 		}
 	}

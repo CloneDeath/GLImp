@@ -39,7 +39,7 @@ namespace GLImp
 			double bottom = (cy + 1) * (1.0f / ySize);
 			double right = (cx + 1) * (1.0f / xSize);
 			double left = (cx) * (1.0f / xSize);
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 				GL.TexCoord2(new Vector2d(top, left)); GL.Vertex2(new Vector2d(0.0f, 0.0f));
 				GL.TexCoord2(new Vector2d(bottom, left)); GL.Vertex2(new Vector2d(0.0f, 1.0f));
 				GL.TexCoord2(new Vector2d(bottom, right)); GL.Vertex2(new Vector2d(1.0f, 1.0f));

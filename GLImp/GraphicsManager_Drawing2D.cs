@@ -20,7 +20,7 @@ namespace GLImp {
 		/// <param name="pts">The vectors to connect</param>
 		public static void DrawPolygon(IEnumerable<Vector2d> pts) {
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.TriangleStrip);
+			GL.Begin(PrimitiveType.TriangleStrip);
 			foreach (Vector2d v in pts) {
 				GL.Vertex2(v);
 			}
@@ -30,7 +30,7 @@ namespace GLImp {
 
 		public static void DrawLines(IEnumerable<Vector2d> pts) {
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.Lines);
+			GL.Begin(PrimitiveType.Lines);
 			foreach (Vector2d v in pts) {
 				GL.Vertex2(v);
 			}
@@ -70,7 +70,7 @@ namespace GLImp {
 			double bottom = (cy + 1) * (1.0f / ySize);
 			double right = (cx + 1) * (1.0f / xSize);
 			double left = (cx) * (1.0f / xSize);
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 				GL.TexCoord2(top, left); GL.Vertex2(0.0f, 0.0f);
 				GL.TexCoord2(top, right); GL.Vertex2(0.0f, 1.0f);
 				GL.TexCoord2(bottom, right); GL.Vertex2(1.0f, 1.0f);
@@ -81,7 +81,7 @@ namespace GLImp {
 		//Draw Line
 		public static void DrawLine(Vector2d p1, Vector2d p2, Color color) {
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.Lines);
+			GL.Begin(PrimitiveType.Lines);
 			GL.Color3(color);
 				GL.Vertex2(p1);
 				GL.Vertex2(p2);
@@ -91,7 +91,7 @@ namespace GLImp {
 
 		public static void DrawTriangle(Vector2d p1, Vector2d p2, Vector2d p3, Color color) {
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.Triangles);
+			GL.Begin(PrimitiveType.Triangles);
 			GL.Color3(color);
 				GL.Vertex2(p1);
 				GL.Vertex2(p2);
@@ -107,7 +107,7 @@ namespace GLImp {
 		public static void DrawRectangle(Vector2d p1, Vector2d p2, Color color) {
 			SetColor(color);
 			GL.Disable(EnableCap.Texture2D);
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 				GL.Vertex2(p1);
 				GL.Vertex2(p2.X, p1.Y);
 				GL.Vertex2(p2);
@@ -116,7 +116,7 @@ namespace GLImp {
 			GL.Enable(EnableCap.Texture2D);
 		}
 		public static void DrawRectangle(Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4, Vector2d p5, Vector2d p6, Vector2d p7, Vector2d p8) {
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 				GL.TexCoord2(p5); GL.Vertex2(p1);
 				GL.TexCoord2(p6); GL.Vertex2(p2);
 				GL.TexCoord2(p7); GL.Vertex2(p3);
@@ -129,7 +129,7 @@ namespace GLImp {
 		public static void DrawRectangle(Vector2d p1, Vector2d p2, Texture Texture) {
 			SetColor(Color.White);
 			GL.BindTexture(TextureTarget.Texture2D, Texture.ID);
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(0, 0); GL.Vertex2(p1.X, p1.Y);
 			GL.TexCoord2(1, 0); GL.Vertex2(p2.X, p1.Y);
 			GL.TexCoord2(1, 1); GL.Vertex2(p2.X, p2.Y);

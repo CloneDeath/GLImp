@@ -47,7 +47,7 @@ namespace GLImp
 						}
 					}
 					
-					GL.Begin(BeginMode.Triangles);
+					GL.Begin(PrimitiveType.Triangles);
 					{
 						//double ambient = 0.2f;
 						//double light = a1.normal.X / 1.73f - a1.normal.Y / 1.73f + a1.normal.Z / 1.73f;

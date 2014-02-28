@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace GLImp.Textures
 {
@@ -34,7 +34,7 @@ namespace GLImp.Textures
 			GL.PushMatrix();
 			double width = ComputeWidth(text);
 			GL.Translate(-width / 2.0, -0.5, 0);
-			GL.Begin(BeginMode.Quads);
+			GL.Begin(PrimitiveType.Quads);
 			double xpos = 0;
 			foreach (var ch in text) {
 				WriteCharacter(ch, xpos);
