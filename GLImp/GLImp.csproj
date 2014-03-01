@@ -122,7 +122,7 @@
     <Compile Include="Shader.cs" />
     <Compile Include="Textures\Image.cs" />
     <Compile Include="Textures\Sprite.cs" />
-    <Compile Include="Textures\Subimage.cs" />
+    <Compile Include="Textures\SubImage.cs" />
     <Compile Include="Textures\TextureFont.cs" />
     <Compile Include="Textures\TileSheet.cs" />
     <Compile Include="Text\TextWriter.cs" />
