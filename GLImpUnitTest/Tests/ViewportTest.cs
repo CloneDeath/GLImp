@@ -31,17 +31,17 @@ namespace GLImpUnitTest.Tests {
 
 		void RenderBack(EventArgs e)
 		{
-			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Green);
+			//GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Green);
 		}
 
 		void RenderRed(EventArgs e)
 		{
-			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Red);
+			//GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Red);
 		}
 
 		void RenderBlue(EventArgs e)
 		{
-			GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Blue);
+			//GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Blue);
 		}
 	}
 }

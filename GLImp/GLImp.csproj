@@ -67,6 +67,7 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <DocumentationFile>bin\Release\GLImp.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
@@ -99,6 +100,7 @@
     <Compile Include="GraphicObjects\GraphicObject.cs" />
     <Compile Include="GraphicObjects\Shape.cs" />
     <Compile Include="InputManagers\InputManager.cs" />
+    <Compile Include="InputManagers\JoystickDevice.cs" />
     <Compile Include="InputManagers\JoystickManager.cs" />
     <Compile Include="InputManagers\KeyboardManager.cs">
       <SubType>Code</SubType>
@@ -165,7 +167,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)\ExportDLLs\" /Y /Q</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(SolutionDir)\ExportDLLs\" /Y /Q
+xcopy "$(TargetDir)GLImp.xml" "$(SolutionDir)\ExportDLLs\" /Y /Q</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

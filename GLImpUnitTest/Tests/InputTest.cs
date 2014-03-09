@@ -16,9 +16,13 @@ namespace GLImpUnitTest.Tests
 
         public override void Render2D()
         {
+			Console.WriteLine(GamePad.GetState(0).DPad.IsLeft);
 			string buttons = "";
-			for (int i = 0; i < JoystickManager.GetButtonCount(0); i++) {
-				if (JoystickManager.IsDown(0, i)) {
+
+			buttons += JoystickManager.Joysticks[0].State.GetHat(JoystickHat.Hat0).Position + ", ";
+
+			for (int i = 0; i < JoystickManager.Joysticks[0].Capabilities.ButtonCount; i++) {
+				if (JoystickManager.Joysticks[0].IsDown((JoystickButton)i)) {
 					buttons += "JS-" + i + ", ";
 				}
 			}
@@ -29,10 +33,9 @@ namespace GLImpUnitTest.Tests
 
 			GraphicsManager.DrawString(0, 0, buttons);
 
-			JoystickDevice js = JoystickManager.GetDevice(0);
-			if (js != null) {
-				for (int i = 0; i < js.Axis.Count; i++) {
-					GraphicsManager.DrawString(0, 20 * (i + 1), "Axis " + i + ": " + js.Axis[i]);
+			if (JoystickManager.Joysticks[0].IsConnected) {
+				for (int i = 0; i < JoystickManager.Joysticks[0].Capabilities.AxisCount; i++) {
+					GraphicsManager.DrawString(0, 20 * (i + 1), "Axis " + i + ": " + JoystickManager.Joysticks[0].State.GetAxis((JoystickAxis)i));
 				}
 			}
         }

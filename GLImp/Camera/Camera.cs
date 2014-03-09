@@ -7,9 +7,19 @@ using OpenTK;
 
 namespace GLImp
 {
+	/// <summary>
+	/// Base class for all Camera Types.
+	/// </summary>
 	public abstract class Camera
 	{
+		/// <summary>
+		/// Layer used for ordering cameras. Higher layers are drawn on top of lower layers.
+		/// </summary>
 		public int Layer;
+
+		/// <summary>
+		/// The OnRender event will be triggered whenever the camera is ready to start drawing.
+		/// </summary>
 		public Action<FrameEventArgs> OnRender;
 
 		private bool FillWindow = true;

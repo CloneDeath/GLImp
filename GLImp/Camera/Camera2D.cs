@@ -15,12 +15,10 @@ namespace GLImp {
 		//private double Rotation; //TODO nicholas implement this when we need it
 
 		#region Constructors
-		public Camera2D() 
-			: this(0, 0, 1) {
+		public Camera2D() : this(0, 0, 1) {
 		}
 
-		public Camera2D(double X, double Y)
-			: this(X, Y, 1) {
+		public Camera2D(double X, double Y) : this(X, Y, 1) {
 		}
 
 		public Camera2D(double X, double Y, double Zoom) {
@@ -33,7 +31,6 @@ namespace GLImp {
 		#endregion
 
 		#region Drawing
-		
 		internal override void Draw(FrameEventArgs e) {
 			GraphicsManager.PushMatrix();
 			BeginOrtho(Viewport.Width, Viewport.Height);

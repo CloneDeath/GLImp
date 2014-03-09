@@ -1,0 +1,918 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GLImp</name>
+    </assembly>
+    <members>
+        <member name="T:Mila.Data.Model">
+            <summary>
+            Represents a 3D model made of polygons (faces).
+            </summary>
+        </member>
+        <member name="P:Mila.Data.Model.Name">
+            <summary>
+            Gets or sets the name of the model.
+            </summary>
+        </member>
+        <member name="P:Mila.Data.Model.PackageName">
+            <summary>
+            Gets or sets the name of the package from which this model was loaded.
+            </summary>
+        </member>
+        <member name="P:Mila.Data.Model.Vertices">
+            <summary>
+            Gets or sets the array of vertices used to draw the model.
+            </summary>
+        </member>
+        <member name="P:Mila.Data.Model.VertexAttributes">
+            <summary>
+            Gets or sets the array of vertex attributes used to draw the vertices of the model.
+            </summary>
+        </member>
+        <member name="P:Mila.Data.Model.FaceSets">
+            <summary>
+            Gets or sets the array of face sets that contain the faces of the model.
+            </summary>
+        </member>
+        <member name="P:Mila.Data.Model.Radius">
+            <summary>
+            Gets or sets the radius of the origin-centered bounding sphere around this model.
+            </summary>
+        </member>
+        <member name="T:GLImp.Camera">
+            <summary>
+            Base class for all Camera Types.
+            </summary>
+        </member>
+        <member name="F:GLImp.Camera.Layer">
+            <summary>
+            Layer used for ordering cameras. Higher layers are drawn on top of lower layers.
+            </summary>
+        </member>
+        <member name="F:GLImp.Camera.OnRender">
+            <summary>
+            The OnRender event will be triggered whenever the camera is ready to start drawing.
+            </summary>
+        </member>
+        <member name="M:GLImp.Camera.DisableViewport">
+            <summary>
+            Disables viewports. This camera will fill up the window.
+            </summary>
+        </member>
+        <member name="M:GLImp.Camera.EnableViewport(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Enables viewports.
+            </summary>
+            <param name="x">Pixels from the left of the draw area.</param>
+            <param name="y">Pixels from the top of the draw area.</param>
+            <param name="width">Width of the camera in pixels.</param>
+            <param name="height">Height of the camera in pixels.</param>
+        </member>
+        <member name="M:GLImp.Camera.Disable">
+            <summary>
+            Disables this camera from being drawn.
+            </summary>
+        </member>
+        <member name="M:GLImp.Camera.Enable">
+            <summary>
+            Re-Enables a disabled camera. All created cameras are enabled by default.
+            </summary>
+        </member>
+        <member name="P:GLImp.Camera.Viewport">
+            <summary>
+            Returns the current viewport area. Setting this will enable viewports.
+            </summary>
+        </member>
+        <member name="M:GLImp.GraphicsManager.OpenWindow">
+            <summary>
+            Starts the game.
+            </summary>
+        </member>
+        <member name="M:GLImp.GraphicsManager.Start">
+            <summary>
+            Starts the game. Same exact thing as OpenWindow.
+            </summary>
+        </member>
+        <member name="M:GLImp.GraphicsManager.DrawPolygon(System.Collections.Generic.IEnumerable{OpenTK.Vector2d})">
+            <summary>
+            Draws a triangle strip with the given input 
+            </summary>
+            <param name="pts">The vectors to connect</param>
+        </member>
+        <member name="T:GLImp.DisplayList">
+            <summary>
+            Captures a collection of GL calls to quickly call them all at once in the future.
+            </summary>
+        </member>
+        <member name="M:GLImp.DisplayList.#ctor">
+            <summary>
+            Generates a new Display List.
+            </summary>
+        </member>
+        <member name="M:GLImp.DisplayList.BeginCapture">
+            <summary>
+            Begin capturing OpenGL calls. This will intercept the calls and stop them from being executed.
+            </summary>
+        </member>
+        <member name="M:GLImp.DisplayList.PassiveCapture">
+            <summary>
+            Begin capturing OpenGL calls. This will allow the calls to also be executed, passivly collecting them.
+            </summary>
+        </member>
+        <member name="M:GLImp.DisplayList.EndCapture">
+            <summary>
+            Ends the current capture sequence.
+            </summary>
+        </member>
+        <member name="M:GLImp.DisplayList.Draw">
+            <summary>
+            Draws (or replays) the collected capture sequence. Use BeginCapture/PassiveCapture and EndCapture to collect GL calls.
+            </summary>
+        </member>
+        <member name="T:Mila.Utility.MDF.MDFChunkHeader">
+            <summary>
+            Structure used to store the header information of an MDF chunk.
+            </summary>
+        </member>
+        <member name="F:Mila.Utility.MDF.MDFChunkHeader.id">
+            <summary>
+            The unique ID tag of this header, defining which type of data resides in the chunk.
+            </summary>
+        </member>
+        <member name="F:Mila.Utility.MDF.MDFChunkHeader.size">
+            <summary>
+            The size of the entire chunk, including this header, in octet bytes.
+            </summary>
+        </member>
+        <member name="F:Mila.Utility.MDF.MDFChunkHeader.offset">
+            <summary>
+            The byte offset in the file at which this header was retrieved.
+            Ignored for header writing purposes.
+            </summary>
+        </member>
+        <member name="T:Mila.Utility.MDF.MDFChunkReader">
+            <summary>
+            Represents a reader that can be used to read files stored in the Mila Data File format.
+            The reader is not thread-safe! One MDFChunkReader per thread and vice versa please.
+            </summary>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.#ctor(System.IO.BinaryReader)">
+            <summary>
+            Creates a new MDFChunkReader wrapped around the existing BinaryReader object.
+            </summary>
+            <param name="reader">the existing opened BinaryReader to use.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.#ctor(System.String)">
+            <summary>
+            Creates a new MDFChunkReader opened on the given file.  
+            If the file cannot be opened for reading, throws an IOException.
+            </summary>
+            <param name="filepath">The filepath to the file to open.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.findNextChunk(Mila.Utility.MDF.MDFChunkHeader,System.UInt32,System.Int64)">
+            <summary>
+            Searches for a top-level chunk with a given id inside of the given container chunk.
+            This method assumes that starting with the offset given, there is nothing in the container chunk besides
+            chunks written one after another.  Any stray data between chunks is unexpected.
+            </summary>
+            <param name="container">The chunk to search within.</param>
+            <param name="id">The id of the chunk to look for.</param>
+            <param name="start">The starting offset from the beginning of the container chunk data to apply.</param>
+            <returns>The header of the chunk found, or a header with an offset of -1 if none is found.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.peekChunkHeader">
+            <summary>
+            Retrieves and returns the chunk header at the current location in the file, but does not advance the file position.
+            </summary>
+            <returns>The chunk header read.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.isEmpty(Mila.Utility.MDF.MDFChunkHeader)">
+            <summary>
+            Returns true if the given chunk is empty.
+            </summary>
+            <param name="header">The header of the chunk to test.</param>
+            <returns>true if the given chunk is completely empty (in which the size field only accounts for the header), false otherwise.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.enterChunk(Mila.Utility.MDF.MDFChunkHeader)">
+            <summary>
+            Skips over the given chunk header, positioning the file position at the beginning of the chunk's data.
+            </summary>
+            <param name="header">The chunk header of the chunk to enter.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.skipChunk(Mila.Utility.MDF.MDFChunkHeader)">
+            <summary>
+            Skips the current chunk by seeking past its size.
+            </summary>
+            <param name="chunk">The header of the chunk to skip over.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readUInt32">
+            <summary>
+            Reads in a UInt32 value.
+            </summary>
+            <returns>The value read in.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readInt32">
+            <summary>
+            Reads in an Int32 value.
+            </summary>
+            <returns>the value read.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readFloat">
+            <summary>
+            Reads in an IEEE 32-bit doubleing point number.
+            </summary>
+            <returns>the value read.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readUVInt32">
+            <summary>
+            Reads in a UInt32 packed in a special variable-length encoding.
+            If the first byte is 0xFE, then reads in the next two bytes as a short.
+            If the first byte is 0xFF, then reads in the next four bytes as an int.
+            Otherwise, reads in the first byte as the value.
+            </summary>
+            <returns>The value read as a UInt32</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readVInt32">
+            <summary>
+            Reads in an Int32 packed in a special variable-length encoding.
+            If the first byte is 0x81 (-127), then reads in the next two bytes as a short.
+            If the first byte is 0x80 (-128), then reads in the next four bytes as an int.
+            Otherwise, reads in the first byte as the value.
+            </summary>
+            <returns>The value read as an Int32</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readUVIntArray">
+            <summary>
+            Reads in an array of UInts stored in a variable-length encoding.
+            </summary>
+            <returns>An array with the appropriate UInt32s.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readVIntArray">
+            <summary>
+            Reads in an array of Ints stored in a variable-length encoding.
+            </summary>
+            <returns>An array with the appropriate Int32s.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.readString">
+            <summary>
+            Reads in a size-prefixed string encoded in UTF-16 Unicode.
+            </summary>
+            <returns>the value read.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.close">
+            <summary>
+            Closes this reader.
+            </summary>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.tell">
+            <summary>
+            Returns the position in the stream.
+            </summary>
+            <returns>the position in the stream, in bytes from 0.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.seek(System.Int64)">
+            <summary>
+            Seeks to the given position in the stream.
+            </summary>
+            <param name="position">The byte offset in the stream to seek to.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkReader.seekEnd">
+            <summary>
+            Seeks the stream to the end (where next write occurs, etc).
+            </summary>
+        </member>
+        <member name="T:Mila.Utility.MDF.MDFChunkWriter">
+            <summary>
+            Represents a writer that can be used to write files stored in the Mila Data File format.
+            The writer is not thread-safe! One MDFChunkWriter per thread and vice versa please.
+            </summary>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.#ctor(System.IO.BinaryWriter)">
+            <summary>
+            Creates a new MDFChunkWriter object wrapped around the given existing BinaryWriter.
+            If the writer is null, throws an ArgumentNullException.
+            </summary>
+            <param name="writer">the BinaryWriter object to use.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.#ctor(System.String)">
+            <summary>
+            Creates a new MDFChunkWriter object bound to a BinaryWriter created for the given filepath.
+            If the file could not be opened, throws an IOException.
+            </summary>
+            <param name="filepath">The path to the file to write to.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.close">
+            <summary>
+            Closes this writer and flushes all of the data.
+            </summary>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeChunkHeader(Mila.Utility.MDF.MDFChunkHeader)">
+            <summary>
+            Writes the chunk header and returns a new header with an offset field marking the place where the header was written.
+            </summary>
+            <param name="header"></param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeCalculatedChunkSize(Mila.Utility.MDF.MDFChunkHeader)">
+            <summary>
+            Calculates the size of the chunk from the current file position back to the start of the chunk header and writes that size into the chunk header.
+            The size is corrected straight into the file, and the file position is reset back to the end of the chunk.
+            </summary>
+            <param name="header">The chunk header of this chunk.</param>
+            <returns>The updated chunk header structure, with the new corrected size field (just in case anyone needs it).</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeInt32(System.Int32)">
+            <summary>
+            Writes an Int32 value
+            </summary>
+            <param name="val">the value to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeUInt32(System.UInt32)">
+            <summary>
+            Writes a UInt32 value.
+            </summary>
+            <param name="val">the value to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeFloat(System.Double)">
+            <summary>
+            Writes an IEEE 32-bit doubleing-point number.
+            </summary>
+            <param name="val">the value to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeUVInt32(System.UInt32)">
+            <summary>
+            Writes a UInt32 as a variable-length encoded value.
+            </summary>
+            <param name="val">the value to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeVInt32(System.Int32)">
+            <summary>
+            Writes a Int32 as a variable-length encoded value.
+            </summary>
+            <param name="val">the value to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeUVIntArray(System.UInt32[])">
+            <summary>
+            Writes an array of UInt32s using variable-length encoding.
+            </summary>
+            <param name="arr">the array to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeVIntArray(System.Int32[])">
+            <summary>
+            Writes an array of Int32s using variable-length encoding.
+            </summary>
+            <param name="arr">the array to write.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.writeString(System.String)">
+            <summary>
+            Writes a Unicode UTF-16 size-prefixed string.
+            </summary>
+            <param name="str">the string to write</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.tell">
+            <summary>
+            Returns the stream position at this current location.
+            </summary>
+            <returns>the stream position at this current location.</returns>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.seek(System.Int64)">
+            <summary>
+            Seeks to the given position in the stream.
+            </summary>
+            <param name="place">the position to seek to, in bytes.</param>
+        </member>
+        <member name="M:Mila.Utility.MDF.MDFChunkWriter.seekEnd">
+            <summary>
+            Seeks to the end of the stream.
+            </summary>
+        </member>
+        <member name="M:GLImp.MouseManager.SetMousePositionWindows(System.Int32,System.Int32)">
+            <summary>
+            Change the mouse position in the current window.
+            </summary>
+            <param name="x">X position to set the mouse to.</param>
+            <param name="y">Y position to set the mouse to.</param>
+        </member>
+        <member name="M:GLImp.MouseManager.GetMousePositionWindows">
+            <summary>
+            Returns the mouse position for windows machines, which is relative to the top left of the window.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GLImp.MouseManager.GetMouseWheel">
+            <summary>
+            Gets the numbler of clicks (positive for up, negative for down) the scroll wheel has moved since last update.
+            </summary>
+            <returns>How far the mouse wheel has been scrolled.</returns>
+        </member>
+        <member name="P:GLImp.MouseManager.PreviousMousePosition">
+            <summary>
+            Returns the previous mouse position. Mostly used for trackign how far the mouse has moved since last update.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:GLImp.MouseManager.MousePosition">
+            <summary>
+            Returns the mouse position relative to the top left corner of the viewable area, in pixels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Mila.Data.FaceSet">
+            <summary>
+            Represents a set of faces that share the same material.
+            </summary>
+        </member>
+        <member name="T:Mila.Types.Point3D">
+            <summary>
+            Represents a point in 3D-space.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Point3D.#ctor">
+            <summary>
+            Creates a new point that represents the origin.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Point3D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new point with the given set of coordinates.
+            </summary>
+            <param name="x">The x coordinate to set.</param>
+            <param name="y">The y coordinate to set.</param>
+            <param name="z">The z coordinate to set.</param>
+        </member>
+        <member name="M:Mila.Types.Point3D.#ctor(Mila.Types.Vector3D)">
+            <summary>
+            Creates a new point from the given position vector.
+            </summary>
+            <param name="v">The position vector to create a point from.</param>
+        </member>
+        <member name="M:Mila.Types.Point3D.Set(System.Double,System.Double,System.Double)">
+            <summary>
+            Sets new value from the given coordinates.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:Mila.Types.Point3D.Set(Mila.Types.Vector3D)">
+            <summary>
+            Sets new value from the given vector.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:Mila.Types.Point3D.Set(Mila.Types.Point3D)">
+            <summary>
+            Sets new value from the given point.
+            </summary>
+            <param name="p"></param>
+        </member>
+        <member name="P:Mila.Types.Point3D.X">
+            <summary>
+            Gets or sets the x coordinate of this point.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Point3D.Y">
+            <summary>
+            Gets or sets the y coordinate of this point.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Point3D.Z">
+            <summary>
+            Gets or sets the z coordinate of this point.
+            </summary>
+        </member>
+        <member name="M:GLImp.GraphicObjects.Shape.ColorToRgba32(System.Drawing.Color)">
+            <summary>
+            Converts a System.Drawing.Color to a System.Int32.
+            </summary>
+            <param name="c">The System.Drawing.Color to convert.</param>
+            <returns>A System.Int32 containing the R, G, B, A values of the
+            given System.Drawing.Color in the Rbga32 format.</returns>
+        </member>
+        <member name="M:GLImp.Textures.TextureFont.#ctor(System.Int32)">
+            <summary>
+            Create a TextureFont object. The sent-in textureId should refer to a
+            texture bitmap containing a 16x16 grid of fixed-width characters,
+            representing the ASCII table. A 32 bit texture is assumed, aswell as
+            all GL state necessary to turn on texturing. The dimension of the
+            texture bitmap may be anything from 128x128 to 512x256 or any other
+            order-by-two-squared-dimensions.
+            </summary>
+        </member>
+        <member name="M:GLImp.Textures.TextureFont.WriteString(System.String)">
+            <summary>
+            Draw an ASCII string around coordinate (0,0,0) in the XY-plane of the
+            model space coordinate system. The height of the text is 1.0.
+            The width may be computed by calling ComputeWidth(string).
+            This call modifies the currently bound
+            2D-texture, but no other GL state.
+            </summary>
+        </member>
+        <member name="F:GLImp.Textures.TextureFont.AdvanceWidth">
+            <summary>
+            Determines the distance from character center to adjacent character center, horizontally, in
+            one written text string. Model space coordinates.
+            </summary>
+        </member>
+        <member name="F:GLImp.Textures.TextureFont.CharacterBoundingBoxWidth">
+            <summary>
+            Determines the width of the cut-out to do for each character when rendering. This is necessary
+            to avoid artefacts stemming from filtering (zooming/rotating). Make sure your font contains some
+            "white space" around each character so they won't be clipped due to this!
+            </summary>
+        </member>
+        <member name="F:GLImp.Textures.TextureFont.CharacterBoundingBoxHeight">
+            <summary>
+            Determines the height of the cut-out to do for each character when rendering. This is necessary
+            to avoid artefacts stemming from filtering (zooming/rotating). Make sure your font contains some
+            "white space" around each character so they won't be clipped due to this!
+            </summary>
+        </member>
+        <member name="M:GLImp.Textures.TextureFont.ComputeWidth(System.String)">
+            <summary>
+            Computes the expected width of text string given. The height is always 1.0.
+            Model space coordinates.
+            </summary>
+        </member>
+        <member name="M:GLImp.Textures.TextureFont.WriteStringAt(System.String,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            This is a convenience function to write a text string using a simple coordinate system defined to be 0..100 in x and 0..100 in y.
+            For example, writing the text at 50,50 means it will be centered onscreen. The height is given in percent of the height of the viewport.
+            No GL state except the currently bound texture is modified. This method is not as flexible nor as fast
+            as the WriteString() method, but it is easier to use.
+            </summary>
+        </member>
+        <member name="T:Mila.Data.Face">
+            <summary>
+            Represents an n-vertex polygon in 3D-space.
+            </summary>
+        </member>
+        <member name="T:Mila.Utility.MM.MMReader">
+            <summary>
+            Used to read a Mila Model file (.mm file) into a Model object.
+            Can also read in a raw MMDL chunk.
+            </summary>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.#ctor(Mila.Utility.MDF.MDFChunkReader)">
+            <summary>
+            Creates a new MMReader from the given MDFChunkReader object.
+            </summary>
+            <param name="reader">the MDFChunkReader containing the stream to read from.</param>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.#ctor(System.String)">
+            <summary>
+            Creates a new MMReader and opens it to the given path.
+            </summary>
+            <param name="filepath">The full path to the file to open for reading.</param>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readMMFile(Mila.Data.Model@)">
+            <summary>
+            Reads a Mila Model file (.mm file) and fills the given model.
+            </summary>
+            <param name="model">The model to read out of the file.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.getMMFileVersion">
+            <summary>
+            Returns the version of the MM file.
+            </summary>
+            <returns>The version of the MM file as an integer code (ex: 100 = version 1.00).  If the MM file is corrupt, returns -1.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.close">
+            <summary>
+            Closes the reader object used to read the Mila Model (.mm) file.
+            </summary>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readMM__Chunk(Mila.Data.Model@)">
+            <summary>
+            Reads the "MM  " chunk containing the entire contents of the Mila Model (.mm) file.
+            </summary>
+            <param name="model">The model to read to.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readMMDLChunk(Mila.Data.Model@)">
+            <summary>
+            Reads in the MMDL chunk and fills the model object given.
+            This method can be called directly if there is an MMDL chunk not inside of a Mila Model (.mm) file.
+            </summary>
+            <param name="model">The model object to fill.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readVLSTChunk(Mila.Data.Model@,Mila.Utility.MDF.MDFChunkHeader,System.Int64)">
+            <summary>
+            Reads the VLST chunk containing the vertex list.
+            </summary>
+            <param name="model">The model to fill.</param>
+            <param name="parent">The parent chunk (MMDL)</param>
+            <param name="offset">The chunk-data-relative offset to the set of chunks contained in the parent chunk.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readALSTChunk(Mila.Data.Model@,Mila.Utility.MDF.MDFChunkHeader,System.Int64)">
+            <summary>
+            Reads the ALST chunk containing VertexAttributes.
+            </summary>
+            <param name="model">The model to fill.</param>
+            <param name="parent">The parent chunk (MMDL).</param>
+            <param name="offset">The chunk-data-relative offset to the set of chunks contained in the parent chunk.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readFLSTChunk(Mila.Data.Model@,Mila.Utility.MDF.MDFChunkHeader,System.Int64)">
+            <summary>
+            Reads the FLST chunk containing FaceSets.
+            </summary>
+            <param name="model">The model to fill.</param>
+            <param name="parent">The parent chunk (MMDL).</param>
+            <param name="offset">The chunk-data-relative offset to the set of chunks contained in the parent chunk.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readFSETChunk(Mila.Data.Model@,System.Int32)">
+            <summary>
+            Reads the FSET chunk containing an individual FaceSet.
+            </summary>
+            <param name="model">The model to fill.</param>
+            <param name="index">The index into the list of FaceSets to write to.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readFCESChunk(Mila.Data.FaceSet@)">
+            <summary>
+            Reads the FCES chunk containing a list of faces in a FaceSet.
+            </summary>
+            <param name="fs">the FaceSet to fill.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="M:Mila.Utility.MM.MMReader.readVector(Mila.Types.Vector3D@)">
+            <summary>
+            Reads a vector.
+            </summary>
+            <param name="v">The vector to read into.</param>
+            <returns>An errorcode specifying the success of the operation.</returns>
+        </member>
+        <member name="T:Mila.Utility.MM.MMReader.MMChunkIds">
+            <summary>
+            Lists all of the codes corresponding to the chunk ids.
+            </summary>
+        </member>
+        <member name="T:Mila.Data.VertexAttributes">
+            <summary>
+            Represents a set of attributes relevant to how a vertex is drawn on a particular face.
+            </summary>
+        </member>
+        <member name="T:Mila.Utility.MM.MMReaderErrors">
+            <summary>
+            Enumerates all of the different errors that can occur during reading.
+            </summary>
+        </member>
+        <member name="T:Mila.Utility.MM.MMWriterErrors">
+            <summary>
+            Contains a list of errors that can arise while trying to write the Model.
+            </summary>
+        </member>
+        <member name="T:Mila.Types.Plane">
+            <summary>
+            Represents a plane in 3D-space.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Plane.#ctor">
+            <summary>
+            Creates a new plane with a null vector and zero distance.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Plane.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new plane with the given components.
+            </summary>
+            <param name="a">The a component to set.</param>
+            <param name="b">The b component to set.</param>
+            <param name="c">The c component to set.</param>
+            <param name="d">The d component to set.</param>
+        </member>
+        <member name="M:Mila.Types.Plane.#ctor(Mila.Types.Vector3D,System.Double)">
+            <summary>
+            Creates a new plane from the given normal vector and a distance.
+            </summary>
+            <param name="v">The vector normal to the plane.</param>
+            <param name="d">The distance along the plane.</param>
+        </member>
+        <member name="P:Mila.Types.Plane.A">
+            <summary>
+            Gets or sets the a component of the plane.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Plane.B">
+            <summary>
+            Gets or sets the b component of the plane.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Plane.C">
+            <summary>
+            Gets or sets the c component of the plane.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Plane.D">
+            <summary>
+            Gets or sets the d component of the plane.
+            </summary>
+        </member>
+        <member name="M:GLImp.Camera2D.CenterOnTarget(System.Boolean)">
+            <summary>
+            Set to true if the location of the camera is the center of the screen. Set it to false for the location to be the top right.
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="M:GLImp.Camera2D.SetZoom(System.Double)">
+            <summary>
+            Set the magnification of the camera. "2" will make everything twice as big.
+            </summary>
+            <param name="Zoom">What you want to set the zoom level to.</param>
+        </member>
+        <member name="M:GLImp.TextureManager.InitTexturing">
+            <summary>
+            Initialize OpenGL state to enable alpha-blended texturing.
+            Disable again with GL.Disable(EnableCap.Texture2D).
+            Call this before drawing any texture, when you boot your
+            application, eg. in OnLoad() of GameWindow or Form_Load()
+            if you're building a WinForm app.
+            </summary>
+        </member>
+        <member name="M:GLImp.TextureManager.CreateTextureFromBitmap(System.Drawing.Bitmap,System.Boolean)">
+            <summary>
+            Create an OpenGL texture (translucent or opaque) from a given Bitmap.
+            24- and 32-bit bitmaps supported.
+            </summary>
+        </member>
+        <member name="M:GLImp.TextureManager.CreateTextureFromFile(System.String,System.Boolean)">
+            <summary>
+            Create an OpenGL texture (translucent or opaque) by loading a bitmap
+            from file. 24- and 32-bit bitmaps supported.
+            </summary>
+        </member>
+        <member name="T:Mila.Types.Rotation">
+            <summary>
+            Represents a free rotation in 3D space.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Rotation.#ctor(Mila.Types.Rotation)">
+            <summary>
+            Creates a new rotation object by cloning another.
+            </summary>
+            <param name="other"></param>
+        </member>
+        <member name="M:Mila.Types.Rotation.equals(Mila.Types.Rotation)">
+            <summary>
+            Returns true if the two rotations are equivalent.
+            </summary>
+            <param name="other">The other rotation to compare against.</param>
+            <returns>true if the two rotations are equivalent.</returns>
+        </member>
+        <member name="M:Mila.Types.Rotation.set(Mila.Types.Rotation)">
+            <summary>
+            Sets the rotation to the same values as the other given rotation.
+            </summary>
+            <param name="other"></param>
+        </member>
+        <member name="P:Mila.Types.Rotation.Yaw">
+            <summary>
+            Gets or sets the yaw (azimuth) of the rotation.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Rotation.Pitch">
+            <summary>
+            Gets or sets the pitch (zenith) of the rotation.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Rotation.Tilt">
+            <summary>
+            Gets or sets the tilt of the rotation.
+            </summary>
+        </member>
+        <member name="M:GLImp.Camera3D.ScreenPointToPosition(OpenTK.Vector2d)">
+            <summary>
+            Converts a 2D screen space coordinate into a 3D world space coordinate.
+            </summary>
+            <param name="ScreenPoint">The X,Y coordinate in the viewport that you wish to use to convert.</param>
+            <returns>Returns a world coordinate of the 3D point</returns>
+        </member>
+        <member name="M:GLImp.Camera3D.ScreenPointToRay(OpenTK.Vector2d)">
+            <summary>
+            Converts a 2D screen space coordinate into a 3D ray.
+            </summary>
+            <param name="ScreenPoint">The X,Y coordinate in the viewport that you wish to convert.</param>
+            <returns>A ray relative to the position of the camera.</returns>
+        </member>
+        <member name="T:Mila.Data.Vertex">
+            <summary>
+            Represents a simple coordinate triple.
+            </summary>
+        </member>
+        <member name="T:Mila.Types.Vector3D">
+            <summary>
+            Represents a vector in 3D-space.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Vector3D.#ctor">
+            <summary>
+            Creates a new null vector.
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Vector3D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new vector with the given components.
+            </summary>
+            <param name="x">The x component to set.</param>
+            <param name="y">The y component to set.</param>
+            <param name="z">The z component to set.</param>
+        </member>
+        <member name="M:Mila.Types.Vector3D.#ctor(Mila.Types.Vector3D)">
+            <summary>
+            Creates a new vector that is equivalent to another vector.
+            </summary>
+            <param name="v">The vector to copy.</param>
+        </member>
+        <member name="M:Mila.Types.Vector3D.#ctor(Mila.Types.Point3D)">
+            <summary>
+            Creates a new vector from the given point.
+            </summary>
+            <param name="p">The point to construct a position vector from.</param>
+        </member>
+        <member name="M:Mila.Types.Vector3D.Set(Mila.Types.Vector3D)">
+            <summary>
+            Sets new value from the given vector.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:Mila.Types.Vector3D.Set(Mila.Types.Point3D)">
+            <summary>
+            Sets new value from the given point.
+            </summary>
+            <param name="p"></param>
+        </member>
+        <member name="M:Mila.Types.Vector3D.dotProduct(Mila.Types.Vector3D)">
+            <summary>
+            Returns the dot product of this vector and another.
+            </summary>
+            <param name="v">The vector to multiply by.</param>
+            <returns>the dot product of this vector and another.</returns>
+        </member>
+        <member name="M:Mila.Types.Vector3D.crossProduct(Mila.Types.Vector3D)">
+            <summary>
+            Returns the cross product of this vector and another.
+            </summary>
+            <param name="v">The vector to multiply by.</param>
+            <returns>the cross product of this vector and another.</returns>
+        </member>
+        <member name="M:Mila.Types.Vector3D.normalize">
+            <summary>
+            Normalizes the vector (turning this vector into a unit vector).
+            </summary>
+        </member>
+        <member name="M:Mila.Types.Vector3D.length">
+            <summary>
+            Returns the length of the vector.
+            </summary>
+            <returns>the length of the vector.</returns>
+        </member>
+        <member name="M:Mila.Types.Vector3D.squaredLength">
+            <summary>
+            Returns the squared length of the vector.
+            </summary>
+            <returns>the squared length of the vector.</returns>
+        </member>
+        <member name="M:Mila.Types.Vector3D.scalarDivision(Mila.Types.Vector3D)">
+            <summary>
+            Returns the quotient between this vector and another co-directional vector.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mila.Types.Vector3D.isScalarMultipleOf(Mila.Types.Vector3D)">
+            <summary>
+            Returns true if the given vector is a scalar multiple of the other given vector.
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mila.Types.Vector3D.equals(Mila.Types.Vector3D)">
+            <summary>
+            Returns true if the two vectors are equivalent.
+            </summary>
+            <param name="v">The other vector to compare against.</param>
+        </member>
+        <member name="M:Mila.Types.Vector3D.ToString">
+            <summary>
+            Returns string to be used for tracing purpose.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Mila.Types.Vector3D.X">
+            <summary>
+            Gets or sets the x component of the vector.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Vector3D.Y">
+            <summary>
+            Gets or sets the y component of the vector.
+            </summary>
+        </member>
+        <member name="P:Mila.Types.Vector3D.Z">
+            <summary>
+            Gets or sets the z component of the vector.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -259,11 +259,6 @@ namespace GLImp
 				return Instance.Mouse;
 			}
 		}
-		public static IList<JoystickDevice> joysticks{
-			get {
-				return Instance.Joysticks;
-			}
-		}
 		#endregion
 
 

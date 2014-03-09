@@ -109,7 +109,10 @@ namespace GLImp {
 			}
 		}
 
-		//Return the mouse position
+		/// <summary>
+		/// Returns the mouse position for windows machines, which is relative to the top left of the window.
+		/// </summary>
+		/// <returns></returns>
 		public static Vector2d GetMousePositionWindows() {
 			System.Drawing.Point loc = System.Windows.Forms.Cursor.Position;
 			loc.X -= GraphicsManager.Instance.Location.X;
@@ -117,11 +120,20 @@ namespace GLImp {
 			return new Vector2d(loc.X, loc.Y);
 		}
 
-		public static Vector2d GetPreviousMousePosition() {
-			return PrevMousePosition;
+		/// <summary>
+		/// Returns the previous mouse position. Mostly used for trackign how far the mouse has moved since last update.
+		/// </summary>
+		/// <returns></returns>
+		public static Vector2d PreviousMousePosition {
+			get {
+				return PrevMousePosition;
+			}
 		}
 
-		//Return the mouse position
+		/// <summary>
+		/// Returns the mouse position relative to the top left corner of the viewable area, in pixels.
+		/// </summary>
+		/// <returns></returns>
 		public static Vector2d MousePosition {
 			get
 			{
@@ -129,6 +141,10 @@ namespace GLImp {
 			}
 		}
 
+		/// <summary>
+		/// Gets the numbler of clicks (positive for up, negative for down) the scroll wheel has moved since last update.
+		/// </summary>
+		/// <returns>How far the mouse wheel has been scrolled.</returns>
 		public static int GetMouseWheel() {
 			return WheelPosition;
 		}
