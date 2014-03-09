@@ -92,7 +92,7 @@ namespace GLImp {
 
 		public double Height {
 			get {
-				return Viewport.Width / Zoom;
+				return Viewport.Height / Zoom;
 			}
 		}
 
