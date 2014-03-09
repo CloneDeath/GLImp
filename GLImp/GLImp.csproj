@@ -99,6 +99,8 @@
     <Compile Include="GraphicObjects\Cube.cs" />
     <Compile Include="GraphicObjects\GraphicObject.cs" />
     <Compile Include="GraphicObjects\Shape.cs" />
+    <Compile Include="InputManagers\GamePadDevice.cs" />
+    <Compile Include="InputManagers\GamePadManager.cs" />
     <Compile Include="InputManagers\InputManager.cs" />
     <Compile Include="InputManagers\JoystickDevice.cs" />
     <Compile Include="InputManagers\JoystickManager.cs" />

@@ -59,6 +59,11 @@ namespace GLImp {
 			}
 		}
 
+		public static bool IsUp(Key key)
+		{
+			return !IsDown(key);
+		}
+
 		
 
 		public static List<Key> GetAllDownKeys() {

@@ -10,6 +10,7 @@ namespace GLImp {
 			KeyboardManager.Init();
 			MouseManager.Init();
 			JoystickManager.Init();
+			GamePadManager.Init();
 		}
 
 		//Copy over the current state to the previous state when this is called. This will get called around 60Hz, so, make it fast!
@@ -18,6 +19,7 @@ namespace GLImp {
 			KeyboardManager.Update();
 			MouseManager.Update();
 			JoystickManager.Update();
+			GamePadManager.Update();
 		}
 	}
 }
