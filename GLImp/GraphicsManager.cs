@@ -178,18 +178,11 @@ namespace GLImp
 		}
 
         /// <summary>
-        /// Starts the game.
-        /// </summary>
-        public static void OpenWindow()
-        {
-			Instance.Run(60.0);
-        }
-        /// <summary>
         /// Starts the game. Same exact thing as OpenWindow.
         /// </summary>
-        public static void Start()
+		public static void Start(double TargetUpdateFPS = 60, double TargetRenderFPS = 60)
         {
-            OpenWindow();
+			Instance.Run(TargetUpdateFPS, TargetRenderFPS);
         }
 
 		public static void SetWindowState(WindowState state) {

@@ -77,12 +77,7 @@
             <param name="Width">Width to draw the image.</param>
             <param name="Height">Height to draw the image.</param>
         </member>
-        <member name="M:GLImp.GraphicsManager.OpenWindow">
-            <summary>
-            Starts the game.
-            </summary>
-        </member>
-        <member name="M:GLImp.GraphicsManager.Start">
+        <member name="M:GLImp.GraphicsManager.Start(System.Double,System.Double)">
             <summary>
             Starts the game. Same exact thing as OpenWindow.
             </summary>

@@ -31,7 +31,7 @@ namespace GLImpUnitTest
 			Camera2D.Layer = 1;
 			GraphicsManager.Update += Update;
 			GraphicsManager.SetTitle("GLImp Unit Tests");
-			GraphicsManager.OpenWindow();
+			GraphicsManager.Start();
 			MainCanvas.Dispose();
 		}
 
