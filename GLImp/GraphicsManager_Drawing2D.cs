@@ -128,6 +128,7 @@ namespace GLImp {
 		}
 		public static void DrawRectangle(Vector2d p1, Vector2d p2, Texture Texture) {
 			SetColor(Color.White);
+			GL.Enable(EnableCap.Texture2D);
 			GL.BindTexture(TextureTarget.Texture2D, Texture.ID);
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(0, 0); GL.Vertex2(p1.X, p1.Y);

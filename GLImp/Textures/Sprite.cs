@@ -62,16 +62,10 @@ namespace GLImp {
 			Frames.Add(frame);
 		}
 
-		public override void Draw(double x, double y) {
-			if(Frames.Count > 0) {
-				Frames[(int)Math.Floor(CurrentFrame)].Draw(x - XOrigin, y - YOrigin);
-				CurrentFrame += PlaybackSpeed;
-			}
-		}
-
-		public override void Draw(double x, double y, double width, double height) {
+		public override void Draw(Vector2d Position, Vector2d Size)
+		{
 			if (Frames.Count > 0) {
-				Frames[(int)Math.Floor(CurrentFrame)].Draw(x - XOrigin, y - YOrigin, width, height);
+				Frames[(int)Math.Floor(CurrentFrame)].Draw(Position.X - XOrigin, Position.Y - YOrigin, Size.X, Size.Y);
 				CurrentFrame += PlaybackSpeed;
 			}
 		}

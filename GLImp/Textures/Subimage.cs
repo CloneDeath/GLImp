@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
+using OpenTK;
 
 namespace GLImp {
 	public class SubImage : Image {
@@ -27,7 +28,7 @@ namespace GLImp {
 
 		private double Right {
 			get {
-				return ((Xoffset + this.Width) * 1.0) / texture.Width;
+				return ((Xoffset + (this.Width - 1)) * 1.0) / texture.Width;
 			}
 		}
 
@@ -39,20 +40,17 @@ namespace GLImp {
 
 		private double Bottom {
 			get {
-				return ((Yoffset + this.Height) * 1.0) / texture.Height;
+				return ((Yoffset + (this.Height - 1)) * 1.0) / texture.Height;
 			}
 		}
 
-		public override void Draw(double x, double y) {
-			this.Draw(x, y, false);
+		public override void Draw(Vector2d Position, Vector2d Size)
+		{
+			this.Draw(Position.X, Position.Y, Size.X, Size.Y, false);
 		}
 
 		public void Draw(double x, double y, bool Flip) {
 			this.Draw(x, y, this.Width, this.Height, Flip);
-		}
-
-		public override void Draw(double X, double Y, double Width, double Height) {
-			this.Draw(X, Y, Width, Height, false);
 		}
 
 		public void Draw(double X, double Y, double Width, double Height, bool Flip) {
@@ -60,7 +58,6 @@ namespace GLImp {
 			double Y1 = Y;
 			double X2 = X + Width;
 			double Y2 = Y + Height;
-			GraphicsManager.SetColor(Color.White);
 			GL.BindTexture(TextureTarget.Texture2D, texture.ID);
 			if (!Flip){
 				GL.Begin(PrimitiveType.Quads);

@@ -16,7 +16,7 @@ namespace GLImpUnitTest.Tests
 
         public override void Render2D()
         {
-			Console.WriteLine(GamePad.GetState(0).DPad.IsLeft);
+			//Console.WriteLine(GamePad.GetState(0).DPad.IsLeft);
 			string buttons = "";
 
 			buttons += JoystickManager.Joysticks[0].State.GetHat(JoystickHat.Hat0).Position + ", ";

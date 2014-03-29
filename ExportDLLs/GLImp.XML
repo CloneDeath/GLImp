@@ -4,41 +4,6 @@
         <name>GLImp</name>
     </assembly>
     <members>
-        <member name="T:Mila.Data.Model">
-            <summary>
-            Represents a 3D model made of polygons (faces).
-            </summary>
-        </member>
-        <member name="P:Mila.Data.Model.Name">
-            <summary>
-            Gets or sets the name of the model.
-            </summary>
-        </member>
-        <member name="P:Mila.Data.Model.PackageName">
-            <summary>
-            Gets or sets the name of the package from which this model was loaded.
-            </summary>
-        </member>
-        <member name="P:Mila.Data.Model.Vertices">
-            <summary>
-            Gets or sets the array of vertices used to draw the model.
-            </summary>
-        </member>
-        <member name="P:Mila.Data.Model.VertexAttributes">
-            <summary>
-            Gets or sets the array of vertex attributes used to draw the vertices of the model.
-            </summary>
-        </member>
-        <member name="P:Mila.Data.Model.FaceSets">
-            <summary>
-            Gets or sets the array of face sets that contain the faces of the model.
-            </summary>
-        </member>
-        <member name="P:Mila.Data.Model.Radius">
-            <summary>
-            Gets or sets the radius of the origin-centered bounding sphere around this model.
-            </summary>
-        </member>
         <member name="T:GLImp.Camera">
             <summary>
             Base class for all Camera Types.
@@ -82,6 +47,35 @@
             <summary>
             Returns the current viewport area. Setting this will enable viewports.
             </summary>
+        </member>
+        <member name="M:GLImp.Image.Draw(OpenTK.Vector2d,OpenTK.Vector2d)">
+            <summary>
+            Draws the image at the specified position and size.
+            </summary>
+            <param name="Position">Position to draw the image.</param>
+            <param name="Size">Size to draw the image.</param>
+        </member>
+        <member name="M:GLImp.Image.Draw(OpenTK.Vector2d)">
+            <summary>
+            Draws the image at the specified position.
+            </summary>
+            <param name="Position">Position to draw the image.</param>
+        </member>
+        <member name="M:GLImp.Image.Draw(System.Double,System.Double)">
+            <summary>
+            Draws the image at the specified position.
+            </summary>
+            <param name="X">X Position to draw the image.</param>
+            <param name="Y">Y Position to draw the image.</param>
+        </member>
+        <member name="M:GLImp.Image.Draw(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Draws the image at the specified position and size.
+            </summary>
+            <param name="X">X Position to draw the image.</param>
+            <param name="Y">Y Position to draw the image.</param>
+            <param name="Width">Width to draw the image.</param>
+            <param name="Height">Height to draw the image.</param>
         </member>
         <member name="M:GLImp.GraphicsManager.OpenWindow">
             <summary>
@@ -416,11 +410,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Mila.Data.FaceSet">
-            <summary>
-            Represents a set of faces that share the same material.
-            </summary>
-        </member>
         <member name="T:Mila.Types.Point3D">
             <summary>
             Represents a point in 3D-space.
@@ -544,111 +533,6 @@
             Represents an n-vertex polygon in 3D-space.
             </summary>
         </member>
-        <member name="T:Mila.Utility.MM.MMReader">
-            <summary>
-            Used to read a Mila Model file (.mm file) into a Model object.
-            Can also read in a raw MMDL chunk.
-            </summary>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.#ctor(Mila.Utility.MDF.MDFChunkReader)">
-            <summary>
-            Creates a new MMReader from the given MDFChunkReader object.
-            </summary>
-            <param name="reader">the MDFChunkReader containing the stream to read from.</param>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.#ctor(System.String)">
-            <summary>
-            Creates a new MMReader and opens it to the given path.
-            </summary>
-            <param name="filepath">The full path to the file to open for reading.</param>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readMMFile(Mila.Data.Model@)">
-            <summary>
-            Reads a Mila Model file (.mm file) and fills the given model.
-            </summary>
-            <param name="model">The model to read out of the file.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.getMMFileVersion">
-            <summary>
-            Returns the version of the MM file.
-            </summary>
-            <returns>The version of the MM file as an integer code (ex: 100 = version 1.00).  If the MM file is corrupt, returns -1.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.close">
-            <summary>
-            Closes the reader object used to read the Mila Model (.mm) file.
-            </summary>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readMM__Chunk(Mila.Data.Model@)">
-            <summary>
-            Reads the "MM  " chunk containing the entire contents of the Mila Model (.mm) file.
-            </summary>
-            <param name="model">The model to read to.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readMMDLChunk(Mila.Data.Model@)">
-            <summary>
-            Reads in the MMDL chunk and fills the model object given.
-            This method can be called directly if there is an MMDL chunk not inside of a Mila Model (.mm) file.
-            </summary>
-            <param name="model">The model object to fill.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readVLSTChunk(Mila.Data.Model@,Mila.Utility.MDF.MDFChunkHeader,System.Int64)">
-            <summary>
-            Reads the VLST chunk containing the vertex list.
-            </summary>
-            <param name="model">The model to fill.</param>
-            <param name="parent">The parent chunk (MMDL)</param>
-            <param name="offset">The chunk-data-relative offset to the set of chunks contained in the parent chunk.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readALSTChunk(Mila.Data.Model@,Mila.Utility.MDF.MDFChunkHeader,System.Int64)">
-            <summary>
-            Reads the ALST chunk containing VertexAttributes.
-            </summary>
-            <param name="model">The model to fill.</param>
-            <param name="parent">The parent chunk (MMDL).</param>
-            <param name="offset">The chunk-data-relative offset to the set of chunks contained in the parent chunk.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readFLSTChunk(Mila.Data.Model@,Mila.Utility.MDF.MDFChunkHeader,System.Int64)">
-            <summary>
-            Reads the FLST chunk containing FaceSets.
-            </summary>
-            <param name="model">The model to fill.</param>
-            <param name="parent">The parent chunk (MMDL).</param>
-            <param name="offset">The chunk-data-relative offset to the set of chunks contained in the parent chunk.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readFSETChunk(Mila.Data.Model@,System.Int32)">
-            <summary>
-            Reads the FSET chunk containing an individual FaceSet.
-            </summary>
-            <param name="model">The model to fill.</param>
-            <param name="index">The index into the list of FaceSets to write to.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readFCESChunk(Mila.Data.FaceSet@)">
-            <summary>
-            Reads the FCES chunk containing a list of faces in a FaceSet.
-            </summary>
-            <param name="fs">the FaceSet to fill.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="M:Mila.Utility.MM.MMReader.readVector(Mila.Types.Vector3D@)">
-            <summary>
-            Reads a vector.
-            </summary>
-            <param name="v">The vector to read into.</param>
-            <returns>An errorcode specifying the success of the operation.</returns>
-        </member>
-        <member name="T:Mila.Utility.MM.MMReader.MMChunkIds">
-            <summary>
-            Lists all of the codes corresponding to the chunk ids.
-            </summary>
-        </member>
         <member name="T:Mila.Data.VertexAttributes">
             <summary>
             Represents a set of attributes relevant to how a vertex is drawn on a particular face.
@@ -731,16 +615,16 @@
             if you're building a WinForm app.
             </summary>
         </member>
-        <member name="M:GLImp.TextureManager.CreateTextureFromBitmap(System.Drawing.Bitmap,System.Boolean)">
-            <summary>
-            Create an OpenGL texture (translucent or opaque) from a given Bitmap.
-            24- and 32-bit bitmaps supported.
-            </summary>
-        </member>
-        <member name="M:GLImp.TextureManager.CreateTextureFromFile(System.String,System.Boolean)">
+        <member name="M:GLImp.TextureManager.CreateTextureFromFile(System.String,System.Boolean,System.Boolean)">
             <summary>
             Create an OpenGL texture (translucent or opaque) by loading a bitmap
             from file. 24- and 32-bit bitmaps supported.
+            </summary>
+        </member>
+        <member name="M:GLImp.TextureManager.CreateTextureFromBitmap(System.Drawing.Bitmap,System.Boolean,System.Boolean)">
+            <summary>
+            Create an OpenGL texture (translucent or opaque) from a given Bitmap.
+            24- and 32-bit bitmaps supported.
             </summary>
         </member>
         <member name="T:Mila.Types.Rotation">
@@ -799,6 +683,61 @@
         <member name="T:Mila.Data.Vertex">
             <summary>
             Represents a simple coordinate triple.
+            </summary>
+        </member>
+        <member name="T:GLImp.Texture">
+            <summary>
+            Holds all the relevant information for a texture.
+            </summary>
+        </member>
+        <member name="F:GLImp.Texture.UserData">
+            <summary>
+            User data associated with this texture. This is never touched by GLImp, and exists purely for user convenience.
+            </summary>
+        </member>
+        <member name="M:GLImp.Texture.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new texture with the specified parameters.
+            </summary>
+            <param name="Location">Location to load the texture file from.</param>
+            <param name="LinearFilter">Controls the linear filtering.</param>
+            <param name="Clamp">Controls the clamping.</param>
+        </member>
+        <member name="M:GLImp.Texture.#ctor(System.Drawing.Bitmap,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new texture with the specified parameters.
+            </summary>
+            <param name="Image">Bitmap image to create a texture from.</param>
+            <param name="LinearFilter">Controls the linear filtering.</param>
+            <param name="Clamp">Controls the clamping.</param>
+        </member>
+        <member name="P:GLImp.Texture.Location">
+            <summary>
+            The location this file was loaded from. Null if the file was created from a Bitmap.
+            </summary>
+        </member>
+        <member name="P:GLImp.Texture.ID">
+            <summary>
+            The OpenGL generated TextureID.
+            </summary>
+        </member>
+        <member name="P:GLImp.Texture.LinearFilter">
+            <summary>
+            Used to control the Linear Filter of this image.
+            True = Smooth
+            False = Pixely
+            </summary>
+        </member>
+        <member name="P:GLImp.Texture.Clamp">
+            <summary>
+            Used to control what happens if you draw beyond the edge of the image.
+            True = Edge pixels are repeated (clamping the texture cooradinates at [0, 1])
+            False = The texture is repeated.
+            </summary>
+        </member>
+        <member name="P:GLImp.Texture.Image">
+            <summary>
+            The bitmap representation of the loaded image.
             </summary>
         </member>
         <member name="T:Mila.Types.Vector3D">

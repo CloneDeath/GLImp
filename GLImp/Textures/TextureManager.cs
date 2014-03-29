@@ -10,7 +10,6 @@ using System.Collections.Generic;
 namespace GLImp {
 	internal static class TextureManager
 	{
-		#region internal
 		/// <summary>
 		/// Initialize OpenGL state to enable alpha-blended texturing.
 		/// Disable again with GL.Disable(EnableCap.Texture2D).
@@ -27,10 +26,24 @@ namespace GLImp {
 			GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
 		}
 
-		internal static int CreateTextureFromImage(System.Drawing.Image img)
+		//internal static int CreateTextureFromImage(System.Drawing.Image img)
+		//{
+		//    Bitmap b = new Bitmap(img);
+		//    return CreateTextureFromBitmap(b);
+		//}
+
+		/// <summary>
+		/// Create an OpenGL texture (translucent or opaque) by loading a bitmap
+		/// from file. 24- and 32-bit bitmaps supported.
+		/// </summary>
+		internal static int CreateTextureFromFile(string path, bool LinearFilter, bool Clamp)
 		{
-			Bitmap b = new Bitmap(img);
-			return CreateTextureFromBitmap(b);
+			try {
+				return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)), LinearFilter, Clamp);
+			} catch (Exception e) {
+				MessageBox.Show("Missing Texture: [" + e.Message + "]");
+				return Texture.Error;
+			}
 		}
 
 
@@ -38,7 +51,7 @@ namespace GLImp {
 		/// Create an OpenGL texture (translucent or opaque) from a given Bitmap.
 		/// 24- and 32-bit bitmaps supported.
 		/// </summary>
-		internal static int CreateTextureFromBitmap(Bitmap bitmap, bool LinearFilter = true)
+		internal static int CreateTextureFromBitmap(Bitmap bitmap, bool LinearFilter, bool ClampToEdge)
 		{
 			Img.BitmapData data = bitmap.LockBits(
 			  new Rectangle(0, 0, bitmap.Width, bitmap.Height),
@@ -58,6 +71,16 @@ namespace GLImp {
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
 			}
 
+			if (ClampToEdge) {
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapR, (int)TextureWrapMode.Clamp); //Just Uses Last Pixel
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
+			} else {
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapR, (int)TextureWrapMode.Repeat); //Loops Texture
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+			}
+
 			GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 			OpenTK.Graphics.Glu.Build2DMipmap(OpenTK.Graphics.TextureTarget.Texture2D,
 				(int)PixelInternalFormat.Rgba, data.Width, data.Height, OpenTK.Graphics.PixelFormat.Bgra,
@@ -65,20 +88,5 @@ namespace GLImp {
 			bitmap.UnlockBits(data);
 			return tex;
 		}
-
-		/// <summary>
-		/// Create an OpenGL texture (translucent or opaque) by loading a bitmap
-		/// from file. 24- and 32-bit bitmaps supported.
-		/// </summary>
-		internal static int CreateTextureFromFile(string path, bool LinearFilter)
-		{
-			try {
-				return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)), LinearFilter);
-			} catch(Exception e) {
-				MessageBox.Show("Missing Texture: [" + e.Message + "]");
-				return Texture.Error;
-			}
-		}
-		#endregion
 	}
 }

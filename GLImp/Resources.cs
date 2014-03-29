@@ -7,7 +7,7 @@ using System.IO;
 using System.Drawing;
 
 namespace GLImp {
-	public static class Resources {
+	internal static class Resources {
 		//This should not be exposed to the outside world;
 		public static string[] GetList() {
 			return Assembly.GetAssembly(typeof(Resources)).GetManifestResourceNames();
@@ -29,10 +29,6 @@ namespace GLImp {
 			Stream stream = Assembly.GetAssembly(typeof(Resources)).GetManifestResourceStream("GLImp." + FileName);
 			Bitmap bmp = new Bitmap(stream);
 			return bmp;
-		}
-
-		public static Texture GetTexture(string filename) {
-			return new Texture(GetPNG(filename), "");
 		}
 	}
 }
