@@ -1,40 +1,27 @@
 ﻿using System;
-using System.Drawing;
-using System.Threading;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.Resources;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
-using OpenTK.Input;
 using OpenTK.Windowing.Common;
 
-namespace GLImp {
-	partial class GraphicsManager {
-		public static event Action<FrameEventArgs> Update;
+namespace GLImp;
 
-		protected override void OnUpdateFrame(FrameEventArgs e) {
-			base.OnUpdateFrame(e);
+partial class GraphicsManager {
+	public static event Action<FrameEventArgs>? Update;
 
-			if (Update != null) {
-				Update(e);
-			}
+	protected override void OnUpdateFrame(FrameEventArgs e) {
+		base.OnUpdateFrame(e);
+		Update?.Invoke(e);
+		InputManager.Update();
+	}
 
-			InputManager.Update();
-		}
+	protected override void OnRenderFrame(FrameEventArgs e)
+	{
+		base.OnRenderFrame(e);
 
-		protected override void OnRenderFrame(FrameEventArgs e)
-        {
-            base.OnRenderFrame(e);
+		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		CameraManager.Draw(e);
 
-			CameraManager.Draw(e);
-
-			GL.Flush();
-			SwapBuffer();
-        }
+		GL.Flush();
+		SwapBuffer();
 	}
 }

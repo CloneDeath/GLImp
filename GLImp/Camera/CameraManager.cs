@@ -1,84 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
-using OpenTK;
 using OpenTK.Windowing.Common;
 
-namespace GLImp
+namespace GLImp;
+
+internal class CameraManager
 {
-	internal class CameraManager
+	private static List<Camera> Cameras = new List<Camera>();
+
+	public static void Add(Camera camera)
 	{
-		private static List<Camera> Cameras = new List<Camera>();
+		if (!Cameras.Contains(camera)) {
+			Cameras.Add(camera);
+		}
+	}
 
-		public static void Add(Camera camera)
-		{
-			if (!Cameras.Contains(camera)) {
-				Cameras.Add(camera);
+	public static void Remove(Camera camera)
+	{
+		if (Cameras.Contains(camera)) {
+			Cameras.Remove(camera);
+		}
+	}
+
+	private static void SortCameras()
+	{
+		//Make sure we have at least one camera to sort first.
+		if (Cameras.Count == 0) {
+			return;
+		}
+
+		//Shortcut check, if all cameras are in order, return.
+		//todo nicholas instead of checking every time, set/unset a flag everytime cameras is changed, and just check that flag.
+		//note: also need to set the flag if "Layer" ever changes for any member.
+
+		int LayerAt = Cameras[0].Layer;
+		bool InOrder = true;
+		for (int i = 0; i < Cameras.Count; i++) {
+			if (Cameras[i].Layer >= LayerAt) {
+				LayerAt = Cameras[i].Layer;
+			} else {
+				InOrder = false;
+				break;
 			}
 		}
 
-		public static void Remove(Camera camera)
-		{
-			if (Cameras.Contains(camera)) {
-				Cameras.Remove(camera);
-			}
+		if (InOrder) {
+			return;
 		}
 
-		private static void SortCameras()
-		{
-			//Make sure we have at least one camera to sort first.
-			if (Cameras.Count == 0) {
-				return;
-			}
-
-			//Shortcut check, if all cameras are in order, return.
-			//todo nicholas instead of checking every time, set/unset a flag everytime cameras is changed, and just check that flag.
-			//note: also need to set the flag if "Layer" ever changes for any member.
-
-			int LayerAt = Cameras[0].Layer;
-			bool InOrder = true;
-			for (int i = 0; i < Cameras.Count; i++) {
-				if (Cameras[i].Layer >= LayerAt) {
-					LayerAt = Cameras[i].Layer;
-				} else {
-					InOrder = false;
+		//Not in order, time to do an insertion sort.
+		List<Camera> newlist = new List<Camera>();
+		foreach (Camera camera in Cameras) {
+			for (int i = 0; i < newlist.Count; i++) {
+				if (newlist[i].Layer > camera.Layer) {
+					newlist.Insert(i, camera);
 					break;
 				}
 			}
 
-			if (InOrder) {
-				return;
+			//Didn't get added, append to end
+			if (!newlist.Contains(camera)) {
+				newlist.Add(camera);
 			}
-
-			//Not in order, time to do an insertion sort.
-			List<Camera> newlist = new List<Camera>();
-			foreach (Camera camera in Cameras) {
-				for (int i = 0; i < newlist.Count; i++) {
-					if (newlist[i].Layer > camera.Layer) {
-						newlist.Insert(i, camera);
-						break;
-					}
-				}
-
-				//Didn't get added, append to end
-				if (!newlist.Contains(camera)) {
-					newlist.Add(camera);
-				}
-			}
-			Cameras = newlist;
 		}
+		Cameras = newlist;
+	}
 
-		internal static void Draw(FrameEventArgs e)
-		{
-			SortCameras();
+	internal static void Draw(FrameEventArgs e)
+	{
+		SortCameras();
 
-			foreach (Camera camera in Cameras) {
-				GL.Viewport(camera.Viewport.X, GraphicsManager.WindowHeight - (camera.Viewport.Y + camera.Viewport.Height), camera.Viewport.Width, camera.Viewport.Height);
-				GL.Clear(ClearBufferMask.DepthBufferBit);
-				camera.Draw(e);
-			}
+		foreach (Camera camera in Cameras) {
+			GL.Viewport(camera.Viewport.X, GraphicsManager.WindowHeight - (camera.Viewport.Y + camera.Viewport.Height), camera.Viewport.Width, camera.Viewport.Height);
+			GL.Clear(ClearBufferMask.DepthBufferBit);
+			camera.Draw(e);
 		}
 	}
 }

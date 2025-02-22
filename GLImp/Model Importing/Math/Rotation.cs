@@ -1,81 +1,79 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Mila.Types
+namespace Mila.Types;
+
+/// <summary>
+/// Represents a free rotation in 3D space.
+/// </summary>
+public class Rotation
 {
+    private double yaw, pitch, tilt;
+
+    #region Getters_And_Setters
+
     /// <summary>
-    /// Represents a free rotation in 3D space.
+    /// Gets or sets the yaw (azimuth) of the rotation.
     /// </summary>
-    public class Rotation
+    public double Yaw
     {
-        private double yaw = 0.0f, pitch = 0.0f, tilt = 0.0f;
+        get { return yaw; }
+        set { yaw = value; }
+    }
 
-        #region Getters_And_Setters
+    /// <summary>
+    /// Gets or sets the pitch (zenith) of the rotation.
+    /// </summary>
+    public double Pitch
+    {
+        get { return pitch; }
+        set { pitch = value; }
+    }
 
-        /// <summary>
-        /// Gets or sets the yaw (azimuth) of the rotation.
-        /// </summary>
-        public double Yaw
-        {
-            get { return yaw; }
-            set { yaw = value; }
-        }
+    /// <summary>
+    /// Gets or sets the tilt of the rotation.
+    /// </summary>
+    public double Tilt
+    {
+        get { return tilt; }
+        set { tilt = value; }
+    }
 
-        /// <summary>
-        /// Gets or sets the pitch (zenith) of the rotation.
-        /// </summary>
-        public double Pitch
-        {
-            get { return pitch; }
-            set { pitch = value; }
-        }
+    #endregion
 
-        /// <summary>
-        /// Gets or sets the tilt of the rotation.
-        /// </summary>
-        public double Tilt
-        {
-            get { return tilt; }
-            set { tilt = value; }
-        }
+    public Rotation()
+    {
+    }
 
-        #endregion
+    /// <summary>
+    /// Creates a new rotation object by cloning another.
+    /// </summary>
+    /// <param name="other"></param>
+    public Rotation(Rotation other)
+    {
+        yaw = other.Yaw;
+        pitch = other.Pitch;
+        tilt = other.Tilt;
+    }
 
-        public Rotation()
-        {
-        }
+    /// <summary>
+    /// Returns true if the two rotations are equivalent.
+    /// </summary>
+    /// <param name="other">The other rotation to compare against.</param>
+    /// <returns>true if the two rotations are equivalent.</returns>
+    public bool equals(Rotation other) {
+        return Math.Abs(other.Yaw - yaw) <= double.Epsilon
+               && Math.Abs(other.Pitch - pitch) <= double.Epsilon
+               && Math.Abs(other.Tilt - tilt) <= double.Epsilon;
+    }
 
-        /// <summary>
-        /// Creates a new rotation object by cloning another.
-        /// </summary>
-        /// <param name="other"></param>
-        public Rotation(Rotation other)
-        {
-            yaw = other.Yaw;
-            pitch = other.Pitch;
-            tilt = other.Tilt;
-        }
-
-        /// <summary>
-        /// Returns true if the two rotations are equivalent.
-        /// </summary>
-        /// <param name="other">The other rotation to compare against.</param>
-        /// <returns>true if the two rotations are equivalent.</returns>
-        public bool equals(Rotation other)
-        {
-            return other.Yaw == yaw && other.Pitch == pitch && other.Tilt == tilt;
-        }
-
-        /// <summary>
-        /// Sets the rotation to the same values as the other given rotation.
-        /// </summary>
-        /// <param name="other"></param>
-        public void set(Rotation other)
-        {
-            yaw = other.Yaw;
-            pitch = other.Pitch;
-            tilt = other.Tilt;
-        }
+    /// <summary>
+    /// Sets the rotation to the same values as the other given rotation.
+    /// </summary>
+    /// <param name="other"></param>
+    public void set(Rotation other)
+    {
+        yaw = other.Yaw;
+        pitch = other.Pitch;
+        tilt = other.Tilt;
     }
 }

@@ -1,20 +1,19 @@
 /**************************************************************
- *  
+ *
  * MDF.cs -- Contains the MDFChunkReader and MDFChunkWriter
- * classes, used for reading and writing chunks and data 
+ * classes, used for reading and writing chunks and data
  * contained within them for many of the file formats created
  * for the Mila engine.
- * 
+ *
  * Part of the Mila Engine.
  * Added on Thursday, July 30th, 2009.
  * Copyright(C) Aleksey Okoneshnikov, all rights reserved.
- * 
+ *
  **************************************************************/
 
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime.InteropServices;
 using System.IO;
 
 namespace Mila
@@ -52,7 +51,7 @@ namespace Mila
             /// </summary>
             public class MDFChunkReader
             {
-                private BinaryReader reader = null;
+                private BinaryReader reader;
 
 
                 /// <summary>
@@ -69,7 +68,7 @@ namespace Mila
                 }
 
                 /// <summary>
-                /// Creates a new MDFChunkReader opened on the given file.  
+                /// Creates a new MDFChunkReader opened on the given file.
                 /// If the file cannot be opened for reading, throws an IOException.
                 /// </summary>
                 /// <param name="filepath">The filepath to the file to open.</param>
@@ -213,11 +212,11 @@ namespace Mila
                     }
                     else if (firstByte == 0xFE)
                     {
-                        return (UInt32)reader.ReadUInt16();
+                        return reader.ReadUInt16();
                     }
                     else
                     {
-                        return (UInt32)firstByte;
+                        return firstByte;
                     }
                 }
 
@@ -237,11 +236,11 @@ namespace Mila
                     }
                     else if (firstByte == -127)
                     {
-                        return (Int32)reader.ReadInt16();
+                        return reader.ReadInt16();
                     }
                     else
                     {
-                        return (Int32)firstByte;
+                        return firstByte;
                     }
                 }
 
@@ -323,7 +322,7 @@ namespace Mila
             /// </summary>
             public class MDFChunkWriter
             {
-                private BinaryWriter writer = null;
+                private BinaryWriter writer;
 
                 /// <summary>
                 /// Creates a new MDFChunkWriter object wrapped around the given existing BinaryWriter.
