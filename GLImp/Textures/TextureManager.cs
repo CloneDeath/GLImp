@@ -4,7 +4,6 @@ using System.Drawing;
 using Img = System.Drawing.Imaging;
 using System.IO;
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
 
 namespace GLImp {
@@ -38,12 +37,7 @@ namespace GLImp {
 		/// </summary>
 		internal static int CreateTextureFromFile(string path, bool LinearFilter, bool Clamp)
 		{
-			try {
-				return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)), LinearFilter, Clamp);
-			} catch (Exception e) {
-				MessageBox.Show("Missing Texture: [" + e.Message + "]");
-				return Texture.Error;
-			}
+			return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)), LinearFilter, Clamp);
 		}
 
 

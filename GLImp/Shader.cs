@@ -5,6 +5,7 @@ using System.Text;
 
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace GLImp {
 	public class Shader {
@@ -61,7 +62,7 @@ namespace GLImp {
 			int loc = GL.GetUniformLocation(iProgram, name);
 			GL.Uniform1(loc, value);
 		}
-		
+
 		//2
 		public void SetUniform(string name, Vector2 value) {
 			int loc = GL.GetUniformLocation(iProgram, name);
@@ -71,7 +72,7 @@ namespace GLImp {
 			int loc = GL.GetUniformLocation(iProgram, name);
 			GL.Uniform2(loc, v0, v1);
 		}
-		
+
 		//3
 		public void SetUniform(string name, Vector3 value) {
 			int loc = GL.GetUniformLocation(iProgram, name);

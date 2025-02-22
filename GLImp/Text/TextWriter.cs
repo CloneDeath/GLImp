@@ -6,6 +6,7 @@ using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
 using System.Drawing.Imaging;
+using OpenTK.Mathematics;
 
 namespace GLImp {
 	//http://www.opentk.com/node/1554?page=1

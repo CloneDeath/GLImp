@@ -6,6 +6,8 @@ using OpenTK;
 using GLImp;
 using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
 
 namespace GLImp {
 	public class Camera2D : Camera {
@@ -52,7 +54,7 @@ namespace GLImp {
 		{
 			GL.Disable(EnableCap.DepthTest);
 			GL.BlendEquation(BlendEquationMode.FuncAdd);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			GL.Clear(ClearBufferMask.DepthBufferBit);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();

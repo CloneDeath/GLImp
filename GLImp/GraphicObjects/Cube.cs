@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using OpenTK;
 using System.Drawing;
+using OpenTK.Mathematics;
 
 namespace GLImp.GraphicObjects {
 	public class Cube : Shape {
@@ -15,7 +16,7 @@ namespace GLImp.GraphicObjects {
                 new Vector3( 1.0f,  1.0f,  1.0f),
                 new Vector3(-1.0f,  1.0f,  1.0f),
                 new Vector3(-1.0f, -1.0f, -1.0f),
-                new Vector3( 1.0f, -1.0f, -1.0f), 
+                new Vector3( 1.0f, -1.0f, -1.0f),
                 new Vector3( 1.0f,  1.0f, -1.0f),
                 new Vector3(-1.0f,  1.0f, -1.0f)
             };

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
+using OpenTK.Windowing.Common;
 
 namespace GLImp
 {

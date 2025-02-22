@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Resources;
-
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImp
 {
@@ -18,23 +20,24 @@ namespace GLImp
     {
 		public static int WindowWidth {
 			get {
-				return Instance.Width;
+				return Instance.ClientSize.X;
 			}
 			set {
-				Instance.Width = value;
+				Instance.ClientSize = new Vector2i(value, Instance.ClientSize.Y);
 			}
 		}
 		public static int WindowHeight {
 			get {
-				return Instance.Height;
+				return Instance.ClientSize.Y;
 			}
 			set {
-				Instance.Height = value;
+				Instance.ClientSize = new Vector2i(Instance.ClientSize.X, value);
 			}
 		}
 
 		private GraphicsManager(int x, int y)
-            : base(x, y, new OpenTK.Graphics.GraphicsMode(32,24,8,4), "GLImp Game Window")
+			: base(new GameWindowSettings(), new NativeWindowSettings{ ClientSize = new Vector2i(x, y), Title = "GLImp Game Window"})
+            //: base(x, y, new GraphicsMode(32,24,8,4), )
         {
             VSync = VSyncMode.On;
         }
@@ -46,9 +49,9 @@ namespace GLImp
 		/*****************************************************************
 		 *						ON GAME RUN METHODS
 		 *****************************************************************/
-		protected override void OnLoad(EventArgs e)
+		protected override void OnLoad()
 		{
-			base.OnLoad(e);
+			base.OnLoad();
 			TextureManager.InitTexturing();
 			InputManager.Init();
 			if (DisableDepthTest) {
@@ -64,33 +67,28 @@ namespace GLImp
 			GL.Enable(EnableCap.AlphaTest);
 		}
 
-        protected override void OnResize(EventArgs e)
+		protected override void OnResize(ResizeEventArgs e)
         {
             base.OnResize(e);
-			
+
 			GL.Viewport(this.ClientRectangle);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
-			GL.Ortho(0, ClientRectangle.Width, ClientRectangle.Height, 0, -1, 0);
+			GL.Ortho(0, ClientRectangle.Size.X, ClientRectangle.Size.Y, 0, -1, 0);
 
-			if(OnWindowResize != null) {
-				OnWindowResize();
-			}
-			
+			OnWindowResize?.Invoke();
         }
 
 		public delegate void Resizer();
-		public static event Resizer OnWindowResize;
+		public static event Resizer? OnWindowResize;
 
-		
+
 
 		public delegate void Disposer();
-		public static event Disposer OnDispose;
+		public static event Disposer? OnDispose;
 		public static void Close() {
-			if(OnDispose != null) {
-				OnDispose();
-			}
-			Instance.Exit();
+			OnDispose?.Invoke();
+			((GameWindow)Instance).Close();
 		}
 		#endregion
 
@@ -101,8 +99,7 @@ namespace GLImp
 		 *****************************************************************/
 		public static void SetResolution(int Width, int Height)
 		{
-			Instance.Width = Width;
-			Instance.Height = Height;
+			Instance.ClientSize = new Vector2i(Width, Height);
 		}
 
 		public static void SetBackground(Color color)
@@ -115,7 +112,7 @@ namespace GLImp
 		}
 		#endregion
 
-		
+
 
 		/*****************************************************************
 		 *								MISC
@@ -162,7 +159,7 @@ namespace GLImp
 			GraphicsManager.DrawLine(v4, v8);
 			GL.Enable(EnableCap.Texture2D);
 		}
-		
+
 
 		public static void SwapBuffer()
 		{
@@ -180,9 +177,9 @@ namespace GLImp
         /// <summary>
         /// Starts the game. Same exact thing as OpenWindow.
         /// </summary>
-		public static void Start(double TargetUpdateFPS = 60, double TargetRenderFPS = 60)
-        {
-			Instance.Run(TargetUpdateFPS, TargetRenderFPS);
+		public static void Start(double TargetUpdateFPS = 60) {
+			Instance.UpdateFrequency = TargetUpdateFPS;
+			Instance.Run();
         }
 
 		public static void SetWindowState(WindowState state) {
@@ -242,12 +239,12 @@ namespace GLImp
 		/*****************************************************************
 		 *								INPUT
 		 *****************************************************************/
-		public static KeyboardDevice keyboard {
+		public static KeyboardState keyboard {
 			get {
-				return Instance.Keyboard;
+				return Instance.KeyboardState;
 			}
 		}
-		public static MouseDevice mouse {
+		public static MouseState mouse {
 			get {
 				return Instance.Mouse;
 			}

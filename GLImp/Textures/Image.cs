@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace GLImp {
 	abstract public class Image {
 		public virtual int Width { get; set; }
 		public virtual int Height { get; set; }
-		
+
 		/// <summary>
 		/// Draws the image at the specified position and size.
 		/// </summary>

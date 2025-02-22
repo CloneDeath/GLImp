@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using OpenTK;
 using System.Drawing;
+using OpenTK.Mathematics;
 
 namespace GLImp.GraphicObjects {
 	public class Shape {

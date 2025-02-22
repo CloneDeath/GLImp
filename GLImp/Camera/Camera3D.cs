@@ -5,6 +5,8 @@ using System.Text;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
 
 namespace GLImp
 {
@@ -73,7 +75,7 @@ namespace GLImp
 			GL.MatrixMode(MatrixMode.Projection);
 
 			GL.BlendEquation(BlendEquationMode.FuncAdd);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		}
 
 		public void UseDefaultProjection(){
@@ -171,8 +173,8 @@ namespace GLImp
 			Matrix4d viewInv = Matrix4d.Invert(view);
 			Matrix4d projInv = Matrix4d.Invert(projection);
 
-			Vector4d.Transform(ref vec, ref projInv, out vec);
-			Vector4d.Transform(ref vec, ref viewInv, out vec);
+			Vector4d.TransformRow(ref vec, ref projInv, out vec);
+			Vector4d.TransformRow(ref vec, ref viewInv, out vec);
 
 			if (vec.W > float.Epsilon || vec.W < float.Epsilon) {
 				vec.X /= vec.W;

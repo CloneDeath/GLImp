@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Resources;
-
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
-
+using OpenTK.Windowing.Common;
 
 namespace GLImp {
 	partial class GraphicsManager {
@@ -34,7 +32,7 @@ namespace GLImp {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			CameraManager.Draw(e);
-			
+
 			GL.Flush();
 			SwapBuffer();
         }

@@ -5,26 +5,28 @@ using System.Text;
 using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
 using GLImp;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImp {
 	public class KeyboardManager {
-		private static Dictionary<Key, bool> prevkeys = new Dictionary<Key, bool>();
-		private static Dictionary<Key, bool> keys = new Dictionary<Key, bool>();
+		private static Dictionary<Keys, bool> prevkeys = new Dictionary<Keys, bool>();
+		private static Dictionary<Keys, bool> keys = new Dictionary<Keys, bool>();
 
 		internal static void Init() {
-			GraphicsManager.keyboard.KeyDown += new EventHandler<KeyboardKeyEventArgs>(KeyDown);
-			GraphicsManager.keyboard.KeyUp += new EventHandler<KeyboardKeyEventArgs>(KeyUp);
+			GraphicsManager.Instance.KeyDown += KeyDown;
+			GraphicsManager.Instance.KeyUp += KeyUp;
 		}
 
 		internal static void Update() {
-			prevkeys = new Dictionary<Key, bool>();
-			foreach (KeyValuePair<Key, bool> entry in keys) {
+			prevkeys = new Dictionary<Keys, bool>();
+			foreach (KeyValuePair<Keys, bool> entry in keys) {
 				prevkeys.Add(entry.Key, entry.Value);
 			}
 		}
 
 		//Key will tell you which key has changed state, IsDown is true if the key is currently being pressed
-		internal static void KeyDown(object sender, KeyboardKeyEventArgs key) {
+		internal static void KeyDown(KeyboardKeyEventArgs key) {
 			if (keys.ContainsKey(key.Key))
 			{
 				keys[key.Key] = true;
@@ -35,7 +37,7 @@ namespace GLImp {
 			}
 		}
 
-		internal static void KeyUp(object sender, KeyboardKeyEventArgs key)
+		internal static void KeyUp(KeyboardKeyEventArgs key)
 		{
 			if (keys.ContainsKey(key.Key))
 			{
@@ -48,7 +50,7 @@ namespace GLImp {
 		}
 
 		//Returns if the keyboard key is currently down or not
-		public static bool IsDown(Key key) {
+		public static bool IsDown(Keys key) {
 			if (keys.ContainsKey(key))
 			{
 				return keys[key];
@@ -59,17 +61,17 @@ namespace GLImp {
 			}
 		}
 
-		public static bool IsUp(Key key)
+		public static bool IsUp(Keys key)
 		{
 			return !IsDown(key);
 		}
 
-		
 
-		public static List<Key> GetAllDownKeys() {
-			List<Key> l = new List<Key>();
 
-			foreach (KeyValuePair<Key, bool> pair in keys) {
+		public static List<Keys> GetAllDownKeys() {
+			List<Keys> l = new List<Keys>();
+
+			foreach (KeyValuePair<Keys, bool> pair in keys) {
 				if (IsDown(pair.Key)) {
 					l.Add(pair.Key);
 				}
@@ -79,7 +81,7 @@ namespace GLImp {
 		}
 
 		//If a key was pressed since last time we checked
-		public static bool IsPressed(Key key) {
+		public static bool IsPressed(Keys key) {
 			if(prevkeys.ContainsKey(key) && prevkeys[key]) { //If it was previously down
 				return false;
 			} else if(keys.ContainsKey(key) && keys[key]) { //Previously up & is currently down
@@ -88,12 +90,12 @@ namespace GLImp {
 				return false;
 			}
 		}
-		
 
-		public static List<Key> GetAllPressedKeys() {
-			List<Key> l = new List<Key>();
 
-			foreach(KeyValuePair<Key, bool> pair in keys) {
+		public static List<Keys> GetAllPressedKeys() {
+			List<Keys> l = new List<Keys>();
+
+			foreach(KeyValuePair<Keys, bool> pair in keys) {
 				if(IsPressed(pair.Key)) {
 					l.Add(pair.Key);
 				}
@@ -103,7 +105,7 @@ namespace GLImp {
 		}
 
 		//If a key was released since last time we checked
-		public static bool IsReleased(Key key) {
+		public static bool IsReleased(Keys key) {
 			if (prevkeys.ContainsKey(key) && !prevkeys[key]) { //If it was previously up
 				return false;
 			} else if (keys.ContainsKey(key) && !keys[key]) { //Previously down & is currently up
@@ -113,12 +115,12 @@ namespace GLImp {
 			}
 		}
 
-		
 
-		public static List<Key> GetAllReleasedKeys() {
-			List<Key> l = new List<Key>();
 
-			foreach (KeyValuePair<Key, bool> pair in keys) {
+		public static List<Keys> GetAllReleasedKeys() {
+			List<Keys> l = new List<Keys>();
+
+			foreach (KeyValuePair<Keys, bool> pair in keys) {
 				if (IsReleased(pair.Key)) {
 					l.Add(pair.Key);
 				}

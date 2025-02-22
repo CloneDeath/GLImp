@@ -4,6 +4,7 @@ using System.IO;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace GLImp
 {
@@ -103,7 +104,7 @@ namespace GLImp
 			}
 		}
 
-		
+
 		/// <summary>
 		/// Creates a new texture with the specified parameters.
 		/// </summary>

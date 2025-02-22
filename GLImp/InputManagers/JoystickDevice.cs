@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK.Input;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImp {
 	public class JoystickDevice {
@@ -12,7 +13,7 @@ namespace GLImp {
 		}
 		public JoystickState State;
 		public JoystickState PreviousState;
-		public JoystickCapabilities Capabilities;
+		// public JoystickCapabilities Capabilities;
 
 		internal JoystickDevice(int DeviceID) {
 			this.DeviceID = DeviceID;
@@ -27,7 +28,7 @@ namespace GLImp {
 		internal void Update() {
 			PreviousState = State;
 			State = OpenTK.Input.Joystick.GetState(DeviceID);
-			Capabilities = OpenTK.Input.Joystick.GetCapabilities(DeviceID);
+			// Capabilities = OpenTK.Input.Joystick.GetCapabilities(DeviceID);
 		}
 
 		public bool IsDown(JoystickButton Button) {

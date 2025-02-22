@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using OpenTK;
 using OpenTK.Input;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImp {
 	public class MouseManager {
@@ -16,10 +19,10 @@ namespace GLImp {
 		private static int WheelPosition;
 
 		internal static void Init() {
-			GraphicsManager.mouse.ButtonDown += new EventHandler<MouseButtonEventArgs>(MouseDown);
-			GraphicsManager.mouse.ButtonUp += new EventHandler<MouseButtonEventArgs>(MouseUp);
-			GraphicsManager.mouse.Move += new EventHandler<MouseMoveEventArgs>(MouseMove);
-			GraphicsManager.mouse.WheelChanged += new EventHandler<MouseWheelEventArgs>(MouseWheel);
+			GraphicsManager.Instance.MouseDown += MouseDown;
+			GraphicsManager.Instance.MouseUp += MouseUp;
+			GraphicsManager.Instance.MouseMove += MouseMove;
+			GraphicsManager.Instance.MouseWheel += MouseWheel;
 		}
 
 		internal static void Update() {
@@ -33,7 +36,7 @@ namespace GLImp {
 			PrevMousePosition = MousePos;
 		}
 
-		internal static void MouseDown(object sender, MouseButtonEventArgs mouse) {
+		internal static void MouseDown(MouseButtonEventArgs mouse) {
 			if (mouseButtons.ContainsKey(mouse.Button)) {
 				mouseButtons[mouse.Button] = true;
 			} else {
@@ -41,7 +44,7 @@ namespace GLImp {
 			}
 		}
 
-		internal static void MouseUp(object sender, MouseButtonEventArgs mouse) {
+		internal static void MouseUp(MouseButtonEventArgs mouse) {
 			if (mouseButtons.ContainsKey(mouse.Button)) {
 				mouseButtons[mouse.Button] = false;
 			} else {
@@ -49,15 +52,13 @@ namespace GLImp {
 			}
 		}
 
-		internal static void MouseMove(object sender, MouseMoveEventArgs mouse) {
+		internal static void MouseMove(MouseMoveEventArgs mouse) {
 			MousePos = new Vector2d(mouse.X, mouse.Y);
 		}
 
-		internal static void MouseWheel(object Sender, MouseWheelEventArgs mouse) {
-			WheelPosition += mouse.Delta;
+		internal static void MouseWheel(MouseWheelEventArgs mouse) {
+			WheelPosition += (int)mouse.OffsetY;
 		}
-
-
 
 		//Change the mouse position to X,Y on the open window. I have no idea how to do this, figure this out :P
 		/// <summary>
@@ -66,18 +67,18 @@ namespace GLImp {
 		/// <param name="x">X position to set the mouse to.</param>
 		/// <param name="y">Y position to set the mouse to.</param>
 		public static void SetMousePositionWindows(int x, int y) {
-			System.Drawing.Point loc = GraphicsManager.Instance.Location;
-			System.Windows.Forms.Cursor.Position = new System.Drawing.Point(x + loc.X, y + loc.Y);
+			var loc = GraphicsManager.Instance.Location;
+			GraphicsManager.Instance.MousePosition = new Vector2i(x + loc.X, y + loc.Y);
 		}
 
 		//When called, hide the mouse cursor
 		public static void HideMouseWindows() {
-			System.Windows.Forms.Cursor.Hide();
+			GraphicsManager.Instance.CursorState = CursorState.Hidden;
 		}
 
 		//When called, show the mouse cursor
 		public static void ShowMouseWindows() {
-			System.Windows.Forms.Cursor.Show();
+			GraphicsManager.Instance.CursorState = CursorState.Normal;
 		}
 
 		//Returns if the mouse button is currently down or not
@@ -114,9 +115,7 @@ namespace GLImp {
 		/// </summary>
 		/// <returns></returns>
 		public static Vector2d GetMousePositionWindows() {
-			System.Drawing.Point loc = System.Windows.Forms.Cursor.Position;
-			loc.X -= GraphicsManager.Instance.Location.X;
-			loc.Y -= GraphicsManager.Instance.Location.Y;
+			var loc = GraphicsManager.Instance.MousePosition;
 			return new Vector2d(loc.X, loc.Y);
 		}
 

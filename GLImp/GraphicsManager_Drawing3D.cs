@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Resources;
-
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
+using OpenTK.Mathematics;
 
 namespace GLImp {
 	partial class GraphicsManager {
@@ -32,7 +31,7 @@ namespace GLImp {
 			Text.DrawString((x+width/2-len/2), (y+height/2-len/2),text,color);
 		}
 
-		
+
 		public static void DrawLine(Vector3d p1, Vector3d p2, Color color) {
 			GL.Begin(PrimitiveType.Lines);
 				GL.Color3(color);
@@ -47,9 +46,9 @@ namespace GLImp {
 			GL.End();
 		}
 
-		
 
-		
+
+
 		//Draw Polygon
 		public static void DrawPolygon(Vector3d p1, Vector3d p2, Vector3d p3, Color c)
 		{

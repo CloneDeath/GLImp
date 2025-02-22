@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK.Input;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImp {
 	public class GamePadDevice {
@@ -10,9 +11,9 @@ namespace GLImp {
 			get;
 			private set;
 		}
-		public GamePadState State;
-		public GamePadState PreviousState;
-		public GamePadCapabilities Capabilities;
+		public GamepadState State;
+		public GamepadState PreviousState;
+		// public GamepadCapabilities Capabilities;
 
 		internal GamePadDevice(int DeviceID) {
 			this.DeviceID = DeviceID;
@@ -20,14 +21,14 @@ namespace GLImp {
 
 		public bool IsConnected {
 			get {
-				return State.IsConnected;
+				return GLFW.JoystickPresent(DeviceID); // State.IsConnected;
 			}
 		}
 
 		internal void Update() {
 			PreviousState = State;
-			State = OpenTK.Input.GamePad.GetState(DeviceID);
-			Capabilities = OpenTK.Input.GamePad.GetCapabilities(DeviceID);
+			GLFW.GetGamepadState(DeviceID, out State);
+			//Capabilities = OpenTK.Input.GamePad.GetCapabilities(DeviceID);
 		}
 
 		public bool IsDown(OpenTK.Input.Buttons Button)

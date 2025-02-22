@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Resources;
-
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
+using OpenTK.Mathematics;
 
 namespace GLImp {
 	partial class GraphicsManager{
 		/// <summary>
-		/// Draws a triangle strip with the given input 
+		/// Draws a triangle strip with the given input
 		/// </summary>
 		/// <param name="pts">The vectors to connect</param>
 		public static void DrawPolygon(IEnumerable<Vector2d> pts) {

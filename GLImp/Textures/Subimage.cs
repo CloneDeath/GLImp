@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
+using OpenTK.Mathematics;
 
 namespace GLImp {
 	public class SubImage : Image {
@@ -76,6 +77,6 @@ namespace GLImp {
 			}
 		}
 
-		
+
 	}
 }
