@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLImpUnitTest", "GLImpUnitTest\GLImpUnitTest.csproj", "{9B8A05F4-CAA7-4411-BCCE-6DB9DF9DB5BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLImpUnitTest.Legacy", "GLImpUnitTest.Legacy\GLImpUnitTest.Legacy.csproj", "{9B8A05F4-CAA7-4411-BCCE-6DB9DF9DB5BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLImp.Legacy", "GLImp.Legacy\GLImp.Legacy.csproj", "{239CCB17-C79B-493E-9FEA-2B3D349EB30A}"
 EndProject

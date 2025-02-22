@@ -3,7 +3,7 @@
 /GLImp/obj
 /GLImp.Legacy/bin
 /GLImp.Legacy/obj
-/GLImpUnitTest/bin
-/GLImpUnitTest/obj
+/GLImpUnitTest.Legacy/bin
+/GLImpUnitTest.Legacy/obj
 .idea/
 *.DotSettings.user
