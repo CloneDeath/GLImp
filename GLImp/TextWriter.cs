@@ -14,41 +14,34 @@ namespace GLImp;
 //http://www.opentk.com/node/1554?page=1
 internal class TextWriter {
 	private readonly Size _clientSize;
-	private readonly List<Brush> _colours;
-	private readonly List<string> _lines;
-	private readonly List<PointF> _positions;
+	private readonly List<Brush> _colours = [];
+	private readonly List<string> _lines = [];
+	private readonly List<PointF> _positions = [];
 	private readonly int _textureId;
 	private readonly Image<Rgba32> TextBitmap;
 	private readonly Font TextFont = new(SystemFonts.TryGet("roboto", out var font) ? font : throw new Exception(), 8);
 
 	public TextWriter(Size ClientSize, Size areaSize) {
-		_positions = new List<PointF>();
-		_lines = new List<string>();
-		_colours = new List<Brush>();
-
 		TextBitmap = new Image<Rgba32>(areaSize.Width, areaSize.Height);
 		_clientSize = ClientSize;
 		_textureId = CreateTexture();
 	}
 
 	public void Update(int ind, string newText) {
-		if (ind < _lines.Count) {
-			_lines[ind] = newText;
-			UpdateText();
-		}
+		if (ind >= _lines.Count) return;
+		_lines[ind] = newText;
+		UpdateText();
 	}
 
 	private int CreateTexture() {
-		int textureId;
 		GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode,
 			(float)TextureEnvMode.Replace); //Important, or wrong color on some computers
-		var bitmap = TextBitmap;
-		GL.GenTextures(1, out textureId);
+		GL.GenTextures(1, out int textureId);
 		GL.BindTexture(TextureTarget.Texture2D, textureId);
 
-		var pixelBytes = new byte[bitmap.Width * bitmap.Height * Unsafe.SizeOf<Rgba32>()];
-		bitmap.CopyPixelDataTo(pixelBytes);
-		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0,
+		var pixelBytes = new byte[TextBitmap.Width * TextBitmap.Height * Unsafe.SizeOf<Rgba32>()];
+		TextBitmap.CopyPixelDataTo(pixelBytes);
+		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, TextBitmap.Width, TextBitmap.Height, 0,
 			PixelFormat.Rgba, PixelType.UnsignedByte, pixelBytes);
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
@@ -78,21 +71,20 @@ internal class TextWriter {
 	}
 
 	public void UpdateText() {
-		if (_lines.Count > 0) {
-			TextBitmap.Mutate(gfx => {
-				gfx.Clear(Color.Black);
-				for (var i = 0; i < _lines.Count; i++) {
-					gfx.DrawText(_lines[i], TextFont, _colours[i], _positions[i]);
-				}
-			});
+		if (_lines.Count <= 0) return;
+		TextBitmap.Mutate(gfx => {
+			gfx.Clear(Color.Black);
+			for (var i = 0; i < _lines.Count; i++) {
+				gfx.DrawText(_lines[i], TextFont, _colours[i], _positions[i]);
+			}
+		});
 
-			GL.BindTexture(TextureTarget.Texture2D, _textureId);
+		GL.BindTexture(TextureTarget.Texture2D, _textureId);
 
-			var pixelBytes = new byte[TextBitmap.Width * TextBitmap.Height * Unsafe.SizeOf<Rgba32>()];
-			TextBitmap.CopyPixelDataTo(pixelBytes);
-			GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, TextBitmap.Width, TextBitmap.Height, PixelFormat.Bgra,
-				PixelType.UnsignedByte, pixelBytes);
-		}
+		var pixelBytes = new byte[TextBitmap.Width * TextBitmap.Height * Unsafe.SizeOf<Rgba32>()];
+		TextBitmap.CopyPixelDataTo(pixelBytes);
+		GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, TextBitmap.Width, TextBitmap.Height, PixelFormat.Bgra,
+			PixelType.UnsignedByte, pixelBytes);
 	}
 
 	public void Draw() {

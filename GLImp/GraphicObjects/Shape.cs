@@ -1,11 +1,12 @@
 ﻿using System.Drawing;
+using GLImp.Textures;
 using OpenTK.Mathematics;
 
 namespace GLImp.GraphicObjects;
 
 public class Shape {
 	public int[]? Colors;
-	public int[]? Indices;
+	public int[] Indices = [];
 	public Vector3[]? Normals;
 	public Vector2[]? TexCoords;
 

@@ -5,7 +5,7 @@ using OpenTK.Windowing.Common;
 namespace GLImp;
 
 internal class CameraManager {
-	private static List<Camera> Cameras = new();
+	private static List<Camera> Cameras = [];
 
 	public static void Add(Camera camera) {
 		if (!Cameras.Contains(camera)) {
@@ -14,10 +14,8 @@ internal class CameraManager {
 	}
 
 	public static void Remove(Camera camera) {
-		if (Cameras.Contains(camera)) {
-			Cameras.Remove(camera);
-		}
-	}
+        Cameras.Remove(camera);
+    }
 
 	private static void SortCameras() {
 		//Make sure we have at least one camera to sort first.
@@ -31,9 +29,9 @@ internal class CameraManager {
 
 		var LayerAt = Cameras[0].Layer;
 		var InOrder = true;
-		for (var i = 0; i < Cameras.Count; i++) {
-			if (Cameras[i].Layer >= LayerAt) {
-				LayerAt = Cameras[i].Layer;
+		foreach (var camera in Cameras) {
+			if (camera.Layer >= LayerAt) {
+				LayerAt = camera.Layer;
 			} else {
 				InOrder = false;
 				break;
@@ -45,13 +43,12 @@ internal class CameraManager {
 		}
 
 		//Not in order, time to do an insertion sort.
-		List<Camera> newlist = new List<Camera>();
+		var newlist = new List<Camera>();
 		foreach (var camera in Cameras) {
 			for (var i = 0; i < newlist.Count; i++) {
-				if (newlist[i].Layer > camera.Layer) {
-					newlist.Insert(i, camera);
-					break;
-				}
+				if (newlist[i].Layer <= camera.Layer) continue;
+				newlist.Insert(i, camera);
+				break;
 			}
 
 			//Didn't get added, append to end

@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 using OpenTK.Graphics.OpenGL;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace GLImp;
+namespace GLImp.Textures;
 
 internal static class TextureManager {
 	/// <summary>
@@ -43,6 +43,7 @@ internal static class TextureManager {
 		var image = bitmap.CloneAs<Rgba32>();
 		var pixelBytes = new byte[image.Width * image.Height * Unsafe.SizeOf<Rgba32>()];
 		image.CopyPixelDataTo(pixelBytes);
+		// ReSharper disable once UnusedVariable
 		var x = GraphicsManager.Instance.ClientLocation.X; //NOP, need to make sure graphics context is loaded.
 		var tex = GL.GenTexture();
 

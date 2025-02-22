@@ -132,8 +132,10 @@ public class GraphicObject {
 	}
 
 	public void Draw() {
-		GL.Enable(EnableCap.Texture2D);
-		GL.BindTexture(TextureTarget.Texture2D, Target.Texture.ID);
+		if (Target.Texture != null) {
+			GL.Enable(EnableCap.Texture2D);
+			GL.BindTexture(TextureTarget.Texture2D, Target.Texture.ID);
+		}
 
 		// Push current Array Buffer state so we can restore it later
 		GL.PushClientAttrib(ClientAttribMask.ClientVertexArrayBit);

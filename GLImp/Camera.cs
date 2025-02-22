@@ -24,13 +24,7 @@ public abstract class Camera {
 	///     Returns the current viewport area. Setting this will enable viewports.
 	/// </summary>
 	public Rectangle Viewport {
-		get {
-			if (FillWindow) {
-				return new Rectangle(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight);
-			}
-
-			return ViewportArea;
-		}
+		get => FillWindow ? new Rectangle(0, 0, GraphicsManager.WindowWidth, GraphicsManager.WindowHeight) : ViewportArea;
 		set {
 			FillWindow = false;
 			ViewportArea = value;

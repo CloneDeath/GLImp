@@ -1,6 +1,6 @@
-using Mila.Types;
+using GLImp.Mila.Types;
 
-namespace Mila.Data;
+namespace GLImp.Mila.Data;
 
 /// <summary>
 ///     Represents an n-vertex polygon in 3D-space.

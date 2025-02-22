@@ -56,7 +56,7 @@ public class Camera3D : Camera {
 
 	public Matrix4d ModelView => Matrix4d.LookAt(Position, CameraLook, CameraUp);
 
-	private void Begin3D() {
+	private static void Begin3D() {
 		if (GraphicsManager.DisableDepthTest) {
 			GL.Disable(EnableCap.DepthTest);
 		} else {
@@ -85,9 +85,7 @@ public class Camera3D : Camera {
 		var modelview = ModelView;
 		GL.LoadMatrix(ref modelview);
 
-		if (OnRender != null) {
-			OnRender(e);
-		}
+		OnRender?.Invoke(e);
 	}
 
 	public void LookAt(Vector3d lookat) {
@@ -148,12 +146,10 @@ public class Camera3D : Camera {
 		Vector4d.TransformRow(vec, projInv, out vec);
 		Vector4d.TransformRow(vec, viewInv, out vec);
 
-		if (vec.W > float.Epsilon || vec.W < float.Epsilon) {
-			vec.X /= vec.W;
-			vec.Y /= vec.W;
-			vec.Z /= vec.W;
-		}
-
+		if (vec.W is <= float.Epsilon and >= float.Epsilon) return vec;
+		vec.X /= vec.W;
+		vec.Y /= vec.W;
+		vec.Z /= vec.W;
 		return vec;
 	}
 }

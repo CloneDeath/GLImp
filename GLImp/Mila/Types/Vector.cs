@@ -1,6 +1,6 @@
 using System;
 
-namespace Mila.Types;
+namespace GLImp.Mila.Types;
 
 /// <summary>
 ///     Represents a vector in 3D-space.
@@ -109,11 +109,11 @@ public class Vector3D {
     /// </summary>
     /// <returns></returns>
     public double scalarDivision(Vector3D v) {
-		if (X > 0.0001f || X < -0.0001f) {
+		if (X is > 0.0001f or < -0.0001f) {
 			return Z / v.Z;
 		}
 
-		if (Y > 0.0001f || Y < -0.0001f) {
+		if (Y is > 0.0001f or < -0.0001f) {
 			return Y / v.Y;
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using GLImp.Textures;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
@@ -41,7 +42,7 @@ public class Shader {
 
 		GL.LinkProgram(iProgram);
 
-		GL.GetProgram(iProgram, ProgramParameter.LinkStatus, out result);
+		GL.GetProgram(iProgram, GetProgramParameterName.LinkStatus, out result);
 		if (result != 0) return;
 
 		throw new Exception(GL.GetProgramInfoLog(iProgram));

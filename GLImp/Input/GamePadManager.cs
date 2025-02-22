@@ -1,8 +1,8 @@
-﻿namespace GLImp;
+﻿namespace GLImp.Input;
 
 public class GamePadManager {
 	public const int MaxJoysticks = 4;
-	public static GamePadDevice[] GamePads = new GamePadDevice[MaxJoysticks];
+	public static GamePadDevice[] GamePads { get; } = new GamePadDevice[MaxJoysticks];
 
 	internal static void Init() {
 		for (var i = 0; i < MaxJoysticks; i++) {

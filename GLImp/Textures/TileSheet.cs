@@ -1,4 +1,4 @@
-﻿namespace GLImp;
+﻿namespace GLImp.Textures;
 
 public class TileSheet {
 	public int HOffset;

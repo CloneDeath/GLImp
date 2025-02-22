@@ -1,6 +1,6 @@
 using System;
 
-namespace Mila.Types;
+namespace GLImp.Mila.Types;
 
 /// <summary>
 ///     Represents a free rotation in 3D space.

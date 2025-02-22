@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace GLImp;
+namespace GLImp.Textures;
 
 public interface Image {
 	public int Width { get; set; }

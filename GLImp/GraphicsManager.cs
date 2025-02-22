@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using GLImp.Input;
+using GLImp.Textures;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -8,8 +10,8 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 namespace GLImp;
 
 public partial class GraphicsManager : GameWindow {
-	public static bool UseExperimentalFullAlpha = false;
-	public static bool DisableDepthTest = false;
+	public static bool UseExperimentalFullAlpha { get; set; } = false;
+	public static bool DisableDepthTest { get; set; } = false;
 
 	private static GraphicsManager? game;
 
@@ -41,8 +43,8 @@ public partial class GraphicsManager : GameWindow {
 
 	public static GraphicsManager Instance => game ??= new GraphicsManager(800, 600);
 
-	//Draws an axis alligned bounding box
-	public void DrawCollisionBox(Vector3 c1, Vector3 c2) {
+	//Draws an axis aligned bounding box
+	public static void DrawCollisionBox(Vector3 c1, Vector3 c2) {
 		var v1 = new Vector3d(c1.X, c1.Y, c1.Z);
 		var v2 = new Vector3d(c1.X, c2.Y, c1.Z);
 		var v3 = new Vector3d(c2.X, c2.Y, c1.Z);

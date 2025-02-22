@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace GLImp;
+namespace GLImp.Input;
 
 public class KeyboardManager {
 	private static Dictionary<Keys, bool> prevkeys = new();
@@ -35,68 +36,30 @@ public class KeyboardManager {
 	public static bool IsUp(Keys key) => !IsDown(key);
 
 	public static List<Keys> GetAllDownKeys() {
-		var l = new List<Keys>();
-
-		foreach (var pair in keys) {
-			if (IsDown(pair.Key)) {
-				l.Add(pair.Key);
-			}
-		}
-
-		return l;
+		return keys.Where(pair => IsDown(pair.Key)).Select(pair => pair.Key).ToList();
 	}
 
 	//If a key was pressed since last time we checked
 	public static bool IsPressed(Keys key) {
-		if (prevkeys.ContainsKey(key) && prevkeys[key]) {
-			//If it was previously down
+		if (prevkeys.TryGetValue(key, out var value) && value) {
 			return false;
 		}
-
-		if (keys.ContainsKey(key) && keys[key]) {
-			//Previously up & is currently down
-			return true;
-		} //The key is currently not down
-
-		return false;
+		return keys.ContainsKey(key) && keys[key];
 	}
 
 	public static List<Keys> GetAllPressedKeys() {
-		var l = new List<Keys>();
-
-		foreach (var pair in keys) {
-			if (IsPressed(pair.Key)) {
-				l.Add(pair.Key);
-			}
-		}
-
-		return l;
+		return keys.Where(pair => IsPressed(pair.Key)).Select(pair => pair.Key).ToList();
 	}
 
 	//If a key was released since last time we checked
 	public static bool IsReleased(Keys key) {
-		if (prevkeys.ContainsKey(key) && !prevkeys[key]) {
-			//If it was previously up
+		if (prevkeys.TryGetValue(key, out var value) && !value) {
 			return false;
 		}
-
-		if (keys.ContainsKey(key) && !keys[key]) {
-			//Previously down & is currently up
-			return true;
-		} //The key is currently not up
-
-		return false;
+		return keys.ContainsKey(key) && !keys[key];
 	}
 
 	public static List<Keys> GetAllReleasedKeys() {
-		var l = new List<Keys>();
-
-		foreach (var pair in keys) {
-			if (IsReleased(pair.Key)) {
-				l.Add(pair.Key);
-			}
-		}
-
-		return l;
+		return keys.Where(pair => IsPressed(pair.Key)).Select(pair => pair.Key).ToList();
 	}
 }

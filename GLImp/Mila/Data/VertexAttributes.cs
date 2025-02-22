@@ -1,6 +1,6 @@
-using Mila.Types;
+using GLImp.Mila.Types;
 
-namespace Mila.Data;
+namespace GLImp.Mila.Data;
 
 /// <summary>
 ///     Represents a set of attributes relevant to how a vertex is drawn on a particular face.

@@ -1,4 +1,4 @@
-﻿namespace Mila.Utility.MM;
+﻿namespace GLImp.Mila.Utility.MM;
 
 /// <summary>
 ///     Enumerates all the different errors that can occur during reading.

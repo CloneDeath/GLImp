@@ -1,4 +1,4 @@
-namespace Mila.Types;
+namespace GLImp.Mila.Types;
 
 /// <summary>
 ///     Represents a plane in 3D-space.

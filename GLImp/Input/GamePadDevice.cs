@@ -1,13 +1,12 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace GLImp;
+namespace GLImp.Input;
 
-public class JoystickDevice {
+public class GamePadDevice {
 	public JoystickInputAction[] PreviousState;
 	public JoystickInputAction[] State;
-	// public JoystickCapabilities Capabilities;
 
-	internal JoystickDevice(int DeviceID) {
+	internal GamePadDevice(int DeviceID) {
 		this.DeviceID = DeviceID;
 		State = GLFW.GetJoystickButtons(DeviceID).ToArray();
 		PreviousState = State;
@@ -15,7 +14,7 @@ public class JoystickDevice {
 
 	public int DeviceID { get; }
 
-	public bool IsConnected => GLFW.JoystickPresent(DeviceID);
+	public bool IsConnected => GLFW.JoystickPresent(DeviceID) && GLFW.JoystickIsGamepad(DeviceID);
 
 	internal void Update() {
 		PreviousState = State;

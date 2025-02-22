@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Mila {
+namespace GLImp.Mila.Utility.MDF {
 	namespace Utility {
 		namespace MDF {
             /// <summary>
@@ -54,7 +54,7 @@ namespace Mila {
                 public MDFChunkReader(BinaryReader reader) {
 					this.reader = reader;
 					if (this.reader == null) {
-						throw new ArgumentNullException("reader",
+						throw new ArgumentNullException(nameof(reader),
 							"new MDFReader: BinaryReader parameter cannot be null!");
 					}
 				}
@@ -129,12 +129,8 @@ namespace Mila {
                 ///     true if the given chunk is completely empty (in which the size field only accounts for the header), false
                 ///     otherwise.
                 /// </returns>
-                public bool isEmpty(MDFChunkHeader header) {
-					if (header.size == sizeof(uint) + sizeof(uint)) {
-						return true;
-					}
-
-					return false;
+                public static bool isEmpty(MDFChunkHeader header) {
+					return header.size == sizeof(uint) + sizeof(uint);
 				}
 
                 /// <summary>
@@ -180,15 +176,11 @@ namespace Mila {
                 /// <returns>The value read as a UInt32</returns>
                 public uint readUVInt32() {
 					var firstByte = reader.ReadByte();
-					if (firstByte == 0xFF) {
-						return reader.ReadUInt32();
-					}
-
-					if (firstByte == 0xFE) {
-						return reader.ReadUInt16();
-					}
-
-					return firstByte;
+					return firstByte switch {
+						0xFF => reader.ReadUInt32(),
+						0xFE => reader.ReadUInt16(),
+						_ => firstByte
+					};
 				}
 
                 /// <summary>
@@ -200,15 +192,11 @@ namespace Mila {
                 /// <returns>The value read as an Int32</returns>
                 public int readVInt32() {
 					var firstByte = reader.ReadSByte();
-					if (firstByte == -128) {
-						return reader.ReadInt32();
-					}
-
-					if (firstByte == -127) {
-						return reader.ReadInt16();
-					}
-
-					return firstByte;
+					return firstByte switch {
+						-128 => reader.ReadInt32(),
+						-127 => reader.ReadInt16(),
+						_ => firstByte
+					};
 				}
 
                 /// <summary>
@@ -292,7 +280,7 @@ namespace Mila {
 					this.writer = writer;
 
 					if (this.writer == null) {
-						throw new ArgumentNullException("writer",
+						throw new ArgumentNullException(nameof(writer),
 							"new MDFChunkWriter: BinaryWriter parameter cannot be null!");
 					}
 				}
@@ -395,8 +383,8 @@ namespace Mila {
                 /// </summary>
                 /// <param name="val">the value to write.</param>
                 public void writeVInt32(int val) {
-					if (val > 127 || val <= -127) {
-						if (val > 32767 || val < -32768) {
+					if (val is > 127 or <= -127) {
+						if (val is > 32767 or < -32768) {
 							writer.Write((sbyte)-128);
 							writer.Write(val);
 						} else {
@@ -414,8 +402,8 @@ namespace Mila {
                 /// <param name="arr">the array to write.</param>
                 public void writeUVIntArray(uint[] arr) {
 					writeUVInt32((uint)arr.Length);
-					for (var i = 0; i < arr.Length; i++) {
-						writeUVInt32(arr[i]);
+					foreach (var t in arr) {
+						writeUVInt32(t);
 					}
 				}
 
@@ -425,8 +413,8 @@ namespace Mila {
                 /// <param name="arr">the array to write.</param>
                 public void writeVIntArray(int[] arr) {
 					writeUVInt32((uint)arr.Length);
-					for (var i = 0; i < arr.Length; i++) {
-						writeVInt32(arr[i]);
+					foreach (var t in arr) {
+						writeVInt32(t);
 					}
 				}
 

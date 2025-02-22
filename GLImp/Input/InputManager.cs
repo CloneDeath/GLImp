@@ -1,4 +1,4 @@
-﻿namespace GLImp;
+﻿namespace GLImp.Input;
 
 internal class InputManager {
 	internal static void Init() {

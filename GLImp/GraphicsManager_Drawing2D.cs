@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using GLImp.Textures;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
@@ -54,12 +55,11 @@ partial class GraphicsManager {
 	}
 
 	private static void DrawChar(int charAt) {
-		var xSize = 16;
-		var ySize = 16;
-		var c = charAt;
+		const int xSize = 16;
+		const int ySize = 16;
 
-		var cx = c / xSize;
-		var cy = c % xSize;
+		var cx = charAt / xSize;
+		var cy = charAt % xSize;
 		double top = cy * (1.0f / ySize);
 		double bottom = (cy + 1) * (1.0f / ySize);
 		double right = (cx + 1) * (1.0f / xSize);
@@ -150,7 +150,7 @@ partial class GraphicsManager {
 	}
 
 	public static void DrawRectangleHollow(double x, double y, double width, double height, Color color) {
-		var lineWidth = 1;
+		const int lineWidth = 1;
 		DrawRectangle(x - lineWidth / 2.0, y - lineWidth / 2.0, lineWidth, height, color);
 		DrawRectangle(x + lineWidth / 2.0, y + lineWidth / 2.0, width, lineWidth, color);
 		DrawRectangle(x + width, y, lineWidth, height + lineWidth / 2.0, color);

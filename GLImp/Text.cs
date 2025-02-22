@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using GLImp.Textures;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 

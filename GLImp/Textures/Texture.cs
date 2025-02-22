@@ -2,7 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-namespace GLImp;
+namespace GLImp.Textures;
 
 /// <summary>
 ///     Holds all the relevant information for a texture.

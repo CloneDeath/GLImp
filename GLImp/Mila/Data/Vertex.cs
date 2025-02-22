@@ -1,4 +1,4 @@
-namespace Mila.Data;
+namespace GLImp.Mila.Data;
 
 /// <summary>
 ///     Represents a simple coordinate triple.

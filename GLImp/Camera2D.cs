@@ -34,11 +34,9 @@ public class Camera2D : Camera {
 	//private double Rotation; //TODO nicholas implement this when we need it
 
 	#region Constructors
-	public Camera2D() : this(0, 0, 1) { }
+	public Camera2D() : this(0, 0) { }
 
-	public Camera2D(double X, double Y) : this(X, Y, 1) { }
-
-	public Camera2D(double X, double Y, double Zoom) {
+	public Camera2D(double X, double Y, double Zoom = 1) {
 		Position = new Vector2d(X, Y);
 		this.Zoom = Zoom;
 		Layer = 0;

@@ -1,4 +1,5 @@
 ﻿using System;
+using GLImp.Input;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 

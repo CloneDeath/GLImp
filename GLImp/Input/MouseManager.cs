@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace GLImp;
+namespace GLImp.Input;
 
 public class MouseManager {
 	private static Dictionary<MouseButton, bool> prevmouseButtons = new();
@@ -80,39 +80,23 @@ public class MouseManager {
 
 	//Returns if the mouse button is currently down or not
 	public static bool IsDown(MouseButton mb) {
-		if (mouseButtons.ContainsKey(mb)) {
-			return mouseButtons[mb];
-		}
-
-		return false;
+		return mouseButtons.GetValueOrDefault(mb, false);
 	}
 
 	public static bool IsPressed(MouseButton btn) {
-		if (prevmouseButtons.ContainsKey(btn) && prevmouseButtons[btn]) {
-			//If it was previously down
+		if (prevmouseButtons.TryGetValue(btn, out var value) && value) {
 			return false;
 		}
 
-		if (mouseButtons.ContainsKey(btn) && mouseButtons[btn]) {
-			//Previously up & is currently down
-			return true;
-		} //The key is currently not down
-
-		return false;
+		return mouseButtons.ContainsKey(btn) && mouseButtons[btn];
 	}
 
 	public static bool IsReleased(MouseButton btn) {
-		if (prevmouseButtons.ContainsKey(btn) && !prevmouseButtons[btn]) {
-			//If it was previously up
+		if (prevmouseButtons.TryGetValue(btn, out var value) && !value) {
 			return false;
 		}
 
-		if (mouseButtons.ContainsKey(btn) && !mouseButtons[btn]) {
-			//Previously down & is currently up
-			return true;
-		} //The key is currently not up
-
-		return false;
+		return mouseButtons.ContainsKey(btn) && !mouseButtons[btn];
 	}
 
 	/// <summary>

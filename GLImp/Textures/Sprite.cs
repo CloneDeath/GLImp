@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using OpenTK.Mathematics;
 
-namespace GLImp;
+namespace GLImp.Textures;
 
 public class Sprite : Image {
-	private readonly List<Image> Frames = new();
+	private readonly List<Image> Frames = [];
 
-	private double _currentframe;
+	private double _currentFrame;
 
 	public bool Flipped = false;
 
@@ -27,11 +27,11 @@ public class Sprite : Image {
 
 	public double CurrentFrame {
 		//Decimal point is % of the way done with a frame (for example, half speeds)
-		get => _currentframe;
+		get => _currentFrame;
 		set {
-			_currentframe = value % Frames.Count;
-			if (_currentframe < 0) {
-				_currentframe += Frames.Count;
+			_currentFrame = value % Frames.Count;
+			if (_currentFrame < 0) {
+				_currentFrame += Frames.Count;
 			}
 		}
 	}
@@ -54,10 +54,9 @@ public class Sprite : Image {
 	public int Height { get; set; }
 
 	public void Draw(Vector2d Position, Vector2d Size) {
-		if (Frames.Count > 0) {
-			Frames[(int)Math.Floor(CurrentFrame)].Draw(Position.X - XOrigin, Position.Y - YOrigin, Size.X, Size.Y);
-			CurrentFrame += PlaybackSpeed;
-		}
+		if (Frames.Count <= 0) return;
+		Frames[(int)Math.Floor(CurrentFrame)].Draw(Position.X - XOrigin, Position.Y - YOrigin, Size.X, Size.Y);
+		CurrentFrame += PlaybackSpeed;
 	}
 
 	public void Add(Image frame) {
