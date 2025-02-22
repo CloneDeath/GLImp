@@ -6,3 +6,4 @@
 /GLImpUnitTest/bin
 /GLImpUnitTest/obj
 .idea/
+*.DotSettings.user

@@ -11,8 +11,8 @@ namespace GLImp {
 			get;
 			private set;
 		}
-		public GamepadState State;
-		public GamepadState PreviousState;
+		public JoystickInputAction[] State;
+		public JoystickInputAction[] PreviousState;
 		// public GamepadCapabilities Capabilities;
 
 		internal GamePadDevice(int DeviceID) {
@@ -21,34 +21,30 @@ namespace GLImp {
 
 		public bool IsConnected {
 			get {
-				return GLFW.JoystickPresent(DeviceID); // State.IsConnected;
+				return GLFW.JoystickPresent(DeviceID) && GLFW.JoystickIsGamepad(DeviceID); // State.IsConnected;
 			}
 		}
 
 		internal void Update() {
 			PreviousState = State;
-			GLFW.GetGamepadState(DeviceID, out State);
+			State = GLFW.GetJoystickButtons(DeviceID).ToArray();
 			//Capabilities = OpenTK.Input.GamePad.GetCapabilities(DeviceID);
 		}
 
-		public bool IsDown(OpenTK.Input.Buttons Button)
-		{
-			return State.Buttons.GetButton(Button) == ButtonState.Pressed;
+		public bool IsDown(int Button) {
+			return State[Button] == JoystickInputAction.Press;
 		}
 
-		public bool IsUp(OpenTK.Input.Buttons Button)
-		{
-			return State.Buttons.GetButton(Button) == ButtonState.Released;
+		public bool IsUp(int Button) {
+			return State[Button] == JoystickInputAction.Release;
 		}
 
-		public bool IsPressed(OpenTK.Input.Buttons Button)
-		{
-			return State.Buttons.GetButton(Button) == ButtonState.Pressed && PreviousState.Buttons.GetButton(Button) == ButtonState.Released;
+		public bool IsPressed(int Button) {
+			return State[Button] == JoystickInputAction.Press && PreviousState[Button] == JoystickInputAction.Release;
 		}
 
-		public bool IsReleased(OpenTK.Input.Buttons Button)
-		{
-			return State.Buttons.GetButton(Button) == ButtonState.Released && PreviousState.Buttons.GetButton(Button) == ButtonState.Pressed;
+		public bool IsReleased(int Button) {
+			return State[Button] == JoystickInputAction.Release && PreviousState[Button] == JoystickInputAction.Press;
 		}
 	}
 }

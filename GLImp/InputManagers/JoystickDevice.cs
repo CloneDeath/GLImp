@@ -11,8 +11,8 @@ namespace GLImp {
 			get;
 			private set;
 		}
-		public JoystickState State;
-		public JoystickState PreviousState;
+		public JoystickInputAction[] State;
+		public JoystickInputAction[] PreviousState;
 		// public JoystickCapabilities Capabilities;
 
 		internal JoystickDevice(int DeviceID) {
@@ -27,24 +27,24 @@ namespace GLImp {
 
 		internal void Update() {
 			PreviousState = State;
-			State = OpenTK.Input.Joystick.GetState(DeviceID);
+			State = GLFW.GetJoystickButtons(DeviceID).ToArray();
 			// Capabilities = OpenTK.Input.Joystick.GetCapabilities(DeviceID);
 		}
 
-		public bool IsDown(JoystickButton Button) {
-			return State.IsButtonDown(Button);
+		public bool IsDown(int Button) {
+			return State[Button] == JoystickInputAction.Press;
 		}
 
-		public bool IsUp(JoystickButton Button) {
-			return State.IsButtonUp(Button);
+		public bool IsUp(int Button) {
+			return State[Button] == JoystickInputAction.Release;
 		}
 
-		public bool IsPressed(JoystickButton Button) {
-			return State.IsButtonDown(Button) && PreviousState.IsButtonUp(Button);
+		public bool IsPressed(int Button) {
+			return State[Button] == JoystickInputAction.Press && PreviousState[Button] == JoystickInputAction.Release;
 		}
 
-		public bool IsReleased(JoystickButton Button) {
-			return State.IsButtonUp(Button) && PreviousState.IsButtonDown(Button);
+		public bool IsReleased(int Button) {
+			return State[Button] == JoystickInputAction.Release && PreviousState[Button] == JoystickInputAction.Press;
 		}
 	}
 }
