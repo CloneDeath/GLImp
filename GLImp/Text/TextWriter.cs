@@ -16,7 +16,7 @@ namespace GLImp {
 	//http://www.opentk.com/node/1554?page=1
 	class TextWriter {
 		private readonly Font TextFont = new Font(FontFamily.GenericSansSerif, 8);
-		private readonly SixLabors.ImageSharp.Image TextBitmap;
+		private readonly Image<Rgba32> TextBitmap;
 		private List<PointF> _positions;
 		private List<string> _lines;
 		private List<Brush> _colours;
@@ -36,7 +36,7 @@ namespace GLImp {
 			_lines = new List<string>();
 			_colours = new List<Brush>();
 
-			TextBitmap = new Bitmap(areaSize.Width, areaSize.Height);
+			TextBitmap = new Image<Rgba32>(areaSize.Width, areaSize.Height);
 			this._clientSize = ClientSize;
 			_textureId = CreateTexture();
 		}
@@ -48,14 +48,14 @@ namespace GLImp {
 			GL.GenTextures(1, out textureId);
 			GL.BindTexture(TextureTarget.Texture2D, textureId);
 
-			BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+			byte[] pixelBytes = new byte[bitmap.Width * bitmap.Height * Unsafe.SizeOf<Rgba32>()];
+			bitmap.CopyPixelDataTo(pixelBytes);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.UnsignedByte, pixelBytes);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
 			//    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)All.Nearest);
 			//GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)All.Nearest);
 			GL.Finish();
-			bitmap.UnlockBits(data);
 			return textureId;
 		}
 

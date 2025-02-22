@@ -1,10 +1,11 @@
  using OpenTK.Graphics.OpenGL;
 using System.Diagnostics;
 using System.Drawing;
-using Img = System.Drawing.Imaging;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace GLImp {
 	internal static class TextureManager
@@ -45,13 +46,10 @@ namespace GLImp {
 		/// Create an OpenGL texture (translucent or opaque) from a given Bitmap.
 		/// 24- and 32-bit bitmaps supported.
 		/// </summary>
-		internal static int CreateTextureFromBitmap(SixLabors.ImageSharp.Image bitmap, bool LinearFilter, bool ClampToEdge)
-		{
-			Img.BitmapData data = bitmap.LockBits(
-			  new Rectangle(0, 0, bitmap.Width, bitmap.Height),
-			  Img.ImageLockMode.ReadOnly,
-			  bitmap.PixelFormat);
-			  //Img.PixelFormat.Format32bppArgb);
+		internal static int CreateTextureFromBitmap(SixLabors.ImageSharp.Image bitmap, bool LinearFilter, bool ClampToEdge) {
+			var image = bitmap.CloneAs<Rgba32>();
+			byte[] pixelBytes = new byte[image.Width * image.Height * Unsafe.SizeOf<Rgba32>()];
+			image.CopyPixelDataTo(pixelBytes);
 			int x = GraphicsManager.Instance.ClientLocation.X; //NOP, need to make sure graphics context is loaded.
 			int tex = GL.GenTexture();
 
@@ -76,10 +74,9 @@ namespace GLImp {
 			}
 
 			GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-			OpenTK.Graphics.Glu.Build2DMipmap(OpenTK.Graphics.TextureTarget.Texture2D,
-				(int)PixelInternalFormat.Rgba, data.Width, data.Height, OpenTK.Graphics.PixelFormat.Bgra,
-				 OpenTK.Graphics.PixelType.UnsignedByte, data.Scan0);
-			bitmap.UnlockBits(data);
+			GL.TexImage2D(TextureTarget.Texture2D, 0,
+				PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixelBytes);
+
 			return tex;
 		}
 	}
