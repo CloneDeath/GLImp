@@ -246,11 +246,9 @@ namespace GLImp
 		}
 		public static MouseState mouse {
 			get {
-				return Instance.Mouse;
+				return Instance.MouseState;
 			}
 		}
 		#endregion
-
-
 	}
 }
