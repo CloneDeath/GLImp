@@ -7,6 +7,7 @@ using OpenTK;
 using System.Drawing.Imaging;
 using OpenTK.Mathematics;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using Color = System.Drawing.Color;
 using PointF = System.Drawing.PointF;
 using Rectangle = System.Drawing.Rectangle;
