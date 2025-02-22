@@ -166,11 +166,11 @@ namespace GLImp
 			Instance.SwapBuffers();
 		}
 
-		public static Bitmap GetFont() {
+		public static SixLabors.ImageSharp.Image GetFont() {
 			return Resources.GetPNG("data.font.png");
 		}
 
-		public static Bitmap GetError() {
+		public static SixLabors.ImageSharp.Image GetError() {
 			return Resources.GetPNG("data.error.png");
 		}
 

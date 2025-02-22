@@ -69,7 +69,7 @@ namespace GLImp
 		/// <summary>
 		/// The bitmap representation of the loaded image.
 		/// </summary>
-		public Bitmap Image {
+		public SixLabors.ImageSharp.Image Image {
 			get {
 				return _img;
 			}
@@ -78,7 +78,7 @@ namespace GLImp
 				Reload();
 			}
 		}
-		private Bitmap _img;
+		private SixLabors.ImageSharp.Image _img;
 
 		public override int Width
 		{
@@ -113,7 +113,7 @@ namespace GLImp
 		/// <param name="Clamp">Controls the clamping.</param>
 		public Texture(string Location, bool LinearFilter = true, bool Clamp = false) {
 			this.ID = TextureManager.CreateTextureFromFile(Location, LinearFilter, Clamp);
-			this._img = new Bitmap(Location);
+			this._img = SixLabors.ImageSharp.Image.Load(Location);
 
 			this.Location = Location;
 			this._linearFilter = LinearFilter;
@@ -126,7 +126,7 @@ namespace GLImp
 		/// <param name="Image">Bitmap image to create a texture from.</param>
 		/// <param name="LinearFilter">Controls the linear filtering.</param>
 		/// <param name="Clamp">Controls the clamping.</param>
-		public Texture(Bitmap Image, bool LinearFilter = true, bool Clamp = false) {
+		public Texture(SixLabors.ImageSharp.Image Image, bool LinearFilter = true, bool Clamp = false) {
 			ID = TextureManager.CreateTextureFromBitmap(Image, LinearFilter, Clamp);
 			this._img = Image;
 

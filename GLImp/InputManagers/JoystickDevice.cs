@@ -21,7 +21,7 @@ namespace GLImp {
 
 		public bool IsConnected {
 			get {
-				return State.IsConnected;
+				return GLFW.JoystickPresent(DeviceID); // return State.IsConnected;
 			}
 		}
 

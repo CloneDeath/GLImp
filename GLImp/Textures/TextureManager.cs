@@ -37,7 +37,7 @@ namespace GLImp {
 		/// </summary>
 		internal static int CreateTextureFromFile(string path, bool LinearFilter, bool Clamp)
 		{
-			return CreateTextureFromBitmap(new Bitmap(Bitmap.FromFile(path)), LinearFilter, Clamp);
+			return CreateTextureFromBitmap(SixLabors.ImageSharp.Image.Load(path), LinearFilter, Clamp);
 		}
 
 
@@ -45,14 +45,14 @@ namespace GLImp {
 		/// Create an OpenGL texture (translucent or opaque) from a given Bitmap.
 		/// 24- and 32-bit bitmaps supported.
 		/// </summary>
-		internal static int CreateTextureFromBitmap(Bitmap bitmap, bool LinearFilter, bool ClampToEdge)
+		internal static int CreateTextureFromBitmap(SixLabors.ImageSharp.Image bitmap, bool LinearFilter, bool ClampToEdge)
 		{
 			Img.BitmapData data = bitmap.LockBits(
 			  new Rectangle(0, 0, bitmap.Width, bitmap.Height),
 			  Img.ImageLockMode.ReadOnly,
 			  bitmap.PixelFormat);
 			  //Img.PixelFormat.Format32bppArgb);
-			int x = GraphicsManager.Instance.X; //NOP, need to make sure graphics context is loaded.
+			int x = GraphicsManager.Instance.ClientLocation.X; //NOP, need to make sure graphics context is loaded.
 			int tex = GL.GenTexture();
 
 			GL.BindTexture(TextureTarget.Texture2D, tex);

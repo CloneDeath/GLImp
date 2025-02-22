@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
 using System.Drawing.Imaging;
 using OpenTK.Mathematics;
+using SixLabors.ImageSharp;
+using Color = System.Drawing.Color;
+using PointF = System.Drawing.PointF;
+using Rectangle = System.Drawing.Rectangle;
+using Size = System.Drawing.Size;
 
 namespace GLImp {
 	//http://www.opentk.com/node/1554?page=1
 	class TextWriter {
 		private readonly Font TextFont = new Font(FontFamily.GenericSansSerif, 8);
-		private readonly Bitmap TextBitmap;
+		private readonly SixLabors.ImageSharp.Image TextBitmap;
 		private List<PointF> _positions;
 		private List<string> _lines;
 		private List<Brush> _colours;
@@ -40,7 +44,7 @@ namespace GLImp {
 		private int CreateTexture() {
 			int textureId;
 			GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Replace);//Important, or wrong color on some computers
-			Bitmap bitmap = TextBitmap;
+			var bitmap = TextBitmap;
 			GL.GenTextures(1, out textureId);
 			GL.BindTexture(TextureTarget.Texture2D, textureId);
 
