@@ -73,9 +73,9 @@
     <Compile Include="Tests\Shader\SteepParalaxShader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GLImp\GLImp.csproj">
-      <Project>{239CCB17-C79B-493E-9FEA-2B3D349EB30A}</Project>
-      <Name>GLImp</Name>
+    <ProjectReference Include="..\GLImp.Legacy\GLImp.Legacy.csproj">
+      <Project>{239ccb17-c79b-493e-9fea-2b3d349eb30a}</Project>
+      <Name>GLImp.Legacy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

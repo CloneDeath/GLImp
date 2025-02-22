@@ -1,5 +1,8 @@
 /GLImp.suo
 /GLImp/bin
 /GLImp/obj
+/GLImp.Legacy/bin
+/GLImp.Legacy/obj
 /GLImpUnitTest/bin
 /GLImpUnitTest/obj
+.idea/
