@@ -4,26 +4,22 @@ using OpenTK.Windowing.Common;
 
 namespace GLImp;
 
-internal class CameraManager
-{
-	private static List<Camera> Cameras = new List<Camera>();
+internal class CameraManager {
+	private static List<Camera> Cameras = new();
 
-	public static void Add(Camera camera)
-	{
+	public static void Add(Camera camera) {
 		if (!Cameras.Contains(camera)) {
 			Cameras.Add(camera);
 		}
 	}
 
-	public static void Remove(Camera camera)
-	{
+	public static void Remove(Camera camera) {
 		if (Cameras.Contains(camera)) {
 			Cameras.Remove(camera);
 		}
 	}
 
-	private static void SortCameras()
-	{
+	private static void SortCameras() {
 		//Make sure we have at least one camera to sort first.
 		if (Cameras.Count == 0) {
 			return;
@@ -33,9 +29,9 @@ internal class CameraManager
 		//todo nicholas instead of checking every time, set/unset a flag everytime cameras is changed, and just check that flag.
 		//note: also need to set the flag if "Layer" ever changes for any member.
 
-		int LayerAt = Cameras[0].Layer;
-		bool InOrder = true;
-		for (int i = 0; i < Cameras.Count; i++) {
+		var LayerAt = Cameras[0].Layer;
+		var InOrder = true;
+		for (var i = 0; i < Cameras.Count; i++) {
 			if (Cameras[i].Layer >= LayerAt) {
 				LayerAt = Cameras[i].Layer;
 			} else {
@@ -50,8 +46,8 @@ internal class CameraManager
 
 		//Not in order, time to do an insertion sort.
 		List<Camera> newlist = new List<Camera>();
-		foreach (Camera camera in Cameras) {
-			for (int i = 0; i < newlist.Count; i++) {
+		foreach (var camera in Cameras) {
+			for (var i = 0; i < newlist.Count; i++) {
 				if (newlist[i].Layer > camera.Layer) {
 					newlist.Insert(i, camera);
 					break;
@@ -63,15 +59,16 @@ internal class CameraManager
 				newlist.Add(camera);
 			}
 		}
+
 		Cameras = newlist;
 	}
 
-	internal static void Draw(FrameEventArgs e)
-	{
+	internal static void Draw(FrameEventArgs e) {
 		SortCameras();
 
-		foreach (Camera camera in Cameras) {
-			GL.Viewport(camera.Viewport.X, GraphicsManager.WindowHeight - (camera.Viewport.Y + camera.Viewport.Height), camera.Viewport.Width, camera.Viewport.Height);
+		foreach (var camera in Cameras) {
+			GL.Viewport(camera.Viewport.X, GraphicsManager.WindowHeight - (camera.Viewport.Y + camera.Viewport.Height),
+				camera.Viewport.Width, camera.Viewport.Height);
 			GL.Clear(ClearBufferMask.DepthBufferBit);
 			camera.Draw(e);
 		}

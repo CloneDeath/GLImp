@@ -1,91 +1,83 @@
 namespace Mila.Types;
 
 /// <summary>
-/// Represents a point in 3D-space.
+///     Represents a point in 3D-space.
 /// </summary>
-public class Point3D
-{
-    #region Getters_And_Setters
-
+public class Point3D {
     /// <summary>
-    /// Gets or sets the x coordinate of this point.
+    ///     Creates a new point that represents the origin.
     /// </summary>
-    public double X { get; set; }
+    public Point3D() {
+		X = 0.0f;
+		Y = 0.0f;
+		Z = 0.0f;
+	}
 
     /// <summary>
-    /// Gets or sets the y coordinate of this point.
-    /// </summary>
-    public double Y { get; set; }
-
-    /// <summary>
-    /// Gets or sets the z coordinate of this point.
-    /// </summary>
-    public double Z { get; set; }
-    #endregion
-
-    /// <summary>
-    /// Creates a new point that represents the origin.
-    /// </summary>
-    public Point3D()
-    {
-        X = 0.0f;
-        Y = 0.0f;
-        Z = 0.0f;
-    }
-
-    /// <summary>
-    /// Creates a new point with the given set of coordinates.
+    ///     Creates a new point with the given set of coordinates.
     /// </summary>
     /// <param name="x">The x coordinate to set.</param>
     /// <param name="y">The y coordinate to set.</param>
     /// <param name="z">The z coordinate to set.</param>
-    public Point3D(double x, double y, double z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-    }
+    public Point3D(double x, double y, double z) {
+		X = x;
+		Y = y;
+		Z = z;
+	}
 
     /// <summary>
-    /// Creates a new point from the given position vector.
+    ///     Creates a new point from the given position vector.
     /// </summary>
     /// <param name="v">The position vector to create a point from.</param>
-    public Point3D(Vector3D v)
-    {
-        X = v.X;
-        Y = v.Y;
-        Z = v.Z;
-    }
+    public Point3D(Vector3D v) {
+		X = v.X;
+		Y = v.Y;
+		Z = v.Z;
+	}
 
     /// <summary>
-    /// Sets new value from the given coordinates.
+    ///     Sets new value from the given coordinates.
     /// </summary>
-    public void Set(double x, double y, double z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-    }
+    public void Set(double x, double y, double z) {
+		X = x;
+		Y = y;
+		Z = z;
+	}
 
     /// <summary>
-    /// Sets new value from the given vector.
+    ///     Sets new value from the given vector.
     /// </summary>
     /// <param name="v"></param>
-    public void Set(Vector3D v)
-    {
-        X = v.X;
-        Y = v.Y;
-        Z = v.Z;
-    }
+    public void Set(Vector3D v) {
+		X = v.X;
+		Y = v.Y;
+		Z = v.Z;
+	}
 
     /// <summary>
-    /// Sets new value from the given point.
+    ///     Sets new value from the given point.
     /// </summary>
     /// <param name="p"></param>
-    public void Set(Point3D p)
-    {
-        X = p.X;
-        Y = p.Y;
-        Z = p.Z;
-    }
+    public void Set(Point3D p) {
+		X = p.X;
+		Y = p.Y;
+		Z = p.Z;
+	}
+
+	#region Getters_And_Setters
+    /// <summary>
+    ///     Gets or sets the x coordinate of this point.
+    /// </summary>
+    public double X { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the y coordinate of this point.
+    /// </summary>
+    public double Y { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the z coordinate of this point.
+    /// </summary>
+    public double Z { get; set; }
+	#endregion
 }

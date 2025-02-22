@@ -46,7 +46,7 @@
 //                            CurrentTexture = faceSet.materialId;
 //                        }
 //                    }
-					
+
 //                    GL.Begin(PrimitiveType.Triangles);
 //                    {
 //                        //double ambient = 0.2f;
@@ -75,3 +75,4 @@
 //        }
 //    }
 //}
+

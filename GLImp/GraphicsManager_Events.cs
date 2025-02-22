@@ -13,8 +13,7 @@ partial class GraphicsManager {
 		InputManager.Update();
 	}
 
-	protected override void OnRenderFrame(FrameEventArgs e)
-	{
+	protected override void OnRenderFrame(FrameEventArgs e) {
 		base.OnRenderFrame(e);
 
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);

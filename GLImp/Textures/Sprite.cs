@@ -5,14 +5,29 @@ using OpenTK.Mathematics;
 namespace GLImp;
 
 public class Sprite : Image {
-	public int Width { get; set; }
-	public int Height { get; set; }
+	private readonly List<Image> Frames = new();
 
 	private double _currentframe;
-	public double CurrentFrame { //Decimal point is % of the way done with a frame (for example, half speeds)
-		get {
-			return _currentframe;
+
+	public bool Flipped = false;
+
+	public double PlaybackSpeed = 1.0f;
+
+	public Sprite() { }
+
+	public Sprite(Image frame) {
+		Add(frame);
+	}
+
+	public Sprite(IEnumerable<Image> frames) {
+		foreach (var tf in frames) {
+			Add(tf);
 		}
+	}
+
+	public double CurrentFrame {
+		//Decimal point is % of the way done with a frame (for example, half speeds)
+		get => _currentframe;
 		set {
 			_currentframe = value % Frames.Count;
 			if (_currentframe < 0) {
@@ -20,55 +35,32 @@ public class Sprite : Image {
 			}
 		}
 	}
-	List<Image> Frames = new List<Image>();
-
-	public double PlaybackSpeed = 1.0f;
-
-	public bool Flipped = false;
 
 	public double XOrigin { get; set; }
 	public double YOrigin { get; set; }
+
 	public double XOffset {
-		get {
-			return -XOrigin;
-		}
+		get => -XOrigin;
 
-		set {
-			XOrigin = -value;
-		}
+		set => XOrigin = -value;
 	}
+
 	public double YOffset {
-		get {
-			return -YOrigin;
-		}
-		set {
-			YOrigin = -value;
-		}
+		get => -YOrigin;
+		set => YOrigin = -value;
 	}
 
-	public Sprite() {
+	public int Width { get; set; }
+	public int Height { get; set; }
 
-	}
-
-	public Sprite(Image frame) {
-		Add(frame);
-	}
-
-	public Sprite(IEnumerable<Image> frames) {
-		foreach(Image tf in frames) {
-			Add(tf);
+	public void Draw(Vector2d Position, Vector2d Size) {
+		if (Frames.Count > 0) {
+			Frames[(int)Math.Floor(CurrentFrame)].Draw(Position.X - XOrigin, Position.Y - YOrigin, Size.X, Size.Y);
+			CurrentFrame += PlaybackSpeed;
 		}
 	}
 
 	public void Add(Image frame) {
 		Frames.Add(frame);
-	}
-
-	public void Draw(Vector2d Position, Vector2d Size)
-	{
-		if (Frames.Count > 0) {
-			Frames[(int)Math.Floor(CurrentFrame)].Draw(Position.X - XOrigin, Position.Y - YOrigin, Size.X, Size.Y);
-			CurrentFrame += PlaybackSpeed;
-		}
 	}
 }

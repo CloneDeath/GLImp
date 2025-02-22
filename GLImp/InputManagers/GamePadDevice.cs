@@ -3,17 +3,16 @@
 namespace GLImp;
 
 public class GamePadDevice {
-	public int DeviceID {
-		get;
-	}
-	public JoystickInputAction[] State;
 	public JoystickInputAction[] PreviousState;
+	public JoystickInputAction[] State;
 
 	internal GamePadDevice(int DeviceID) {
 		this.DeviceID = DeviceID;
 		State = GLFW.GetJoystickButtons(DeviceID).ToArray();
 		PreviousState = State;
 	}
+
+	public int DeviceID { get; }
 
 	public bool IsConnected => GLFW.JoystickPresent(DeviceID) && GLFW.JoystickIsGamepad(DeviceID);
 
@@ -22,19 +21,13 @@ public class GamePadDevice {
 		State = GLFW.GetJoystickButtons(DeviceID).ToArray();
 	}
 
-	public bool IsDown(int Button) {
-		return State[Button] == JoystickInputAction.Press;
-	}
+	public bool IsDown(int Button) => State[Button] == JoystickInputAction.Press;
 
-	public bool IsUp(int Button) {
-		return State[Button] == JoystickInputAction.Release;
-	}
+	public bool IsUp(int Button) => State[Button] == JoystickInputAction.Release;
 
-	public bool IsPressed(int Button) {
-		return State[Button] == JoystickInputAction.Press && PreviousState[Button] == JoystickInputAction.Release;
-	}
+	public bool IsPressed(int Button) => State[Button] == JoystickInputAction.Press &&
+										 PreviousState[Button] == JoystickInputAction.Release;
 
-	public bool IsReleased(int Button) {
-		return State[Button] == JoystickInputAction.Release && PreviousState[Button] == JoystickInputAction.Press;
-	}
+	public bool IsReleased(int Button) => State[Button] == JoystickInputAction.Release &&
+										  PreviousState[Button] == JoystickInputAction.Press;
 }

@@ -99,7 +99,6 @@
 //            return readMMDLChunk(ref model);
 //        }
 
-
 //        /// <summary>
 //        /// Reads in the MMDL chunk and fills the model object given.
 //        /// This method can be called directly if there is an MMDL chunk not inside of a Mila Model (.mm) file.
@@ -119,7 +118,6 @@
 //            model = new Model();
 
 //            model.Name = reader.readString();
-
 
 //            long offset = reader.tell() - header.offset - (sizeof(Int32) * 2);
 
@@ -260,7 +258,6 @@
 //            return MMReaderErrors.Success;
 //        }
 
-
 //        /// <summary>
 //        /// Reads the FSET chunk containing an individual FaceSet.
 //        /// </summary>
@@ -288,7 +285,6 @@
 
 //            return MMReaderErrors.Success;
 //        }
-
 
 //        /// <summary>
 //        /// Reads the FCES chunk containing a list of faces in a FaceSet.
@@ -340,8 +336,6 @@
 //            return MMReaderErrors.Success;
 //        }
 
-		
-
 //        /// <summary>
 //        /// Lists all of the codes corresponding to the chunk ids.
 //        /// </summary>
@@ -358,3 +352,4 @@
 //        }
 //    }
 //}
+

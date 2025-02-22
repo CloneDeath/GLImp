@@ -7,115 +7,39 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImp;
 
-public partial class GraphicsManager : GameWindow
-{
-	public static int WindowWidth {
-		get {
-			return Instance.ClientSize.X;
-		}
-		set {
-			Instance.ClientSize = new Vector2i(value, Instance.ClientSize.Y);
-		}
-	}
-	public static int WindowHeight {
-		get {
-			return Instance.ClientSize.Y;
-		}
-		set {
-			Instance.ClientSize = new Vector2i(Instance.ClientSize.X, value);
-		}
-	}
+public partial class GraphicsManager : GameWindow {
+	public static bool UseExperimentalFullAlpha = false;
+	public static bool DisableDepthTest = false;
+
+	private static GraphicsManager? game;
 
 	private GraphicsManager(int x, int y)
-		: base(new GameWindowSettings(), new NativeWindowSettings{ ClientSize = new Vector2i(x, y), Title = "GLImp Game Window"})
+		: base(new GameWindowSettings(),
+			new NativeWindowSettings { ClientSize = new Vector2i(x, y), Title = "GLImp Game Window" })
 	//: base(x, y, new GraphicsMode(32,24,8,4), )
 	{
 		VSync = VSyncMode.On;
 	}
 
-	public static bool UseExperimentalFullAlpha = false;
-	public static bool DisableDepthTest = false;
-
-	#region ON GAME RUN METHODS
-	/*****************************************************************
-	 *						ON GAME RUN METHODS
-	 *****************************************************************/
-	protected override void OnLoad()
-	{
-		base.OnLoad();
-		TextureManager.InitTexturing();
-		InputManager.Init();
-		if (DisableDepthTest) {
-			GL.Disable(EnableCap.DepthTest);
-		} else {
-			GL.Enable(EnableCap.DepthTest);
-		}
-		if (UseExperimentalFullAlpha) {
-			//GL.AlphaFunc(AlphaFunction.Always, 0f);
-		} else {
-			GL.AlphaFunc(AlphaFunction.Greater, 0.5f);
-		}
-		GL.Enable(EnableCap.AlphaTest);
+	public static int WindowWidth {
+		get => Instance.ClientSize.X;
+		set => Instance.ClientSize = new Vector2i(value, Instance.ClientSize.Y);
 	}
 
-	protected override void OnResize(ResizeEventArgs e)
-	{
-		base.OnResize(e);
-
-		GL.Viewport(this.ClientRectangle);
-		GL.MatrixMode(MatrixMode.Projection);
-		GL.LoadIdentity();
-		GL.Ortho(0, ClientRectangle.Size.X, ClientRectangle.Size.Y, 0, -1, 0);
-
-		OnWindowResize?.Invoke();
+	public static int WindowHeight {
+		get => Instance.ClientSize.Y;
+		set => Instance.ClientSize = new Vector2i(Instance.ClientSize.X, value);
 	}
-
-	public delegate void Resizer();
-	public static event Resizer? OnWindowResize;
-
-
-
-	public delegate void Disposer();
-	public static event Disposer? OnDispose;
-	public new static void Close() {
-		OnDispose?.Invoke();
-		((GameWindow)Instance).Close();
-	}
-	#endregion
-
-
-	#region set things
-	/*****************************************************************
-	 *							SET THINGS
-	 *****************************************************************/
-	public static void SetResolution(int Width, int Height)
-	{
-		Instance.ClientSize = new Vector2i(Width, Height);
-	}
-
-	public static void SetBackground(Color color)
-	{
-		GL.ClearColor(color);
-	}
-
-	public static void SetColor(Color c) {
-		GL.Color4(c);
-	}
-	#endregion
-
-
 
 	/*****************************************************************
 	 *								MISC
 	 *****************************************************************/
 	public static WindowState windowstate {
-		get {
-			return Instance.WindowState;
-		}
-		set {
-			Instance.WindowState = value;
-		}
+		get => Instance.WindowState;
+		set => Instance.WindowState = value;
 	}
+
+	public static GraphicsManager Instance => game ??= new GraphicsManager(800, 600);
 
 	//Draws an axis alligned bounding box
 	public void DrawCollisionBox(Vector3 c1, Vector3 c2) {
@@ -148,22 +72,16 @@ public partial class GraphicsManager : GameWindow
 		GL.Enable(EnableCap.Texture2D);
 	}
 
-
-	public static void SwapBuffer()
-	{
+	public static void SwapBuffer() {
 		Instance.SwapBuffers();
 	}
 
-	public static SixLabors.ImageSharp.Image GetFont() {
-		return Resources.GetPNG("data.font.png");
-	}
+	public static SixLabors.ImageSharp.Image GetFont() => Resources.GetPNG("data.font.png");
 
-	public static SixLabors.ImageSharp.Image GetError() {
-		return Resources.GetPNG("data.error.png");
-	}
+	public static SixLabors.ImageSharp.Image GetError() => Resources.GetPNG("data.error.png");
 
 	/// <summary>
-	/// Starts the game. Same exact thing as OpenWindow.
+	///     Starts the game. Same exact thing as OpenWindow.
 	/// </summary>
 	public static void Start(double TargetUpdateFPS = 60) {
 		Instance.UpdateFrequency = TargetUpdateFPS;
@@ -174,16 +92,11 @@ public partial class GraphicsManager : GameWindow
 		Instance.WindowState = state;
 	}
 
-	public static WindowState GetWindowState() {
-		return Instance.WindowState;
-	}
+	public static WindowState GetWindowState() => Instance.WindowState;
 
 	public static void SetTitle(string title) {
 		Instance.Title = title;
 	}
-
-	private static GraphicsManager? game;
-	public static GraphicsManager Instance => game ??= new GraphicsManager(800, 600);
 
 	public static void PushMatrix() {
 		GL.PushMatrix();
@@ -201,9 +114,11 @@ public partial class GraphicsManager : GameWindow
 	public static void Scale(double s) {
 		Scale(s, s, s);
 	}
+
 	public static void Scale(double x, double y, double z) {
 		Scale(new Vector3d(x, y, z));
 	}
+
 	public static void Scale(Vector3d v) {
 		GL.Scale(v);
 	}
@@ -213,19 +128,77 @@ public partial class GraphicsManager : GameWindow
 		GL.Rotate(angle, Up);
 	}
 
+	#region ON GAME RUN METHODS
+	/*****************************************************************
+	 *						ON GAME RUN METHODS
+	 *****************************************************************/
+	protected override void OnLoad() {
+		base.OnLoad();
+		TextureManager.InitTexturing();
+		InputManager.Init();
+		if (DisableDepthTest) {
+			GL.Disable(EnableCap.DepthTest);
+		} else {
+			GL.Enable(EnableCap.DepthTest);
+		}
+
+		if (UseExperimentalFullAlpha) {
+			//GL.AlphaFunc(AlphaFunction.Always, 0f);
+		} else {
+			GL.AlphaFunc(AlphaFunction.Greater, 0.5f);
+		}
+
+		GL.Enable(EnableCap.AlphaTest);
+	}
+
+	protected override void OnResize(ResizeEventArgs e) {
+		base.OnResize(e);
+
+		GL.Viewport(ClientRectangle);
+		GL.MatrixMode(MatrixMode.Projection);
+		GL.LoadIdentity();
+		GL.Ortho(0, ClientRectangle.Size.X, ClientRectangle.Size.Y, 0, -1, 0);
+
+		OnWindowResize?.Invoke();
+	}
+
+	public delegate void Resizer();
+
+	public static event Resizer? OnWindowResize;
+
+	public delegate void Disposer();
+
+	public static event Disposer? OnDispose;
+
+	public new static void Close() {
+		OnDispose?.Invoke();
+		((GameWindow)Instance).Close();
+	}
+	#endregion
+
+	#region set things
+	/*****************************************************************
+	 *							SET THINGS
+	 *****************************************************************/
+	public static void SetResolution(int Width, int Height) {
+		Instance.ClientSize = new Vector2i(Width, Height);
+	}
+
+	public static void SetBackground(Color color) {
+		GL.ClearColor(color);
+	}
+
+	public static void SetColor(Color c) {
+		GL.Color4(c);
+	}
+	#endregion
+
 	#region INPUT
 	/*****************************************************************
 	 *								INPUT
 	 *****************************************************************/
-	public static KeyboardState keyboard {
-		get {
-			return Instance.KeyboardState;
-		}
-	}
-	public static MouseState mouse {
-		get {
-			return Instance.MouseState;
-		}
-	}
+	public static KeyboardState keyboard => Instance.KeyboardState;
+
+	public static MouseState mouse => Instance.MouseState;
 	#endregion
 }

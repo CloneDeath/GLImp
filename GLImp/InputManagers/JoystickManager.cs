@@ -5,13 +5,13 @@ public class JoystickManager {
 	public static JoystickDevice[] Joysticks = new JoystickDevice[MaxJoysticks];
 
 	internal static void Init() {
-		for(int i = 0; i < MaxJoysticks; i++) {
+		for (var i = 0; i < MaxJoysticks; i++) {
 			Joysticks[i] = new JoystickDevice(i);
 		}
 	}
 
 	internal static void Update() {
-		foreach(JoystickDevice dev in Joysticks) {
+		foreach (var dev in Joysticks) {
 			dev.Update();
 		}
 	}

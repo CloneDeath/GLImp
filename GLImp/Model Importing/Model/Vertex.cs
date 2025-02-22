@@ -1,9 +1,8 @@
 namespace Mila.Data;
 
 /// <summary>
-/// Represents a simple coordinate triple.
+///     Represents a simple coordinate triple.
 /// </summary>
-public class Vertex
-{
-    public double x = 0.0f, y = 0.0f, z = 0.0f;
+public class Vertex {
+	public double x = 0.0f, y = 0.0f, z = 0.0f;
 }

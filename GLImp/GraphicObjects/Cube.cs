@@ -6,14 +6,14 @@ namespace GLImp.GraphicObjects;
 public class Cube : Shape {
 	public Cube() {
 		Vertices = [
-			new Vector3(-1.0f, -1.0f,  1.0f),
-			new Vector3( 1.0f, -1.0f,  1.0f),
-			new Vector3( 1.0f,  1.0f,  1.0f),
-			new Vector3(-1.0f,  1.0f,  1.0f),
+			new Vector3(-1.0f, -1.0f, 1.0f),
+			new Vector3(1.0f, -1.0f, 1.0f),
+			new Vector3(1.0f, 1.0f, 1.0f),
+			new Vector3(-1.0f, 1.0f, 1.0f),
 			new Vector3(-1.0f, -1.0f, -1.0f),
-			new Vector3( 1.0f, -1.0f, -1.0f),
-			new Vector3( 1.0f,  1.0f, -1.0f),
-			new Vector3(-1.0f,  1.0f, -1.0f)
+			new Vector3(1.0f, -1.0f, -1.0f),
+			new Vector3(1.0f, 1.0f, -1.0f),
+			new Vector3(-1.0f, 1.0f, -1.0f)
 		];
 
 		Indices = [
@@ -32,14 +32,14 @@ public class Cube : Shape {
 		];
 
 		Normals = [
-			new Vector3(-1.0f, -1.0f,  1.0f),
-			new Vector3( 1.0f, -1.0f,  1.0f),
-			new Vector3( 1.0f,  1.0f,  1.0f),
-			new Vector3(-1.0f,  1.0f,  1.0f),
+			new Vector3(-1.0f, -1.0f, 1.0f),
+			new Vector3(1.0f, -1.0f, 1.0f),
+			new Vector3(1.0f, 1.0f, 1.0f),
+			new Vector3(-1.0f, 1.0f, 1.0f),
 			new Vector3(-1.0f, -1.0f, -1.0f),
-			new Vector3( 1.0f, -1.0f, -1.0f),
-			new Vector3( 1.0f,  1.0f, -1.0f),
-			new Vector3(-1.0f,  1.0f, -1.0f)
+			new Vector3(1.0f, -1.0f, -1.0f),
+			new Vector3(1.0f, 1.0f, -1.0f),
+			new Vector3(-1.0f, 1.0f, -1.0f)
 		];
 
 		Colors = [

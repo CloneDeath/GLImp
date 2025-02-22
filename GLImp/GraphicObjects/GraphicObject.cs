@@ -5,14 +5,14 @@ using OpenTK.Mathematics;
 namespace GLImp.GraphicObjects;
 
 public class GraphicObject {
-	public int VertexBufferID;
 	public int ColorBufferID;
-	public int TexCoordBufferID;
-	public int NormalBufferID;
 	public int ElementBufferID;
+	public int NormalBufferID;
 	public int NumElements;
 
 	public Shape Target;
+	public int TexCoordBufferID;
+	public int VertexBufferID;
 
 	public GraphicObject(Shape shape) {
 		Target = shape;
@@ -26,12 +26,14 @@ public class GraphicObject {
 			GL.BindBuffer(BufferTarget.ArrayBuffer, ColorBufferID);
 
 			// Send data to buffer
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.Colors.Length * sizeof(int)), shape.Colors, BufferUsageHint.StaticDraw);
+			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.Colors.Length * sizeof(int)), shape.Colors,
+				BufferUsageHint.StaticDraw);
 
 			// Validate that the buffer is the correct size
 			GL.GetBufferParameter(BufferTarget.ArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-			if (shape.Colors.Length * sizeof(int) != bufferSize)
+			if (shape.Colors.Length * sizeof(int) != bufferSize) {
 				throw new ApplicationException("Vertex array not uploaded correctly");
+			}
 
 			// Clear the buffer Binding
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
@@ -46,12 +48,14 @@ public class GraphicObject {
 			GL.BindBuffer(BufferTarget.ArrayBuffer, NormalBufferID);
 
 			// Send data to buffer
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.Normals.Length * Vector3.SizeInBytes), shape.Normals, BufferUsageHint.StaticDraw);
+			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.Normals.Length * Vector3.SizeInBytes), shape.Normals,
+				BufferUsageHint.StaticDraw);
 
 			// Validate that the buffer is the correct size
 			GL.GetBufferParameter(BufferTarget.ArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-			if (shape.Normals.Length * Vector3.SizeInBytes != bufferSize)
+			if (shape.Normals.Length * Vector3.SizeInBytes != bufferSize) {
 				throw new ApplicationException("Normal array not uploaded correctly");
+			}
 
 			// Clear the buffer Binding
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
@@ -66,12 +70,14 @@ public class GraphicObject {
 			GL.BindBuffer(BufferTarget.ArrayBuffer, TexCoordBufferID);
 
 			// Send data to buffer
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.TexCoords.Length * 8), shape.TexCoords, BufferUsageHint.StaticDraw);
+			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.TexCoords.Length * 8), shape.TexCoords,
+				BufferUsageHint.StaticDraw);
 
 			// Validate that the buffer is the correct size
 			GL.GetBufferParameter(BufferTarget.ArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-			if (shape.TexCoords.Length * 8 != bufferSize)
+			if (shape.TexCoords.Length * 8 != bufferSize) {
 				throw new ApplicationException("TexCoord array not uploaded correctly");
+			}
 
 			// Clear the buffer Binding
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
@@ -86,12 +92,14 @@ public class GraphicObject {
 			GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferID);
 
 			// Send data to buffer
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.Vertices.Length * Vector3.SizeInBytes), shape.Vertices, BufferUsageHint.DynamicDraw);
+			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(shape.Vertices.Length * Vector3.SizeInBytes),
+				shape.Vertices, BufferUsageHint.DynamicDraw);
 
 			// Validate that the buffer is the correct size
 			GL.GetBufferParameter(BufferTarget.ArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-			if (shape.Vertices.Length * Vector3.SizeInBytes != bufferSize)
+			if (shape.Vertices.Length * Vector3.SizeInBytes != bufferSize) {
 				throw new ApplicationException("Vertex array not uploaded correctly");
+			}
 
 			// Clear the buffer Binding
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
@@ -106,12 +114,14 @@ public class GraphicObject {
 			GL.BindBuffer(BufferTarget.ElementArrayBuffer, ElementBufferID);
 
 			// Send data to buffer
-			GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(shape.Indices.Length * sizeof(int)), shape.Indices, BufferUsageHint.StaticDraw);
+			GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(shape.Indices.Length * sizeof(int)), shape.Indices,
+				BufferUsageHint.StaticDraw);
 
 			// Validate that the buffer is the correct size
 			GL.GetBufferParameter(BufferTarget.ElementArrayBuffer, BufferParameterName.BufferSize, out bufferSize);
-			if (shape.Indices.Length * sizeof(int) != bufferSize)
+			if (shape.Indices.Length * sizeof(int) != bufferSize) {
 				throw new ApplicationException("Element array not uploaded correctly");
+			}
 
 			// Clear the buffer Binding
 			GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
@@ -122,7 +132,6 @@ public class GraphicObject {
 	}
 
 	public void Draw() {
-
 		GL.Enable(EnableCap.Texture2D);
 		GL.BindTexture(TextureTarget.Texture2D, Target.Texture.ID);
 

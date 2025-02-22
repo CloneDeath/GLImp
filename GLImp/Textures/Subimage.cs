@@ -4,19 +4,16 @@ using OpenTK.Mathematics;
 namespace GLImp;
 
 public class SubImage : Image {
-	Texture texture;
-	int Xoffset;
-	int Yoffset;
-
-	public int Width { get; set; }
-	public int Height { get; set; }
+	private readonly Texture texture;
+	private readonly int Xoffset;
+	private readonly int Yoffset;
 
 	public SubImage(Texture tex, int x, int y, int width, int height) {
-		this.texture = tex;
-		this.Width = width;
-		this.Height = height;
-		this.Xoffset = x;
-		this.Yoffset = y;
+		texture = tex;
+		Width = width;
+		Height = height;
+		Xoffset = x;
+		Yoffset = y;
 	}
 
 	private double Left => Xoffset * 1.0 / texture.Width;
@@ -27,8 +24,10 @@ public class SubImage : Image {
 
 	private double Bottom => (Yoffset + (Height - 1)) * 1.0 / texture.Height;
 
-	public void Draw(Vector2d Position, Vector2d Size)
-	{
+	public int Width { get; set; }
+	public int Height { get; set; }
+
+	public void Draw(Vector2d Position, Vector2d Size) {
 		Draw(Position.X, Position.Y, Size.X, Size.Y, false);
 	}
 
@@ -37,27 +36,33 @@ public class SubImage : Image {
 	}
 
 	public void Draw(double X, double Y, double width, double height, bool Flip) {
-		double X1 = X;
-		double Y1 = Y;
-		double X2 = X + width;
-		double Y2 = Y + height;
+		var X1 = X;
+		var Y1 = Y;
+		var X2 = X + width;
+		var Y2 = Y + height;
 		GL.BindTexture(TextureTarget.Texture2D, texture.ID);
-		if (!Flip){
+		if (!Flip) {
 			GL.Begin(PrimitiveType.Quads);
-			GL.TexCoord2(Left,	Top);	GL.Vertex2(X1, Y1);
-			GL.TexCoord2(Right, Top);	GL.Vertex2(X2, Y1);
-			GL.TexCoord2(Right, Bottom);GL.Vertex2(X2, Y2);
-			GL.TexCoord2(Left, Bottom); GL.Vertex2(X1, Y2);
+			GL.TexCoord2(Left, Top);
+			GL.Vertex2(X1, Y1);
+			GL.TexCoord2(Right, Top);
+			GL.Vertex2(X2, Y1);
+			GL.TexCoord2(Right, Bottom);
+			GL.Vertex2(X2, Y2);
+			GL.TexCoord2(Left, Bottom);
+			GL.Vertex2(X1, Y2);
 			GL.End();
 		} else {
 			GL.Begin(PrimitiveType.Quads);
-			GL.TexCoord2(Right,	Top);	GL.Vertex2(X1, Y1);
-			GL.TexCoord2(Left, Top);	GL.Vertex2(X2, Y1);
-			GL.TexCoord2(Left, Bottom);GL.Vertex2(X2, Y2);
-			GL.TexCoord2(Right, Bottom); GL.Vertex2(X1, Y2);
+			GL.TexCoord2(Right, Top);
+			GL.Vertex2(X1, Y1);
+			GL.TexCoord2(Left, Top);
+			GL.Vertex2(X2, Y1);
+			GL.TexCoord2(Left, Bottom);
+			GL.Vertex2(X2, Y2);
+			GL.TexCoord2(Right, Bottom);
+			GL.Vertex2(X1, Y2);
 			GL.End();
 		}
 	}
-
-
 }

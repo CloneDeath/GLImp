@@ -1,21 +1,22 @@
-﻿using System.Drawing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 namespace GLImp;
 
-partial class GraphicsManager{
+partial class GraphicsManager {
 	/// <summary>
-	/// Draws a triangle strip with the given input
+	///     Draws a triangle strip with the given input
 	/// </summary>
 	/// <param name="pts">The vectors to connect</param>
 	public static void DrawPolygon(IEnumerable<Vector2d> pts) {
 		GL.Disable(EnableCap.Texture2D);
 		GL.Begin(PrimitiveType.TriangleStrip);
-		foreach (Vector2d v in pts) {
+		foreach (var v in pts) {
 			GL.Vertex2(v);
 		}
+
 		GL.End();
 		GL.Enable(EnableCap.Texture2D);
 	}
@@ -23,9 +24,10 @@ partial class GraphicsManager{
 	public static void DrawLines(IEnumerable<Vector2d> pts) {
 		GL.Disable(EnableCap.Texture2D);
 		GL.Begin(PrimitiveType.Lines);
-		foreach (Vector2d v in pts) {
+		foreach (var v in pts) {
 			GL.Vertex2(v);
 		}
+
 		GL.End();
 		GL.Enable(EnableCap.Texture2D);
 	}
@@ -35,36 +37,42 @@ partial class GraphicsManager{
 		PushMatrix();
 		GL.Translate(x, y, 0);
 		GL.Scale(16 * Scale, 16 * Scale, 1);
-		int offset = 0;
+		var offset = 0;
 		GL.BindTexture(TextureTarget.Texture2D, Texture.Font);
-		for (int i = 0; i < msg.Length; i++) {
+		for (var i = 0; i < msg.Length; i++) {
 			if (msg.ToCharArray()[i] == '\n') {
 				GL.Translate(-offset, 1, 0);
 				offset = 0;
 			} else {
 				DrawChar(msg.ToCharArray()[i]);
-				GL.Translate((16.0f / 16.0f), 0.0f, 0.0f);
+				GL.Translate(16.0f / 16.0f, 0.0f, 0.0f);
 				offset += 1;
 			}
 		}
+
 		PopMatrix();
 	}
-	private static void DrawChar(int charAt) {
-		int xSize = 16;
-		int ySize = 16;
-		int c = charAt;
 
-		int cx = c / xSize;
-		int cy = c % xSize;
-		double top = (cy) * (1.0f / ySize);
+	private static void DrawChar(int charAt) {
+		var xSize = 16;
+		var ySize = 16;
+		var c = charAt;
+
+		var cx = c / xSize;
+		var cy = c % xSize;
+		double top = cy * (1.0f / ySize);
 		double bottom = (cy + 1) * (1.0f / ySize);
 		double right = (cx + 1) * (1.0f / xSize);
-		double left = (cx) * (1.0f / xSize);
+		double left = cx * (1.0f / xSize);
 		GL.Begin(PrimitiveType.Quads);
-		GL.TexCoord2(top, left); GL.Vertex2(0.0f, 0.0f);
-		GL.TexCoord2(top, right); GL.Vertex2(0.0f, 1.0f);
-		GL.TexCoord2(bottom, right); GL.Vertex2(1.0f, 1.0f);
-		GL.TexCoord2(bottom, left); GL.Vertex2(1.0f, 0.0f);
+		GL.TexCoord2(top, left);
+		GL.Vertex2(0.0f, 0.0f);
+		GL.TexCoord2(top, right);
+		GL.Vertex2(0.0f, 1.0f);
+		GL.TexCoord2(bottom, right);
+		GL.Vertex2(1.0f, 1.0f);
+		GL.TexCoord2(bottom, left);
+		GL.Vertex2(1.0f, 0.0f);
 		GL.End();
 	}
 
@@ -94,6 +102,7 @@ partial class GraphicsManager{
 	public static void DrawRectangle(double x, double y, double width, double height, Color color) {
 		DrawRectangle(new Vector2d(x, y), new Vector2d(x + width, y + height), color);
 	}
+
 	public static void DrawRectangle(Vector2d p1, Vector2d p2, Color color) {
 		SetColor(color);
 		GL.Disable(EnableCap.Texture2D);
@@ -105,34 +114,46 @@ partial class GraphicsManager{
 		GL.End();
 		GL.Enable(EnableCap.Texture2D);
 	}
-	public static void DrawRectangle(Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4, Vector2d p5, Vector2d p6, Vector2d p7, Vector2d p8) {
+
+	public static void DrawRectangle(Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4, Vector2d p5, Vector2d p6,
+									 Vector2d p7, Vector2d p8) {
 		GL.Begin(PrimitiveType.Quads);
-		GL.TexCoord2(p5); GL.Vertex2(p1);
-		GL.TexCoord2(p6); GL.Vertex2(p2);
-		GL.TexCoord2(p7); GL.Vertex2(p3);
-		GL.TexCoord2(p8); GL.Vertex2(p4);
+		GL.TexCoord2(p5);
+		GL.Vertex2(p1);
+		GL.TexCoord2(p6);
+		GL.Vertex2(p2);
+		GL.TexCoord2(p7);
+		GL.Vertex2(p3);
+		GL.TexCoord2(p8);
+		GL.Vertex2(p4);
 		GL.End();
 	}
+
 	public static void DrawRectangle(double x, double y, double width, double height, Texture Texture) {
 		DrawRectangle(new Vector2d(x, y), new Vector2d(x + width, y + height), Texture);
 	}
+
 	public static void DrawRectangle(Vector2d p1, Vector2d p2, Texture Texture) {
 		SetColor(Color.White);
 		GL.Enable(EnableCap.Texture2D);
 		GL.BindTexture(TextureTarget.Texture2D, Texture.ID);
 		GL.Begin(PrimitiveType.Quads);
-		GL.TexCoord2(0, 0); GL.Vertex2(p1.X, p1.Y);
-		GL.TexCoord2(1, 0); GL.Vertex2(p2.X, p1.Y);
-		GL.TexCoord2(1, 1); GL.Vertex2(p2.X, p2.Y);
-		GL.TexCoord2(0, 1); GL.Vertex2(p1.X, p2.Y);
+		GL.TexCoord2(0, 0);
+		GL.Vertex2(p1.X, p1.Y);
+		GL.TexCoord2(1, 0);
+		GL.Vertex2(p2.X, p1.Y);
+		GL.TexCoord2(1, 1);
+		GL.Vertex2(p2.X, p2.Y);
+		GL.TexCoord2(0, 1);
+		GL.Vertex2(p1.X, p2.Y);
 		GL.End();
 	}
+
 	public static void DrawRectangleHollow(double x, double y, double width, double height, Color color) {
-		int lineWidth = 1;
+		var lineWidth = 1;
 		DrawRectangle(x - lineWidth / 2.0, y - lineWidth / 2.0, lineWidth, height, color);
 		DrawRectangle(x + lineWidth / 2.0, y + lineWidth / 2.0, width, lineWidth, color);
 		DrawRectangle(x + width, y, lineWidth, height + lineWidth / 2.0, color);
 		DrawRectangle(x, y + height, width + lineWidth / 2.0, lineWidth, color);
 	}
-
 }

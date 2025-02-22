@@ -5,13 +5,10 @@ namespace GLImp;
 
 internal static class Resources {
 	//This should not be exposed to the outside world;
-	public static string[] GetList() {
-		return typeof(Resources).Assembly.GetManifestResourceNames();
-	}
+	public static string[] GetList() => typeof(Resources).Assembly.GetManifestResourceNames();
 
-	public static Stream? GetStream(string FileName) {
-		return typeof(Resources).Assembly.GetManifestResourceStream("GLImp." + FileName);
-	}
+	public static Stream? GetStream(string FileName) =>
+		typeof(Resources).Assembly.GetManifestResourceStream("GLImp." + FileName);
 
 	public static string GetText(string FileName) {
 		var stream = typeof(Resources).Assembly.GetManifestResourceStream("GLImp." + FileName) ??

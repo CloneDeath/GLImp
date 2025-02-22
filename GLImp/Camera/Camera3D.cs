@@ -1,67 +1,62 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
 namespace GLImp;
 
-public class Camera3D : Camera
-{
-	public Vector3d CameraUp = Vector3d.UnitZ;
-	public Vector3d Position;
+public class Camera3D : Camera {
 	private Vector3d CameraLook;
+	public Vector3d CameraUp = Vector3d.UnitZ;
+	public double FarPlane = 1000;
 	public double FieldOfView = 90.0;
 	public double NearPlane = 0.1;
-	public double FarPlane = 1000;
+	public Vector3d Position;
 	private Matrix4d projection;
-	public Matrix4d ProjectionMatrix
-	{
-		get
-		{
-			if (UseDefaultProjectionMatrix) {
-				this.UseDefaultProjection();
-			}
-			return projection;
-		}
-		set
-		{
-			UseDefaultProjectionMatrix = false;
-			projection = value;
-		}
-	}
 	private bool UseDefaultProjectionMatrix = true;
 
-	public Camera3D()
-	{
+	public Camera3D() {
 		Position = Vector3d.Zero;
 		CameraLook = Vector3d.UnitY;
 		CameraManager.Add(this);
 	}
 
-	public Camera3D(double X, double Y, double Z)
-	{
+	public Camera3D(double X, double Y, double Z) {
 		Position = new Vector3d(X, Y, Z);
 		CameraLook = Vector3d.UnitY;
 		CameraManager.Add(this);
 	}
 
-	public Camera3D(Vector3d position)
-	{
-		this.Position = position;
+	public Camera3D(Vector3d position) {
+		Position = position;
 		CameraLook = Vector3d.UnitY;
 		CameraManager.Add(this);
 	}
 
-	public Camera3D(Vector3d position, Vector3d lookat)
-	{
-		this.Position = position;
-		this.CameraLook = lookat;
+	public Camera3D(Vector3d position, Vector3d lookat) {
+		Position = position;
+		CameraLook = lookat;
 		CameraManager.Add(this);
 	}
 
-	private void Begin3D()
-	{
+	public Matrix4d ProjectionMatrix {
+		get {
+			if (UseDefaultProjectionMatrix) {
+				UseDefaultProjection();
+			}
+
+			return projection;
+		}
+		set {
+			UseDefaultProjectionMatrix = false;
+			projection = value;
+		}
+	}
+
+	public Matrix4d ModelView => Matrix4d.LookAt(Position, CameraLook, CameraUp);
+
+	private void Begin3D() {
 		if (GraphicsManager.DisableDepthTest) {
 			GL.Disable(EnableCap.DepthTest);
 		} else {
@@ -74,21 +69,20 @@ public class Camera3D : Camera
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 	}
 
-	public void UseDefaultProjection(){
+	public void UseDefaultProjection() {
 		UseDefaultProjectionMatrix = true;
-		ProjectionMatrix = Matrix4d.CreatePerspectiveFieldOfView((Math.PI / 180) * FieldOfView,
-			Viewport.Width / ((double)Viewport.Height), NearPlane, FarPlane);
+		ProjectionMatrix = Matrix4d.CreatePerspectiveFieldOfView(Math.PI / 180 * FieldOfView,
+			Viewport.Width / (double)Viewport.Height, NearPlane, FarPlane);
 	}
 
-	internal override void Draw(FrameEventArgs e)
-	{
+	internal override void Draw(FrameEventArgs e) {
 		Begin3D();
 
-		Matrix4d projectoionview = ProjectionMatrix;
+		var projectoionview = ProjectionMatrix;
 		GL.LoadMatrix(ref projectoionview);
 
 		GL.MatrixMode(MatrixMode.Modelview);
-		Matrix4d modelview = ModelView;
+		var modelview = ModelView;
 		GL.LoadMatrix(ref modelview);
 
 		if (OnRender != null) {
@@ -96,69 +90,51 @@ public class Camera3D : Camera
 		}
 	}
 
-	public void LookAt(Vector3d lookat){
+	public void LookAt(Vector3d lookat) {
 		CameraLook = lookat;
 	}
 
-	public void LookAt(double X, double Y, double Z)
-	{
+	public void LookAt(double X, double Y, double Z) {
 		CameraLook = new Vector3d(X, Y, Z);
 	}
 
-	public Vector3d GetLookingAt()
-	{
-		return CameraLook;
-	}
+	public Vector3d GetLookingAt() => CameraLook;
 
-	public void RotateCamera(double yaw, double pitch)
-	{
+	public void RotateCamera(double yaw, double pitch) {
 		if (CameraUp == Vector3d.UnitZ) {
 			yaw = yaw * Math.PI / 180;
 			pitch = pitch * Math.PI / 180;
-			CameraLook = new Vector3d(((Math.Cos(yaw) * Math.Cos(pitch)) + Position.X),
-				((Math.Sin(yaw) * Math.Cos(pitch)) + Position.Y),
-				(Math.Sin(pitch) + Position.Z));
+			CameraLook = new Vector3d(Math.Cos(yaw) * Math.Cos(pitch) + Position.X,
+				Math.Sin(yaw) * Math.Cos(pitch) + Position.Y,
+				Math.Sin(pitch) + Position.Z);
 		} else if (CameraUp == Vector3d.UnitY) {
 			yaw = yaw * Math.PI / 180;
 			pitch = pitch * Math.PI / 180;
-			CameraLook = new Vector3d(((Math.Cos(yaw) * Math.Cos(pitch)) + Position.X),
-				(Math.Sin(pitch) + Position.Y),
-				((Math.Sin(yaw) * Math.Cos(pitch)) + Position.Z));
+			CameraLook = new Vector3d(Math.Cos(yaw) * Math.Cos(pitch) + Position.X,
+				Math.Sin(pitch) + Position.Y,
+				Math.Sin(yaw) * Math.Cos(pitch) + Position.Z);
 		} else {
 			throw new NotImplementedException("Camera can only be rotated if CameraUp is set to UnitY or UnitZ.");
 		}
 	}
 
-	public Matrix4d ModelView
-	{
-		get
-		{
-			return Matrix4d.LookAt(Position, CameraLook, CameraUp);
-		}
-	}
-
 	/// <summary>
-	/// Converts a 2D screen space coordinate into a 3D world space coordinate.
+	///     Converts a 2D screen space coordinate into a 3D world space coordinate.
 	/// </summary>
 	/// <param name="ScreenPoint">The X,Y coordinate in the viewport that you wish to use to convert.</param>
 	/// <returns>Returns a world coordinate of the 3D point</returns>
-	public Vector3d ScreenPointToPosition(Vector2d ScreenPoint)
-	{
-		return UnProject(ProjectionMatrix, ModelView, Viewport.Size, ScreenPoint).Xyz;
-	}
+	public Vector3d ScreenPointToPosition(Vector2d ScreenPoint) =>
+		UnProject(ProjectionMatrix, ModelView, Viewport.Size, ScreenPoint).Xyz;
 
 	/// <summary>
-	/// Converts a 2D screen space coordinate into a 3D ray.
+	///     Converts a 2D screen space coordinate into a 3D ray.
 	/// </summary>
 	/// <param name="ScreenPoint">The X,Y coordinate in the viewport that you wish to convert.</param>
 	/// <returns>A ray relative to the position of the camera.</returns>
-	public Vector3d ScreenPointToRay(Vector2d ScreenPoint)
-	{
-		return Vector3d.Normalize(ScreenPointToPosition(ScreenPoint) - Position);
-	}
+	public Vector3d ScreenPointToRay(Vector2d ScreenPoint) =>
+		Vector3d.Normalize(ScreenPointToPosition(ScreenPoint) - Position);
 
-	private static Vector4d UnProject(Matrix4d projection, Matrix4d view, Size viewport, Vector2d mouse)
-	{
+	private static Vector4d UnProject(Matrix4d projection, Matrix4d view, Size viewport, Vector2d mouse) {
 		Vector4d vec;
 
 		vec.X = 2.0f * mouse.X / (float)viewport.Width - 1;
@@ -166,8 +142,8 @@ public class Camera3D : Camera
 		vec.Z = 0;
 		vec.W = 1.0f;
 
-		Matrix4d viewInv = Matrix4d.Invert(view);
-		Matrix4d projInv = Matrix4d.Invert(projection);
+		var viewInv = Matrix4d.Invert(view);
+		var projInv = Matrix4d.Invert(projection);
 
 		Vector4d.TransformRow(vec, projInv, out vec);
 		Vector4d.TransformRow(vec, viewInv, out vec);

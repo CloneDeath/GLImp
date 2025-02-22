@@ -3,11 +3,10 @@ using Mila.Types;
 namespace Mila.Data;
 
 /// <summary>
-/// Represents an n-vertex polygon in 3D-space.
+///     Represents an n-vertex polygon in 3D-space.
 /// </summary>
-public class Face
-{
-    public int[]? vertices = null;
-    public int[]? vertexAttributes = null;
-    public Vector3D normal = new();
+public class Face {
+	public Vector3D normal = new();
+	public int[]? vertexAttributes = null;
+	public int[]? vertices = null;
 }

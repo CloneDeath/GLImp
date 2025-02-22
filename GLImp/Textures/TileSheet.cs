@@ -1,43 +1,30 @@
 ﻿namespace GLImp;
 
 public class TileSheet {
-	public int TileWidth;
-	public int TileHeight;
-	public Texture Texture;
 	public int HOffset;
-	public int VOffset;
 	public int HSeparation;
+	public Texture Texture;
+	public int TileHeight;
+	public int TileWidth;
+	public int VOffset;
 	public int VSeparation;
 
 	public TileSheet(Texture tex, int tileWidth, int tileHeight) {
-		this.Texture = tex;
-		this.TileWidth = tileWidth;
-		this.TileHeight = tileHeight;
-		this.HOffset = 0;
-		this.VOffset = 0;
-		this.HSeparation = 0;
-		this.VSeparation = 0;
+		Texture = tex;
+		TileWidth = tileWidth;
+		TileHeight = tileHeight;
+		HOffset = 0;
+		VOffset = 0;
+		HSeparation = 0;
+		VSeparation = 0;
 	}
 
-	public int HorizontalTiles {
-		get {
-			return (Texture.Width - HOffset) / (TileWidth + HSeparation);
-		}
-	}
+	public int HorizontalTiles => (Texture.Width - HOffset) / (TileWidth + HSeparation);
 
-	public int VerticalTiles {
-		get {
-			return (Texture.Height - VOffset) / (TileHeight + VSeparation);
-		}
-	}
+	public int VerticalTiles => (Texture.Height - VOffset) / (TileHeight + VSeparation);
 
-	public SubImage GetSubImage(int x, int y) {
-		return Texture.Subimage(((TileWidth + HOffset) * x) + HOffset, ((TileHeight + VOffset) * y) + VOffset, TileWidth, TileHeight);
-	}
+	public SubImage this[int x, int y] => GetSubImage(x, y);
 
-	public SubImage this[int x, int y] {
-		get {
-			return this.GetSubImage(x, y);
-		}
-	}
+	public SubImage GetSubImage(int x, int y) => Texture.Subimage((TileWidth + HOffset) * x + HOffset,
+		(TileHeight + VOffset) * y + VOffset, TileWidth, TileHeight);
 }
