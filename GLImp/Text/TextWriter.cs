@@ -5,18 +5,18 @@ using System.Text;
 using OpenTK.Graphics.OpenGL;
 using OpenTK;
 using System.Drawing.Imaging;
+using System.Runtime.CompilerServices;
 using OpenTK.Mathematics;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
-using Color = System.Drawing.Color;
-using PointF = System.Drawing.PointF;
-using Rectangle = System.Drawing.Rectangle;
-using Size = System.Drawing.Size;
+using SixLabors.ImageSharp.Processing;
 
 namespace GLImp {
 	//http://www.opentk.com/node/1554?page=1
 	class TextWriter {
-		private readonly Font TextFont = new Font(FontFamily.GenericSansSerif, 8);
+		private readonly Font TextFont = new Font(SystemFonts.TryGet("roboto", out var font) ? font : throw new Exception(), 8);
 		private readonly Image<Rgba32> TextBitmap;
 		private List<PointF> _positions;
 		private List<string> _lines;
@@ -80,17 +80,17 @@ namespace GLImp {
 
 		public void UpdateText() {
 			if (_lines.Count > 0) {
-				using (Graphics gfx = Graphics.FromImage(TextBitmap)) {
+				TextBitmap.Mutate(gfx => {
 					gfx.Clear(Color.Black);
-					gfx.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 					for (int i = 0; i < _lines.Count; i++)
-						gfx.DrawString(_lines[i], TextFont, _colours[i], _positions[i]);
-				}
+						gfx.DrawText(_lines[i], TextFont, _colours[i], _positions[i]);
+				});
 
-				System.Drawing.Imaging.BitmapData data = TextBitmap.LockBits(new Rectangle(0, 0, TextBitmap.Width, TextBitmap.Height),
-					System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, TextBitmap.Width, TextBitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-				TextBitmap.UnlockBits(data);
+				GL.BindTexture(TextureTarget.Texture2D, _textureId);
+
+				byte[] pixelBytes = new byte[TextBitmap.Width * TextBitmap.Height * Unsafe.SizeOf<Rgba32>()];
+				TextBitmap.CopyPixelDataTo(pixelBytes);
+				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, TextBitmap.Width, TextBitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, pixelBytes);
 			}
 		}
 
