@@ -1,9 +1,5 @@
 /GLImp.suo
-/GLImp/bin
-/GLImp/obj
-/GLImp.Legacy/bin
-/GLImp.Legacy/obj
-/GLImpUnitTest.Legacy/bin
-/GLImpUnitTest.Legacy/obj
+*/bin/
+*/obj/
 .idea/
 *.DotSettings.user
