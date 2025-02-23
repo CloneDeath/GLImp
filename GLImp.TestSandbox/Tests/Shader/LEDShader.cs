@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GLImp;
 using System.IO;
+using GLImp.Textures;
 
 namespace GLImpUnitTest.Tests {
 	class LEDShader : Shader {

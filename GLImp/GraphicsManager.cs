@@ -199,8 +199,8 @@ public partial class GraphicsManager : GameWindow {
 	/*****************************************************************
 	 *								INPUT
 	 *****************************************************************/
-	public static KeyboardState keyboard => Instance.KeyboardState;
+	public static KeyboardCompatability keyboard => new KeyboardCompatability(Instance);
 
-	public static MouseState mouse => Instance.MouseState;
+	public static MouseCompatability mouse => new MouseCompatability(Instance);
 	#endregion
 }

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using GLImp;
 using System.Drawing;
+using GLImp.Input;
 using OpenTK.Input;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImpUnitTest.Tests
 {
@@ -22,12 +24,12 @@ namespace GLImpUnitTest.Tests
 			buttons += JoystickManager.Joysticks[0].State.GetHat(JoystickHat.Hat0).Position + ", ";
 
 			for (int i = 0; i < JoystickManager.Joysticks[0].Capabilities.ButtonCount; i++) {
-				if (JoystickManager.Joysticks[0].IsDown((JoystickButton)i)) {
+				if (JoystickManager.Joysticks[0].IsDown(i)) {
 					buttons += "JS-" + i + ", ";
 				}
 			}
 
-			foreach (Key k in KeyboardManager.GetAllDownKeys()) {
+			foreach (Keys k in KeyboardManager.GetAllDownKeys()) {
 				buttons += k.ToString() + ", ";
 			}
 

@@ -9,6 +9,8 @@ using OpenTK;
 using Gwen.Control;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImpUnitTest
 {
@@ -78,9 +80,9 @@ namespace GLImpUnitTest
 		/// <param name="sender">The KeyboardDevice which generated this event.</param>
 		/// <param name="e">The key that was pressed.</param>
 		static void Keyboard_KeyDown(object sender, KeyboardKeyEventArgs e) {
-			if(e.Key == global::OpenTK.Input.Key.AltLeft)
+			if(e.Key == Keys.LeftAlt)
 				altDown = true;
-			else if(altDown && e.Key == global::OpenTK.Input.Key.Enter) {
+			else if(altDown && e.Key == Keys.Enter) {
 				if(GraphicsManager.windowstate == WindowState.Fullscreen)
 					GraphicsManager.windowstate = WindowState.Normal;
 				else
@@ -125,7 +127,7 @@ namespace GLImpUnitTest
 		/// </summary>
 		/// <param name="e">Contains timing information.</param>
 		/// <remarks>There is no need to call the base implementation.</remarks>
-		public static void OnUpdateFrame(EventArgs e)
+		public static void OnUpdateFrame(FrameEventArgs e)
 		{
 			if(renderer.TextCacheSize > 1000) // each cached string is an allocated texture, flush the cache once in a while in your real project
 				renderer.FlushTextCache();
@@ -136,7 +138,7 @@ namespace GLImpUnitTest
 		/// </summary>
 		/// <param name="e">Contains timing information.</param>
 		/// <remarks>There is no need to call the base implementation.</remarks>
-		public static void OnRenderFrame(EventArgs e)
+		public static void OnRenderFrame(FrameEventArgs e)
 		{
 			GL.Disable(EnableCap.AlphaTest);
 			canvas.RenderCanvas();

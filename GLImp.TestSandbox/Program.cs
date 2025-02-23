@@ -6,6 +6,7 @@ using OpenTK;
 using Gwen.Control;
 using Gwen;
 using System.Collections.Generic;
+using OpenTK.Windowing.Common;
 
 namespace GLImpUnitTest
 {
@@ -35,7 +36,7 @@ namespace GLImpUnitTest
 			MainCanvas.Dispose();
 		}
 
-		
+
 
         public static TestingDisplay Setup;
 
@@ -45,16 +46,16 @@ namespace GLImpUnitTest
             Setup = new TestingDisplay();
 		}
 
-		static void Update(EventArgs e)
+		static void Update(FrameEventArgs e)
 		{
 			Setup.Update();
 		}
 
-		static void Render2D(EventArgs e) {
+		static void Render2D(FrameEventArgs e) {
             Setup.Render2D();
 		}
 
-		static void Render3D(EventArgs e)
+		static void Render3D(FrameEventArgs e)
 		{
 			Setup.Render3D();
 		}

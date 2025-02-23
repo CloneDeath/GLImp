@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GLImp;
 using System.Drawing;
+using OpenTK.Windowing.Common;
 
 namespace GLImpUnitTest.Tests {
 	class ViewportTest : TestSetup {
@@ -29,17 +30,17 @@ namespace GLImpUnitTest.Tests {
 			blue.EnableViewport(500, 10, 100, 100);
 		}
 
-		void RenderBack(EventArgs e)
+		void RenderBack(FrameEventArgs e)
 		{
 			//GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Green);
 		}
 
-		void RenderRed(EventArgs e)
+		void RenderRed(FrameEventArgs e)
 		{
 			//GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Red);
 		}
 
-		void RenderBlue(EventArgs e)
+		void RenderBlue(FrameEventArgs e)
 		{
 			//GraphicsManager.DrawRectangle(0, 0, 1000, 1000, Color.Blue);
 		}

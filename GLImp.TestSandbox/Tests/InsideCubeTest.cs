@@ -5,7 +5,10 @@ using System.Text;
 using GLImp;
 using OpenTK;
 using System.Drawing;
+using GLImp.Input;
 using OpenTK.Input;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImpUnitTest.Tests {
 	class InsideCubeTest : TestSetup {
@@ -46,16 +49,16 @@ namespace GLImpUnitTest.Tests {
 
 			Program.Camera3D.Position = new Vector3d(0.5, 0.5, 0.5);
 
-			if (KeyboardManager.IsDown(Key.Up)) {
+			if (KeyboardManager.IsDown(Keys.Up)) {
 				pitch += 10;
 			}
-			if (KeyboardManager.IsDown(Key.Down)) {
+			if (KeyboardManager.IsDown(Keys.Down)) {
 				pitch -= 10;
 			}
-			if (KeyboardManager.IsDown(Key.Left)) {
+			if (KeyboardManager.IsDown(Keys.Left)) {
 				yaw += 10;
 			}
-			if (KeyboardManager.IsDown(Key.Right)) {
+			if (KeyboardManager.IsDown(Keys.Right)) {
 				yaw -= 10;
 			}
 			Program.Camera3D.RotateCamera(yaw, pitch);

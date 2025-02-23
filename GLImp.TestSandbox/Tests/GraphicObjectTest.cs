@@ -5,8 +5,11 @@ using System.Text;
 using GLImp;
 using System.Drawing;
 using GLImp.GraphicObjects;
+using GLImp.Input;
 using OpenTK;
 using OpenTK.Input;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImpUnitTest.Tests
 {
@@ -17,7 +20,7 @@ namespace GLImpUnitTest.Tests
 
 		GraphicObject testobj = new GraphicObject(new Cube());
 		public GraphicObjectTest() {
-			Name = "Graphic Object Test";			
+			Name = "Graphic Object Test";
 		}
 
 		public override void Render3D() {
@@ -33,35 +36,35 @@ namespace GLImpUnitTest.Tests
 
 		public override void Update() {
 			float speed = 0.1f;
-			if (KeyboardManager.IsDown(Key.W)) {
+			if (KeyboardManager.IsDown(Keys.W)) {
 				Pos.Y -= speed;
 			}
-			if (KeyboardManager.IsDown(Key.S)) {
+			if (KeyboardManager.IsDown(Keys.S)) {
 				Pos.Y += speed;
 			}
-			if (KeyboardManager.IsDown(Key.A)) {
+			if (KeyboardManager.IsDown(Keys.A)) {
 				Pos.X += speed;
 			}
-			if (KeyboardManager.IsDown(Key.D)) {
+			if (KeyboardManager.IsDown(Keys.D)) {
 				Pos.X -= speed;
 			}
-			if (KeyboardManager.IsDown(Key.LShift)) {
+			if (KeyboardManager.IsDown(Keys.LeftShift)) {
 				Pos.Z -= speed;
 			}
-			if (KeyboardManager.IsDown(Key.Space)) {
+			if (KeyboardManager.IsDown(Keys.Space)) {
 				Pos.Z += speed;
 			}
-			
-			if (KeyboardManager.IsDown(Key.Up)) {
+
+			if (KeyboardManager.IsDown(Keys.Up)) {
 				Lookat.Y -= speed;
 			}
-			if (KeyboardManager.IsDown(Key.Down)) {
+			if (KeyboardManager.IsDown(Keys.Down)) {
 				Lookat.Y += speed;
 			}
-			if (KeyboardManager.IsDown(Key.Left)) {
+			if (KeyboardManager.IsDown(Keys.Left)) {
 				Lookat.X += speed;
 			}
-			if (KeyboardManager.IsDown(Key.Right)) {
+			if (KeyboardManager.IsDown(Keys.Right)) {
 				Lookat.X -= speed;
 			}
 		}

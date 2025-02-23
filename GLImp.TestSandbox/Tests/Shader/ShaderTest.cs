@@ -6,7 +6,10 @@ using GLImp;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using GLImp.Input;
 using OpenTK.Input;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GLImpUnitTest.Tests {
 	class ShaderTest : TestSetup {
@@ -18,7 +21,7 @@ namespace GLImpUnitTest.Tests {
 		double Look = 0;
 		double Dist = 0;
 		double Pitch = 0;
-		
+
 		public ShaderTest() {
 			Name = "Shader Test";
 
@@ -71,34 +74,34 @@ namespace GLImpUnitTest.Tests {
 
 		public override void Update() {
 			double speed = 0.1;
-			if (KeyboardManager.IsDown(Key.A)) {
+			if (KeyboardManager.IsDown(Keys.A)) {
 				Pos -= speed;
 				Look -= speed;
 			}
-			if (KeyboardManager.IsDown(Key.D)) {
+			if (KeyboardManager.IsDown(Keys.D)) {
 				Pos += speed;
 				Look += speed;
 			}
-			if (KeyboardManager.IsDown(Key.Left)) {
+			if (KeyboardManager.IsDown(Keys.Left)) {
 				Look -= speed;
 			}
-			if (KeyboardManager.IsDown(Key.Right)) {
+			if (KeyboardManager.IsDown(Keys.Right)) {
 				Look += speed;
 			}
 
 			double DistSpeed = 0.05;
-			if (KeyboardManager.IsDown(Key.W)) {
+			if (KeyboardManager.IsDown(Keys.W)) {
 				Dist += DistSpeed;
 			}
-			if (KeyboardManager.IsDown(Key.S)) {
+			if (KeyboardManager.IsDown(Keys.S)) {
 				Dist -= DistSpeed;
 			}
 			if (Dist > 1.8) Dist = 1.8;
 
-			if (KeyboardManager.IsDown(Key.Up)) {
+			if (KeyboardManager.IsDown(Keys.Up)) {
 				Pitch += DistSpeed;
 			}
-			if (KeyboardManager.IsDown(Key.Down)) {
+			if (KeyboardManager.IsDown(Keys.Down)) {
 				Pitch -= DistSpeed;
 			}
 		}

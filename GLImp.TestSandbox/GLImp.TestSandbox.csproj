@@ -11,9 +11,4 @@
       <ProjectReference Include="..\GLImp\GLImp.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Gwen.Net" Version="0.5.7" />
-      <PackageReference Include="Gwen.Net.OpenTk" Version="0.2.5" />
-    </ItemGroup>
-
 </Project>

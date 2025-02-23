@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using GLImp;
 using System.IO;
+using GLImp.Textures;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace GLImpUnitTest.Tests {
 	class RadialBlurShader : Shader {
